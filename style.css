@@ -43,6 +43,7 @@
     border-bottom-right-radius: 5px;
     border: 2px solid rgba(116, 179, 197, 0.72);
     resize: horizontal;
+    cursor: pointer;
 }
 
 .clause_value_container:hover {
@@ -66,7 +67,7 @@
     vertical-align: baseline;
     border-radius: 0.25rem;
     color: #fff;
-    background-color: #658bff;
+    background-color: #399dfa;
     cursor: pointer;
 }
 .clause_tag:hover{
