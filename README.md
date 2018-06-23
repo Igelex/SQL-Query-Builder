@@ -1,5 +1,9 @@
 # SQL-Query-Builder
 
-Simple run the webpack dev-server to test
+Simply run the webpack dev-server to test
 
-```npm run dev```
+```
+npm install 
+npm run dev
+go to localhost:8080/
+```

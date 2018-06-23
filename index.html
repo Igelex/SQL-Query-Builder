@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Title</title>
-    <link rel="stylesheet" href="index.css">
+
+    <!--<script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>-->
+
+    <title>SQL Builder</title>
 </head>
 <body>
 <div class="container">
     <div id="sql_input_container" class="row shadow-sm p-5 mb-1 bg-light rounded">
-        <div id="sql_input" class="col-xs-12">
-            <span class="clause_tag clause_selected">SELECT</span>
-            <div class="clause_value_container clause_selected">
-                <input type="text" class="value_input" placeholder="Enter value">
-                <span>&times;</span>
-            </div>
-        </div>
+        <ul id="sql_input" class="col-xs-12">
+            <li class="sortable_clauses">
+                <span class="clause_tag clause_selected">SELECT</span>
+            </li>
+            <li class="sortable_clauses">
+                <div class="clause_value_container clause_selected">
+                    <input type="text" class="value_input" placeholder="Enter value">
+                    <span>&times;</span>
+                </div>
+            </li>
+        </ul>
     </div>
 
     <div id="sql_pool_container" class="row shadow-sm p-5 mt-2 bg-light rounded">
@@ -37,9 +46,8 @@
             <span class="clause_tag clause">*</span>
             <div class="clause_value_container clause_value">
                 <input type="text" class="value_input" disabled placeholder="Enter value">
-                <span>&times;</span>
+                <span class="remove_clause">+</span>
             </div>
-
         </div>
     </div>
 </div>

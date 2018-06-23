@@ -22,18 +22,14 @@
     width: 100px !important;
     background: #f4f1f5;
     /*border-bottom: 3px gray solid;*/
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    border: none;
     height: 100%;
     display: inline !important;
     padding-left: 10px;
     outline-width: 0;
 
 }
-/*.value_input:focus {
-    border-bottom-color: rgba(89, 188, 222, 0.62);
-}*/
+
 .clause_value_container {
     width: auto;
     transition: all .3s;
@@ -81,4 +77,8 @@
 
 #sql_pool .clause {
     margin-bottom: 10px;
+}
+
+li {
+    list-style-type: none;
 }

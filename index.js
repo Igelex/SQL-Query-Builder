@@ -1,41 +1,52 @@
 import 'bootstrap';
 import 'popper.js';
+import 'jquery';
+import 'jquery-ui-bundle';
+//import '@fortawesome/fontawesome-free/js/all.js';
+//import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
-let clauses = document.querySelectorAll('.clause:not(.clause_selected)');
-let clause_value = document.querySelectorAll('.clause_value:not(.clause_selected)')[0];
-console.log(clauses);
-let input = document.getElementById('sql_input');
+$(document).ready(() => {
+    let clauses = $('.clause');
+    let clause_value = $('.clause_value');
+    let input = $('#sql_input');
 
-for (let i= 0; i < clauses.length; i++) {
-    clauses[i].textContent
-}
+    clause_value.click(() =>{
 
-clause_value.addEventListener('click', () =>{
+        const clause_value_template =
+            `<div class="clause_value_container clause_selected">
+                <input type="text" class="value_input" placeholder="Enter value">
+            </div>`;
+        const remove_clause_template = `<span class="remove_clause">&times;</span>`;
+        const li_template = `<li></li>`;
 
-    const clause_value_template =
-        `<div class="clause_value_container clause_selected">
-            <input type="text" class="value_input" placeholder="Enter value">
-            <span>&times;</span>
-        </div>`;
+        let new_clause_value = $(clause_value_template).append(remove_clause_template);
 
-    let new_clause_value = new DOMParser().parseFromString(clause_value_template, 'text/html').getElementsByClassName('clause_selected')[0];
-    new_clause_value.addEventListener('click', () => {
-        input.removeChild(new_clause_value);
-    });
-    input.appendChild(new_clause_value);
-});
-
-clauses.forEach((tag) => {
-    tag.addEventListener('click', () => {
-        let new_tag = document.createElement('span');
-        new_tag.textContent = tag.textContent;
-        new_tag.classList.add('clause_tag');
-        new_tag.classList.add('clause_selected');
-        new_tag.addEventListener('click', () => {
-            input.removeChild(new_tag);
+        $(remove_clause_template).click(() => {
+            $(li_template).remove();
         });
-        input.appendChild(new_tag);
+        input.append($(li_template).append(new_clause_value));
     });
+
+    $(clauses).each(function () {
+        $(this).click(function () {
+            const clause_tag = $(`<li><span class="clause_tag clause_selected">${$(this).text()}</span></li>`);
+
+            $(clause_tag).click(function() {
+                clause_tag.remove();
+            });
+            input.append($(clause_tag));
+        });
+    });
+
+    $(input).sortable({
+        revert: true
+    });
+    $(clauses).draggable({
+        connectToSortable: '#sql_input',
+        helper: "clone",
+        revert: "invalid"
+    });
+    $( "ul, li" ).disableSelection();
 });
