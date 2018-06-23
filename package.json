@@ -1,0 +1,48 @@
+{
+  "name": "sql-query-builder",
+  "version": "0.0.1",
+  "description": "Custom SQL Query Buidler. Allows the users to easily create SQL queries.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "build": "webpack -p --mode production",
+    "dev": "webpack-dev-server --color --watch --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Igelex/SQL-Query-Builder.git"
+  },
+  "keywords": [
+    "SQL",
+    "Query",
+    "Builder"
+  ],
+  "author": "Sergej Atamantschuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Igelex/SQL-Query-Builder/issues"
+  },
+  "homepage": "https://github.com/Igelex/SQL-Query-Builder#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "img-loader": "^3.0.0",
+    "style-loader": "^0.19.1",
+    "url-loader": "^1.0.0-beta.0",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4",
+    "file-loader": "^1.1.11"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jQuery-QueryBuilder": "^2.5.2",
+    "popper.js": "^1.14.3"
+  }
+}
