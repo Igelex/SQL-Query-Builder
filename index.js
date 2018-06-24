@@ -14,8 +14,8 @@ $(document).ready(() => {
 
     const addClauseValueInput = (value = "") => {
         const clause_value_container =
-            $(`<div class="clause_value_container clause_selected">
-                <input type="text" class="value_input" placeholder="Enter value" value="${value}">
+            $(`<div class="clause_value_container ">
+                <input type="text" class="value_input clause_tag_selected" placeholder="Enter value" value="${value}">
               </div>`);
         const remove_clause_icon = $(`<span class="remove_clause">&times;</span>`);
         const li_item = $(`<li class="sortable_clauses"></li>`);
@@ -25,10 +25,20 @@ $(document).ready(() => {
         remove_clause_icon.dblclick(() => {
             li_item.fadeOut( 300, () => {
                 li_item.remove();
+                updateOutput();
             });
         });
         input.append($(li_item).append(new_clause_value));
-        li_item.find('.value_input').focus();
+
+        let value_input = li_item.find('.value_input');
+        value_input.focus();
+        value_input.blur(() =>{
+            updateOutput();
+        });
+        value_input.keypress(() => {
+            updateOutput();
+        });
+        updateOutput();
     };
 
     const addClause = (text, elem) => {
@@ -43,11 +53,28 @@ $(document).ready(() => {
         $(remove_clause_icon).click(() => {
             $(clause_item).fadeOut( 300, () => {
                 clause_item.remove();
+                updateOutput();
             });
         });
         clause_item.append(clause_tag);
         clause_item.append(remove_clause_icon);
         input.append(clause_item);
+        updateOutput();
+    };
+
+    const updateOutput = () => {
+        let output = '';
+
+        $('.clause_tag_selected').each( (i, item) => {
+            if($(item).is('input')) {
+                output += `${$(item).val()} `;
+            } else {
+                output += `${$(item).text()} `;
+            }
+        });
+
+        $('#sql_query_output').text(output);
+
     };
 
     //Add initial Clauses
