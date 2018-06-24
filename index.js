@@ -12,14 +12,13 @@ $(document).ready(() => {
     let clause_value = $('.clause_value');
     let input = $('#sql_input');
 
-    clause_value.click(() =>{
-
+    const addClauseValueInput = () => {
         const clause_value_template =
             `<div class="clause_value_container clause_selected">
                 <input type="text" class="value_input" placeholder="Enter value">
             </div>`;
         const remove_clause_template = `<span class="remove_clause">&times;</span>`;
-        const li_template = `<li></li>`;
+        const li_template = `<li class="sortable_clauses"></li>`;
 
         let new_clause_value = $(clause_value_template).append(remove_clause_template);
 
@@ -27,16 +26,31 @@ $(document).ready(() => {
             $(li_template).remove();
         });
         input.append($(li_template).append(new_clause_value));
+    };
+
+    const addClause = (text) => {
+        const clause_tag = $(`<li class="sortable_clauses"><span class="clause_tag clause_tag_selected">${text}</span></li>`);
+        const remove_clause_template = $(`<span class="remove_clause clause_tag">&times;</span>`);
+        $(remove_clause_template).click(function() {
+            $( clause_tag ).fadeOut( 300, function() {
+                clause_tag.remove();
+            });
+        });
+        input.append($(clause_tag).append(remove_clause_template));
+    };
+
+    //Add initial Clauses
+    addClause('SELECT');
+    addClauseValueInput();
+    addClause('FROM');
+
+    clause_value.click(() =>{
+        addClauseValueInput();
     });
 
     $(clauses).each(function () {
         $(this).click(function () {
-            const clause_tag = $(`<li><span class="clause_tag clause_selected">${$(this).text()}</span></li>`);
-
-            $(clause_tag).click(function() {
-                clause_tag.remove();
-            });
-            input.append($(clause_tag));
+            addClause($(this).text());
         });
     });
 
@@ -48,5 +62,5 @@ $(document).ready(() => {
         helper: "clone",
         revert: "invalid"
     });
-    $( "ul, li" ).disableSelection();
+    $('ul, li').disableSelection();
 });

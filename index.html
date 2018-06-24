@@ -15,25 +15,50 @@
 <body>
 <div class="container">
     <div id="sql_input_container" class="row shadow-sm p-5 mb-1 bg-light rounded">
-        <ul id="sql_input" class="col-xs-12">
-            <li class="sortable_clauses">
-                <span class="clause_tag clause_selected">SELECT</span>
-            </li>
-            <li class="sortable_clauses">
-                <div class="clause_value_container clause_selected">
-                    <input type="text" class="value_input" placeholder="Enter value">
-                    <span>&times;</span>
-                </div>
-            </li>
-        </ul>
+        <div class="col-12">
+            <ul id="sql_input" class="">
+                <!--<li class="sortable_clauses">
+                    <span class="clause_tag clause_tag_selected">SELECT</span>
+                    <span class="remove_clause clause_tag">&times;</span>
+                </li>
+                <li class="sortable_clauses">
+                    <div class="clause_value_container clause_tag_selected">
+                        <input type="text" class="value_input" placeholder="id">
+                        <span>&times;</span>
+                    </div>
+                </li>
+                <li class="sortable_clauses">
+                    <span class="clause_tag clause_tag_selected">FROM</span>
+                </li>-->
+            </ul>
+        </div>
+        <div id="sql_query_output" class="col-12">
+            <div class="alert alert-secondary">
+                SELECT id FROM
+            </div>
+        </div>
     </div>
 
     <div id="sql_pool_container" class="row shadow-sm p-5 mt-2 bg-light rounded">
-        <div id="sql_pool" class="col-xs-12">
-            <!--<div class="tag_container">
-                <input type="text" class="value_input" placeholder="Enter value">
-                <span>&times;</span>
-            </div>-->
+        <div class="col-xs-12 sql_pool">
+            <h3 class="mb-4">Clauses</h3>
+            <span class="clause_tag clause clause_select">SELECT</span>
+            <span class="clause_tag clause">FROM</span>
+            <span class="clause_tag clause">WHERE</span>
+            <span class="clause_tag clause">NOT</span>
+            <span class="clause_tag clause">IS NOT NULL</span>
+            <span class="clause_tag clause">IS NULL</span>
+            <span class="clause_tag clause">AND</span>
+            <span class="clause_tag clause">OR</span>
+            <span class="clause_tag clause">==</span>
+            <span class="clause_tag clause">*</span>
+            <div class="clause_value_container clause_value">
+                <input type="text" class="value_input" disabled placeholder="Enter value">
+                <span class="remove_clause">+</span>
+            </div>
+        </div>
+        <div class="col-xs-12 sql_pool">
+            <h3 class="mb-4">Operators</h3>
             <span class="clause_tag clause clause_select">SELECT</span>
             <span class="clause_tag clause">FROM</span>
             <span class="clause_tag clause">WHERE</span>
