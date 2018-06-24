@@ -13,37 +13,41 @@ $(document).ready(() => {
     let input = $('#sql_input');
 
     const addClauseValueInput = (value = "") => {
-        const clause_value_template =
+        const clause_value_container =
             $(`<div class="clause_value_container clause_selected">
                 <input type="text" class="value_input" placeholder="Enter value" value="${value}">
               </div>`);
-        const remove_clause_template = $(`<span class="remove_clause">&times;</span>`);
-        const li_template = $(`<li class="sortable_clauses"></li>`);
+        const remove_clause_icon = $(`<span class="remove_clause">&times;</span>`);
+        const li_item = $(`<li class="sortable_clauses"></li>`);
 
-        let new_clause_value = clause_value_template.append(remove_clause_template);
+        let new_clause_value = clause_value_container.append(remove_clause_icon);
 
-        remove_clause_template.click(() => {
-            $(li_template).remove();
+        remove_clause_icon.dblclick(() => {
+            li_item.fadeOut( 300, () => {
+                li_item.remove();
+            });
         });
-        input.append($(li_template).append(new_clause_value));
+        input.append($(li_item).append(new_clause_value));
+        li_item.find('.value_input').focus();
     };
 
     const addClause = (text, elem) => {
-        const clause_li = $(`<li class="sortable_clauses"></li>`);
+        const clause_item = $(`<li class="sortable_clauses"></li>`);
         const clause_tag = $(`<span class="clause_tag clause_tag_selected">${text}</span>`);
         const remove_clause_icon = $(`<span class="remove_clause clause_tag">&times;</span>`);
+
         if ($(elem).is('.operator')) {
             remove_clause_icon.addClass('operator');
             clause_tag.addClass('operator');
         }
         $(remove_clause_icon).click(() => {
-            $(clause_li).fadeOut( 300, () => {
-                clause_li.remove();
+            $(clause_item).fadeOut( 300, () => {
+                clause_item.remove();
             });
         });
-        clause_li.append(clause_tag);
-        clause_li.append(remove_clause_icon);
-        input.append(clause_li);
+        clause_item.append(clause_tag);
+        clause_item.append(remove_clause_icon);
+        input.append(clause_item);
     };
 
     //Add initial Clauses
