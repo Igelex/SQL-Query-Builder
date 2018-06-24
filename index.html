@@ -42,16 +42,20 @@
     <div id="sql_pool_container" class="row shadow-sm p-5 mt-2 bg-light rounded">
         <div class="col-xs-12 sql_pool">
             <h3 class="mb-4">Clauses</h3>
-            <span class="clause_tag clause clause_select">SELECT</span>
+            <span class="clause_tag clause">SELECT</span>
             <span class="clause_tag clause">FROM</span>
             <span class="clause_tag clause">WHERE</span>
-            <span class="clause_tag clause">NOT</span>
-            <span class="clause_tag clause">IS NOT NULL</span>
-            <span class="clause_tag clause">IS NULL</span>
-            <span class="clause_tag clause">AND</span>
-            <span class="clause_tag clause">OR</span>
-            <span class="clause_tag clause">==</span>
-            <span class="clause_tag clause">*</span>
+            <span class="clause_tag clause">DISTINCT </span>
+            <span class="clause_tag clause">COUNT</span>
+            <span class="clause_tag clause">LIMIT</span>
+            <span class="clause_tag clause">ORDER BY</span>
+            <span class="clause_tag clause">ASC</span>
+            <span class="clause_tag clause">DESC</span>
+            <span class="clause_tag clause">HAVING</span>
+            <span class="clause_tag clause">SUM</span>
+            <span class="clause_tag clause">AVG</span>
+            <span class="clause_tag clause">MIN</span>
+            <span class="clause_tag clause">MAX</span>
             <div class="clause_value_container clause_value">
                 <input type="text" class="value_input" disabled placeholder="Enter value">
                 <span class="remove_clause">+</span>
@@ -59,20 +63,19 @@
         </div>
         <div class="col-xs-12 sql_pool">
             <h3 class="mb-4">Operators</h3>
-            <span class="clause_tag clause clause_select">SELECT</span>
-            <span class="clause_tag clause">FROM</span>
-            <span class="clause_tag clause">WHERE</span>
-            <span class="clause_tag clause">NOT</span>
-            <span class="clause_tag clause">IS NOT NULL</span>
-            <span class="clause_tag clause">IS NULL</span>
-            <span class="clause_tag clause">AND</span>
-            <span class="clause_tag clause">OR</span>
-            <span class="clause_tag clause">==</span>
-            <span class="clause_tag clause">*</span>
-            <div class="clause_value_container clause_value">
-                <input type="text" class="value_input" disabled placeholder="Enter value">
-                <span class="remove_clause">+</span>
-            </div>
+            <span class="clause_tag operator">NOT</span>
+            <span class="clause_tag operator">IS NOT NULL</span>
+            <span class="clause_tag operator">IS NULL</span>
+            <span class="clause_tag operator">AND</span>
+            <span class="clause_tag operator">)</span>
+            <span class="clause_tag operator">(</span>
+            <span class="clause_tag operator">OR</span>
+            <span class="clause_tag operator">==</span>
+            <span class="clause_tag operator">&gt;</span>
+            <span class="clause_tag operator">&lt;</span>
+            <span class="clause_tag operator">&gt;=</span>
+            <span class="clause_tag operator">&lt;=</span>
+            <span class="clause_tag operator">*</span>
         </div>
     </div>
 </div>

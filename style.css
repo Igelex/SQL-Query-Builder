@@ -22,30 +22,33 @@
 
 .value_input {
     width: 100px !important;
+    height: 35px;
     background: #f4f1f5;
-    /*border-bottom: 3px gray solid;*/
-    border: none;
-    height: 100%;
+    border-bottom: 3px #bfbfbf solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     display: inline !important;
     padding-left: 10px;
     outline-width: 0;
+}
 
+.value_input:focus {
+    border-bottom-color: rgba(63, 174, 232, 0.85);
 }
 
 .clause_value_container {
     width: auto;
-    transition: all .3s;
+    transition: background-color .3s;
     display: inline-block;
-    background-color: rgba(116, 179, 197, 0.72);
+    background: #f4f1f5;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    border: 2px solid rgba(116, 179, 197, 0.72);
-    resize: horizontal;
     cursor: pointer;
 }
 
 .clause_value_container:hover {
-    background-color: rgba(63, 174, 232, 0.85);
+    background-color: #bfbfbf;
 }
 
 .clause_value_container > span {
@@ -82,10 +85,11 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     position: relative;
-    //left: -4px;
+    left: -1px;
 }
 
 .sql_pool {
+    transition: background-color .5s;
     line-height: 50%;
     background: transparent;
 }
@@ -96,4 +100,8 @@
 
 li {
     list-style-type: none;
+}
+
+.operator {
+    background-color: #b37eff;
 }
