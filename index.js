@@ -78,7 +78,6 @@ $(document).ready(() => {
                 elem.text($(item).val());
                 elem.addClass('output_value');
             } else {
-                if ($(item).is('[data-type$="block"]')) {elem.addClass('output_clause_block');}
                 if ($(item).is('[data-type^="operator"]')) {
                     elem.addClass('output_operator');
                 } else {
@@ -87,7 +86,9 @@ $(document).ready(() => {
                 elem.text($(item).text());
             }
             output_container.append(elem);
+            if ($(item).is('[data-type$="block"]')) {elem.prepend('<br>');}
         });
+        output_container.append('<span class="output_clause">;</span>')
     };
 
     //Add initial Clauses
@@ -95,6 +96,8 @@ $(document).ready(() => {
     addClauseValueInput('first_name', clause_value[0]);
     addClauseValueInput('last_name', clause_value[0]);
     addClause('FROM',clauses[1]);
+    addClauseValueInput('users', clause_value[0]);
+    addClause('WHERE',clauses[2]);
 
     clause_value.click(() =>{
         addClauseValueInput();

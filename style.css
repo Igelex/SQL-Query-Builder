@@ -121,7 +121,7 @@ li {
 }
 
 .output_clause_block {
-
+    display: table;
 }
 
 .output_value {
