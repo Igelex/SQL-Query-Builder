@@ -24,40 +24,40 @@
     <div id="sql_pool_container" class="row shadow-sm p-5 mt-2 bg-light rounded">
         <div class="col-xs-12 sql_pool">
             <h3 class="mb-4">Clauses</h3>
-            <span class="clause_tag clause">SELECT</span>
-            <span class="clause_tag clause">FROM</span>
-            <span class="clause_tag clause">WHERE</span>
-            <span class="clause_tag clause">DISTINCT </span>
-            <span class="clause_tag clause">COUNT</span>
-            <span class="clause_tag clause">LIMIT</span>
-            <span class="clause_tag clause">ORDER BY</span>
-            <span class="clause_tag clause">ASC</span>
-            <span class="clause_tag clause">DESC</span>
-            <span class="clause_tag clause">HAVING</span>
-            <span class="clause_tag clause">SUM</span>
-            <span class="clause_tag clause">AVG</span>
-            <span class="clause_tag clause">MIN</span>
-            <span class="clause_tag clause">MAX</span>
+            <span data-type="clause-select-block" class="clause_tag clause">SELECT</span>
+            <span data-type="clause-from-block" class="clause_tag clause">FROM</span>
+            <span data-type="clause-where-block" class="clause_tag clause">WHERE</span>
+            <span data-type="clause-distinct" class="clause_tag clause">DISTINCT </span>
+            <span data-type="clause-count-block" class="clause_tag clause">COUNT</span>
+            <span data-type="clause-limit-block" class="clause_tag clause">LIMIT</span>
+            <span data-type="clause-orderby-block" class="clause_tag clause">ORDER BY</span>
+            <span data-type="clause-asc" class="clause_tag clause">ASC</span>
+            <span data-type="clause-desc" class="clause_tag clause">DESC</span>
+            <span data-type="clause-having-block" class="clause_tag clause">HAVING</span>
+            <span data-type="clause-sum" class="clause_tag clause">SUM</span>
+            <span data-type="clause-avg" class="clause_tag clause">AVG</span>
+            <span data-type="clause-min" class="clause_tag clause">MIN</span>
+            <span data-type="clause-max" class="clause_tag clause">MAX</span>
             <div class="clause_value_container clause_value">
-                <input type="text" class="value_input" disabled placeholder="Enter value">
+                <input data-type="clause-value" type="text" class="value_input" disabled placeholder="Enter value">
                 <span class="remove_clause">+</span>
             </div>
         </div>
         <div class="col-xs-12 sql_pool">
             <h3 class="mb-4">Operators</h3>
-            <span class="clause_tag operator">NOT</span>
-            <span class="clause_tag operator">IS NOT NULL</span>
-            <span class="clause_tag operator">IS NULL</span>
-            <span class="clause_tag operator">AND</span>
-            <span class="clause_tag operator">)</span>
-            <span class="clause_tag operator">(</span>
-            <span class="clause_tag operator">OR</span>
-            <span class="clause_tag operator">==</span>
-            <span class="clause_tag operator">&gt;</span>
-            <span class="clause_tag operator">&lt;</span>
-            <span class="clause_tag operator">&gt;=</span>
-            <span class="clause_tag operator">&lt;=</span>
-            <span class="clause_tag operator">*</span>
+            <span data-type="operator-not" class="clause_tag operator">NOT</span>
+            <span data-type="operator-isnotnull" class="clause_tag operator">IS NOT NULL</span>
+            <span data-type="operator-innull" class="clause_tag operator">IS NULL</span>
+            <span data-type="operator-and-block" class="clause_tag operator">AND</span>
+            <span data-type="operator-bracel" class="clause_tag operator">(</span>
+            <span data-type="operator-bracer" class="clause_tag operator">)</span>
+            <span data-type="operator-or" class="clause_tag operator">OR</span>
+            <span data-type="operator-eq" class="clause_tag operator">==</span>
+            <span data-type="operator-gt" class="clause_tag operator">&gt;</span>
+            <span data-type="operator-lt" class="clause_tag operator">&lt;</span>
+            <span data-type="operator-get" class="clause_tag operator">&gt;=</span>
+            <span data-type="operator-let" class="clause_tag operator">&lt;=</span>
+            <span data-type="operator-universal" class="clause_tag operator">*</span>
         </div>
     </div>
 </div>

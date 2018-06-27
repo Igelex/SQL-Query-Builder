@@ -105,3 +105,38 @@ li {
 .operator {
     background-color: #b37eff;
 }
+
+/***********************************************************************************************************************
+*Output highlighting
+*/
+
+#sql_query_output span {
+    padding: 5px 5px;
+
+}
+
+.output_clause {
+    font-weight: bold;
+    color: #658bff;
+}
+
+.output_clause_block {
+
+}
+
+.output_value {
+    color: gray;
+}
+
+.output_value_block {
+
+}
+
+.output_operator {
+    font-weight: bold;
+    color: #b37eff;
+}
+
+.output_operator_block {
+
+}

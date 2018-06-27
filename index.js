@@ -1,6 +1,5 @@
 import 'bootstrap';
 import 'popper.js';
-import 'jquery';
 import 'jquery-ui-bundle';
 //import '@fortawesome/fontawesome-free/js/all.js';
 //import '@fortawesome/fontawesome-free/css/all.css';
@@ -12,10 +11,10 @@ $(document).ready(() => {
     let clause_value = $('.clause_value');
     let input = $('#sql_input');
 
-    const addClauseValueInput = (value = "") => {
+    const addClauseValueInput = (value = "", elem) => {
         const clause_value_container =
             $(`<div class="clause_value_container ">
-                <input type="text" class="value_input clause_tag_selected" placeholder="Enter value" value="${value}">
+                <input data-type="${$(elem).attr('data-type')}" type="text" class="value_input clause_tag_selected" placeholder="Enter value" value="${value}">
               </div>`);
         const remove_clause_icon = $(`<span class="remove_clause">&times;</span>`);
         const li_item = $(`<li class="sortable_clauses"></li>`);
@@ -36,6 +35,7 @@ $(document).ready(() => {
             updateOutput();
         });
         value_input.keypress(() => {
+            //setTimeout(100, updateOutput());
             updateOutput();
         });
         updateOutput();
@@ -43,7 +43,7 @@ $(document).ready(() => {
 
     const addClause = (text, elem) => {
         const clause_item = $(`<li class="sortable_clauses"></li>`);
-        const clause_tag = $(`<span class="clause_tag clause_tag_selected">${text}</span>`);
+        const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
         const remove_clause_icon = $(`<span class="remove_clause clause_tag">&times;</span>`);
 
         if ($(elem).is('.operator')) {
@@ -64,23 +64,36 @@ $(document).ready(() => {
 
     const updateOutput = () => {
         let output = '';
+        let output_container = $('#sql_query_output');
+        output_container.empty();
 
-        $('.clause_tag_selected').each( (i, item) => {
+        let query_items = $('li [data-type]');
+        console.log(query_items);
+
+        query_items.each( (i, item) => {
+
+            let elem = $('<span></span>');// clause or value, that must be highlighted
+
             if($(item).is('input')) {
-                output += `${$(item).val()} `;
+                elem.text($(item).val());
+                elem.addClass('output_value');
             } else {
-                output += `${$(item).text()} `;
+                if ($(item).is('[data-type$="block"]')) {elem.addClass('output_clause_block');}
+                if ($(item).is('[data-type^="operator"]')) {
+                    elem.addClass('output_operator');
+                } else {
+                    elem.addClass('output_clause');
+                }
+                elem.text($(item).text());
             }
+            output_container.append(elem);
         });
-
-        $('#sql_query_output').text(output);
-
     };
 
     //Add initial Clauses
     addClause('SELECT', clauses[0]);
-    addClauseValueInput('first_name');
-    addClauseValueInput('last_name');
+    addClauseValueInput('first_name', clause_value[0]);
+    addClauseValueInput('last_name', clause_value[0]);
     addClause('FROM',clauses[1]);
 
     clause_value.click(() =>{
