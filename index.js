@@ -9,7 +9,18 @@ import './style.css';
 $(document).ready(() => {
     let clauses = $('.clause, .operator');
     let clause_value = $('.clause_value');
-    let input = $('#sql_input');
+    let input_container = $('#sql_input');
+
+    const addPlaceholder = (container) => {
+        let placeholder = $('<a class="clause_placeholder"><i>+</i></a>');
+        $(container).append(placeholder);
+        placeholder.mouseover( () => {
+            $(placeholder).find('i').css({'visibility': 'visible'});
+        });
+        placeholder.mouseout(() => {
+            $(placeholder).find('i').css({'visibility': 'hidden'});
+        });
+    };
 
     const addClauseValueInput = (value = "", elem) => {
         const clause_value_container =
@@ -27,7 +38,8 @@ $(document).ready(() => {
                 updateOutput();
             });
         });
-        input.append($(li_item).append(new_clause_value));
+        input_container.append($(li_item).append(new_clause_value));
+        addPlaceholder(li_item);
 
         let value_input = li_item.find('.value_input');
         value_input.focus();
@@ -58,7 +70,9 @@ $(document).ready(() => {
         });
         clause_item.append(clause_tag);
         clause_item.append(remove_clause_icon);
-        input.append(clause_item);
+        input_container.append(clause_item);
+        addPlaceholder(clause_item);
+
         updateOutput();
     };
 
@@ -108,7 +122,7 @@ $(document).ready(() => {
         });
     });
 
-    $(input).sortable({
+    $(input_container).sortable({
         revert: true
     });
     $(clauses).draggable({

@@ -16,7 +16,7 @@
 
 .sortable_clauses {
     /*transition: 0.5s;*/
-    margin: 5px 10px 5px 0;
+    margin: 5px 0 5px 0;
 }
 
 
@@ -129,7 +129,6 @@ li {
     color: #b37eff;
 }
 
-
 .copy_output_icon {
     transition: color .5s;
     color: gray;
@@ -142,5 +141,26 @@ li {
 .copy_output_icon:hover {
     color: rgba(81, 148, 180, 0.51);
     cursor: pointer;
+}
+
+.clause_placeholder {
+    cursor: pointer;
+    text-align: center;
+    transition: all .5s;
+    position: relative;
+    display: inline-block;
+    width: 10px;
+    height: 100%;
+    bottom: 0;
+}
+.clause_placeholder:hover{
+    margin: 0 3px;
+    border: 2px solid #658bff;
+    border-radius: 0.25rem;
+    width: 20px;
+}
+.clause_placeholder > i {
+    color: #658bff;
+    visibility: hidden;
 }
 
