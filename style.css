@@ -120,16 +120,8 @@ li {
     color: #658bff;
 }
 
-.output_clause_block {
-    display: table;
-}
-
 .output_value {
     color: gray;
-}
-
-.output_value_block {
-
 }
 
 .output_operator {
@@ -137,6 +129,18 @@ li {
     color: #b37eff;
 }
 
-.output_operator_block {
 
+.copy_output_icon {
+    transition: color .5s;
+    color: gray;
+    padding: 6px;
+    position: absolute;
+    right: 10px;
+    /*top: -20px;*/
 }
+
+.copy_output_icon:hover {
+    color: rgba(81, 148, 180, 0.51);
+    cursor: pointer;
+}
+

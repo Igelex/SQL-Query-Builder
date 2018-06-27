@@ -68,7 +68,6 @@ $(document).ready(() => {
         output_container.empty();
 
         let query_items = $('li [data-type]');
-        console.log(query_items);
 
         query_items.each( (i, item) => {
 
@@ -86,7 +85,7 @@ $(document).ready(() => {
                 elem.text($(item).text());
             }
             output_container.append(elem);
-            if ($(item).is('[data-type$="block"]')) {elem.prepend('<br>');}
+            if ($(item).is('[data-type$="block"]') && i > 0) {elem.before('<br>');}
         });
         output_container.append('<span class="output_clause">;</span>')
     };
@@ -118,4 +117,24 @@ $(document).ready(() => {
         revert: "invalid"
     });
     $('ul, li').disableSelection();
+
+    $('.copy_output_icon').click( () => {
+        let copied_text = '';
+
+        $('#sql_query_output span').each( (i, item) => {
+            copied_text += `${item.textContent.trim()} `;
+        });
+        let hidden_input = $('<input type="text">');//create input element to copy text to clipboard
+        $('body').append(hidden_input);
+        hidden_input.val(copied_text).select();
+        console.warn(hidden_input.val());
+
+        try {
+            document.execCommand("copy");
+            console.warn(copied_text);
+        } catch(e) {
+            console.log(e);
+        }
+        hidden_input.remove();
+    });
 });
