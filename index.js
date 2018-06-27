@@ -7,30 +7,63 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
 $(document).ready(() => {
-    let clauses = $('.clause, .operator');
-    let clause_value = $('.clause_value');
+    let clauses = $('#sql_pool_container .clause, #sql_pool_container .operator');
+    let clause_value = $('#sql_pool_container .clause_value');
     let input_container = $('#sql_input');
+    let current_clause_tag_placeholder;
+    let overlay = $('.sql_pool_overlay');
 
     const addPlaceholder = (container) => {
-        let placeholder = $('<a class="clause_placeholder"><i>+</i></a>');
+        let placeholder = $('<a data-toggle="tooltip" title="hello" class="clause_placeholder"><i>+</i></a>');
         $(container).append(placeholder);
-        placeholder.mouseover( () => {
+
+        placeholder.mouseover(() => {
             $(placeholder).find('i').css({'visibility': 'visible'});
         });
         placeholder.mouseout(() => {
             $(placeholder).find('i').css({'visibility': 'hidden'});
         });
+        $(placeholder).click(() => {
+            let overlay_position = input_container.offset();
+            current_clause_tag_placeholder = placeholder.parent();
+            overlay.css({'top': overlay_position.top + input_container.outerHeight()});//set position of overlay
+            overlay.fadeIn(300);
+        });
     };
 
+    $('.sql_pool_overlay span').each(function () {
+        $(this).click(function () {
+            let clause_tag = buildClauseTagElement($(this).text(), this);
+            clause_tag.insertAfter(current_clause_tag_placeholder);
+            addPlaceholder(current_clause_tag_placeholder.next());
+            overlay.fadeOut(300, () => overlay.offset({top: 0, left: 0}));//fade out and reset position of overlay
+        });
+    });
+    $('.sql_pool_overlay .clause_value').click(() =>{
+        let clause_value_input = buildClauseValueInputElement($(this).text(), this);
+        clause_value_input.insertAfter(current_clause_tag_placeholder);
+        addPlaceholder(current_clause_tag_placeholder.next());
+        overlay.fadeOut(300, () => overlay.offset({top: 0, left: 0}));//fade out and reset position of overlay
+    });
+
     const addClauseValueInput = (value = "", elem) => {
+        let clause_value_input = buildClauseValueInputElement(value, elem);
+
+        input_container.append(clause_value_input);
+        addPlaceholder(clause_value_input);
+        updateOutput();
+    };
+
+    const buildClauseValueInputElement = (value = "", elem) => {
         const clause_value_container =
-            $(`<div class="clause_value_container ">
+            $(`<div class="clause_value_container">
                 <input data-type="${$(elem).attr('data-type')}" type="text" class="value_input clause_tag_selected" placeholder="Enter value" value="${value}">
               </div>`);
         const remove_clause_icon = $(`<span class="remove_clause">&times;</span>`);
         const li_item = $(`<li class="sortable_clauses"></li>`);
 
-        let new_clause_value = clause_value_container.append(remove_clause_icon);
+        clause_value_container.append(remove_clause_icon);
+        li_item.append(clause_value_container);
 
         remove_clause_icon.dblclick(() => {
             li_item.fadeOut( 300, () => {
@@ -38,8 +71,6 @@ $(document).ready(() => {
                 updateOutput();
             });
         });
-        input_container.append($(li_item).append(new_clause_value));
-        addPlaceholder(li_item);
 
         let value_input = li_item.find('.value_input');
         value_input.focus();
@@ -50,34 +81,36 @@ $(document).ready(() => {
             //setTimeout(100, updateOutput());
             updateOutput();
         });
-        updateOutput();
+        return li_item;
     };
 
     const addClause = (text, elem) => {
-        const clause_item = $(`<li class="sortable_clauses"></li>`);
+        let clause_tag = buildClauseTagElement(text, elem);
+        input_container.append(clause_tag);
+        addPlaceholder(clause_tag);
+        updateOutput();
+    };
+
+    const buildClauseTagElement = (text, elem) => {
+        const clause_li_item = $(`<li class="sortable_clauses"></li>`);
         const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
         const remove_clause_icon = $(`<span class="remove_clause clause_tag">&times;</span>`);
-
         if ($(elem).is('.operator')) {
             remove_clause_icon.addClass('operator');
             clause_tag.addClass('operator');
         }
         $(remove_clause_icon).click(() => {
-            $(clause_item).fadeOut( 300, () => {
-                clause_item.remove();
+            $(clause_li_item).fadeOut( 300, () => {
+                clause_li_item.remove();
                 updateOutput();
             });
         });
-        clause_item.append(clause_tag);
-        clause_item.append(remove_clause_icon);
-        input_container.append(clause_item);
-        addPlaceholder(clause_item);
-
-        updateOutput();
+        clause_li_item.append(clause_tag);
+        clause_li_item.append(remove_clause_icon);
+        return clause_li_item;
     };
 
     const updateOutput = () => {
-        let output = '';
         let output_container = $('#sql_query_output');
         output_container.empty();
 
@@ -132,7 +165,7 @@ $(document).ready(() => {
     });
     $('ul, li').disableSelection();
 
-    $('.copy_output_icon').click( () => {
+    $('.icon').click( () => {
         let copied_text = '';
 
         $('#sql_query_output span').each( (i, item) => {
@@ -141,11 +174,8 @@ $(document).ready(() => {
         let hidden_input = $('<input type="text">');//create input element to copy text to clipboard
         $('body').append(hidden_input);
         hidden_input.val(copied_text).select();
-        console.warn(hidden_input.val());
-
         try {
             document.execCommand("copy");
-            console.warn(copied_text);
         } catch(e) {
             console.log(e);
         }

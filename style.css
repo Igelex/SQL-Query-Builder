@@ -1,3 +1,6 @@
+/***********************************************************************************************************************
+*main container for query input
+*/
 #sql_input_container {
     border-bottom: 4px #658bff solid !important;
 }
@@ -15,11 +18,11 @@
 }
 
 .sortable_clauses {
-    /*transition: 0.5s;*/
     margin: 5px 0 5px 0;
 }
-
-
+/***********************************************************************************************************************
+*Custom clause value input element
+*/
 .value_input {
     width: 100px !important;
     height: 35px;
@@ -54,9 +57,11 @@
 .clause_value_container > span {
     display: inline !important;
     margin-right: 5px;
-    width: 1%;
     color: gray;
 }
+/***********************************************************************************************************************
+*Custom clause tag
+*/
 .clause_tag {
     transition: background-color .5s;
     display: inline-block;
@@ -80,7 +85,13 @@
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0;
 }
-
+/*Operator clauses*/
+.operator {
+    background-color: #b37eff;
+}
+/******************************
+*Icon for removing tags
+*/
 .remove_clause {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -88,6 +99,32 @@
     left: -1px;
 }
 
+/*******************
+*Clauses placeholder for inserting clauses between clauses
+*/
+.clause_placeholder {
+    cursor: pointer;
+    text-align: center;
+    transition: all .5s;
+    position: relative;
+    display: inline-block;
+    width: 10px;
+    bottom: 0;
+}
+.clause_placeholder:hover{
+    margin: 0 3px;
+    border: 2px solid #658bff;
+    border-radius: 0.25rem;
+    width: 20px;
+}
+.clause_placeholder > i {
+    color: #658bff;
+    visibility: hidden;
+}
+
+/***********************************************************************************************************************
+*Container with all provided tags
+*/
 .sql_pool {
     transition: background-color .5s;
     line-height: 50%;
@@ -102,14 +139,9 @@ li {
     list-style-type: none;
 }
 
-.operator {
-    background-color: #b37eff;
-}
-
 /***********************************************************************************************************************
 *Output highlighting
 */
-
 #sql_query_output span {
     padding: 5px 5px;
 
@@ -129,7 +161,10 @@ li {
     color: #b37eff;
 }
 
-.copy_output_icon {
+/***********************************************************************************************************************
+*Custom helper icons
+*/
+.icon {
     transition: color .5s;
     color: gray;
     padding: 6px;
@@ -138,29 +173,25 @@ li {
     /*top: -20px;*/
 }
 
-.copy_output_icon:hover {
+.icon:hover {
     color: rgba(81, 148, 180, 0.51);
     cursor: pointer;
 }
 
-.clause_placeholder {
-    cursor: pointer;
-    text-align: center;
-    transition: all .5s;
-    position: relative;
-    display: inline-block;
-    width: 10px;
-    height: 100%;
-    bottom: 0;
-}
-.clause_placeholder:hover{
-    margin: 0 3px;
-    border: 2px solid #658bff;
-    border-radius: 0.25rem;
-    width: 20px;
-}
-.clause_placeholder > i {
-    color: #658bff;
-    visibility: hidden;
+/*******************************************
+*Pool Overlay
+*/
+.sql_pool_overlay{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
 }
 
+.sql_pool_overlay > .container{
+    border-top: 4px #658bff solid;
+    border-bottom: 4px #658bff solid;
+}
