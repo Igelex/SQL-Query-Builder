@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
 $(document).ready(() => {
-    let clauses = $('#sql_pool_container span');
+    let clauses = $('#sql_pool_container span.clause_tag');
     let clause_value = $('#sql_pool_container .clause_value');
     let input_container = $('#sql_input');
     let current_clause_tag_placeholder;
@@ -31,7 +31,7 @@ $(document).ready(() => {
         });
     };
 
-    $('.sql_pool_overlay span').each(function () {
+    $('.sql_pool_overlay span.clause_tag').each(function () {
         $(this).click(function () {
             let clause_tag = buildClauseTagElement($(this).text(), this);
             clause_tag.insertAfter(current_clause_tag_placeholder);
@@ -190,7 +190,7 @@ $(document).ready(() => {
                     new_elem.insertAfter(current_elem.prev());
                     current_elem.remove();
                     addPlaceholder(new_elem);
-                    updateOutput()
+                    updateOutput();
                 },600)
             }
         }

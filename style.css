@@ -191,9 +191,13 @@ li {
     height: auto;
 }
 
-.sql_pool_overlay > .container{
+.sql_pool_overlay_content{
     border-top: 4px #658bff solid;
     border-bottom: 4px #658bff solid;
+}
+
+.sql_pool_overlay_content .clause_tag, .sql_pool_overlay_content .clause_value_container {
+    margin-bottom: 5px;
 }
 
 .alert {
