@@ -195,14 +195,3 @@ li {
     border-top: 4px #658bff solid;
     border-bottom: 4px #658bff solid;
 }
-
-.alert {
-    margin: 0;
-}
-
-.sort-placeholder {
-    border: 2px solid rgba(57, 157, 250, 0.29);
-    background-color: rgba(232, 232, 232, 0.52);
-    margin: 0 5px;
-    border-radius: 5px;
-}
