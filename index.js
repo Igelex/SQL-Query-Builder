@@ -7,37 +7,49 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
 $(document).ready(() => {
-    let clauses = $('#sql_pool_container span.clause_tag');
-    let clause_value = $('#sql_pool_container .clause_value');
-    let input_container = $('#sql_input');
-    let current_clause_tag_placeholder;
-    let overlay = $('.sql_pool_overlay');
+    let clauses = $('#sql_pool_container span.clause_tag'); //get clauses tags from pool
+    let clause_value = $('#sql_pool_container .clause_value');  // get clause value input fields
+    let input_container = $('#sql_input'); // container for building sql queries, all tag will be placed here
+    let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
+    let overlay = $('.sql_pool_overlay'); // modal with clauses
 
+    /**
+     * Adds a plus button between clauses in @input_container, that allows adding clauses between clauses on click
+     * @param container - current <li> element in the sortable list of clauses
+     */
     const addPlaceholder = (container) => {
-        let placeholder = $('<a data-toggle="tooltip" title="hello" class="clause_placeholder"><i>+</i></a>');
-        $(container).append(placeholder);
+        let placeholder_button = $('<a data-toggle="tooltip" title="hello" class="clause_placeholder"><i>+</i></a>'); //template
 
-        placeholder.mouseover(() => {
-            $(placeholder).find('i').css({'visibility': 'visible'});
+        $(container).append(placeholder_button); //append template to the current <li>
+
+        //define events for the @placeholder_button
+        placeholder_button.mouseover(() => {
+            $(placeholder_button).find('i').css({'visibility': 'visible'}); //show the button only on hover
         });
-        placeholder.mouseout(() => {
-            $(placeholder).find('i').css({'visibility': 'hidden'});
+        placeholder_button.mouseout(() => {
+            $(placeholder_button).find('i').css({'visibility': 'hidden'});
         });
-        $(placeholder).click(() => {
-            let overlay_position = input_container.offset();
-            current_clause_tag_placeholder = placeholder.parent();
-            overlay.css({'top': overlay_position.top + input_container.outerHeight()});//set position of overlay
-            overlay.fadeIn(300);
+        //on click displays a modal with clauses
+        $(placeholder_button).click(() => {
+            let overlay_position = input_container.offset(); // place modal under input container
+            current_clause_tag_placeholder = container; // save <li> globally, is needed to find position where new tag must be placed
+            overlay.css({'top': overlay_position.top + input_container.outerHeight()});//// place modal under input container
+            overlay.fadeIn(300); // show modal
         });
     };
 
+    /**
+     * Defines click event for all clauses in modal, that adds a tag/input by clicking placeholder button between clauses
+     */
     $('.sql_pool_overlay span.clause_tag').each(function () {
         $(this).click(function () {
-            let clause_tag = buildClauseTagElement($(this).text(), this);
-            clause_tag.insertAfter(current_clause_tag_placeholder);
-            addPlaceholder(current_clause_tag_placeholder.next());
+            let clause_tag = buildClauseTagElement($(this).text(), this); //builds new tag
+            clause_tag.addClass('disp-none pulse');
+            clause_tag.insertAfter(current_clause_tag_placeholder); //inserts new tag to the DOM
+            addPlaceholder(current_clause_tag_placeholder.next()); // adds placeholder button
+            clause_tag.fadeIn(1000);
             overlay.fadeOut(300, () => overlay.offset({top: 0, left: 0}));//fade out and reset position of overlay
-            updateOutput();
+            updateOutput(); // update SQL query output
         });
     });
     $('.sql_pool_overlay .clause_value').click(() => {
@@ -48,6 +60,11 @@ $(document).ready(() => {
         updateOutput();
     });
 
+    /**
+     * Adds new clause value input to the input container
+     * @param value - optional value, that can be displayed in input
+     * @param elem -
+     */
     const addClauseValueInput = (value = "", elem) => {
         let clause_value_input = buildClauseValueInputElement(value, elem);
 
@@ -62,7 +79,7 @@ $(document).ready(() => {
                 <input data-type="${$(elem).attr('data-type')}" type="text" class="value_input clause_tag_selected" placeholder="Enter value" value="${value}">
               </div>`);
         const remove_clause_icon = $(`<span class="remove_clause">&times;</span>`);
-        const li_item = $(`<li class="sortable_clauses"></li>`);
+        const li_item = $(`<li class="sortable_clauses pulse"></li>`);
 
         clause_value_container.append(remove_clause_icon);
         li_item.append(clause_value_container);
@@ -94,7 +111,7 @@ $(document).ready(() => {
     };
 
     const buildClauseTagElement = (text, elem) => {
-        const clause_li_item = $(`<li class="sortable_clauses"></li>`);
+        const clause_li_item = $(`<li class="sortable_clauses pulse"></li>`);
         const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
         const remove_clause_icon = $(`<span class="remove_clause clause_tag">&times;</span>`);
         if ($(elem).is('.operator')) {
@@ -112,15 +129,20 @@ $(document).ready(() => {
         return clause_li_item;
     };
 
+    /**
+     * This method biuld SQL query string and show it in output container, calls avery time if user make some changes in
+     * input
+     */
     const updateOutput = () => {
         let output_container = $('#sql_query_output');
-        output_container.empty();
+        output_container.empty(); //clear container
 
-        let query_items = $('li [data-type]');
+        //TODO: change that for DIVA
+        let query_items = $('li [data-type]'); //get all clauses, added by user
 
         query_items.each((i, item) => {
 
-            let elem = $('<span></span>');// clause or value, that must be highlighted
+            let elem = $('<span></span>');// clause or value that must be highlighted will be stored in <span>
 
             if ($(item).is('input')) {
                 elem.text($(item).val());
@@ -138,7 +160,7 @@ $(document).ready(() => {
                 elem.before('<br>');
             }
         });
-        output_container.append('<span class="output_clause">;</span>')
+        output_container.append('<span class="output_clause">;</span>'); // close query with ;
     };
 
     //Add initial Clauses
@@ -149,59 +171,73 @@ $(document).ready(() => {
     addClauseValueInput('users', clause_value[0]);
     addClause('WHERE', clauses[2]);
 
+    // set initial onclick event for the value input in clauses pool, on click input will be added to the input container
     clause_value.click(() => {
         addClauseValueInput();
     });
 
+    // set initial onclick event for each clause tag in clauses pool, on click tag will be added to the input container
     $(clauses).each(function () {
         $(this).click(function () {
             addClause($(this).text(), this);
         });
     });
 
+    // init jquery-ui sortable
     $(input_container).sortable({
         revert: true,
         stop: () => {
-            updateOutput()
+            updateOutput();
         },
         tolerance: "intersect",
         containment: "parent",
         forceHelperSize: true,
         forcePlaceholderSize: true,
-        placeholder: 'sort-placeholder'
+        placeholder: 'sort-placeholder',
+        delay: 150,
     });
+
+    // init jquery-ui draggable, all item are draggable
     $(clauses).draggable({
         connectToSortable: '#sql_input',
         helper: 'clone',
         revert: 'invalid',
         revertDuration: 300,
+        delay: 150,
+
+        // creates new element on drop
         stop: (event, ui) => {
 
-            let current_elem = $(ui.helper[0]);
+            let current_elem = $(ui.helper[0]); //clone of dragged element
 
+            //if prev is <li>, elements was dropped in input container, that means an new element must be added
             if (current_elem.prev().is('li')) {
                 let new_elem;
                 if (current_elem.is('span')) {
-                    new_elem = buildClauseTagElement(current_elem.text(), current_elem);
+                    new_elem = buildClauseTagElement(current_elem.text(), current_elem); // add new clause tag
                 } else {
-                    new_elem = buildClauseValueInputElement('', current_elem);
+                    new_elem = buildClauseValueInputElement('', current_elem); // else add new value input
                 }
+                //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
                 setTimeout(() => {
-                    new_elem.insertAfter(current_elem.prev());
-                    current_elem.remove();
-                    addPlaceholder(new_elem);
-                    updateOutput();
+                    new_elem.insertAfter(current_elem.prev()); //insert new element on right position
+                    current_elem.remove(); // remove clone of dragged element
+                    addPlaceholder(new_elem); // add placeholder button
+                    updateOutput();// and update output
                 },600)
             }
         }
     });
     $('ul, li').disableSelection();
 
+    /**
+     * copy SQL query output to the clipboard
+     */
     $('.icon').click(() => {
         let copied_text = '';
 
         $('#sql_query_output span').each((i, item) => {
-            copied_text += `${item.textContent.trim()} `;
+            copied_text += `${item.textContent.trim()} `; // get text of all spans in output
         });
         let hidden_input = $('<input type="text">');//create input element to copy text to clipboard
         $('body').append(hidden_input);
@@ -213,4 +249,100 @@ $(document).ready(() => {
         }
         hidden_input.remove();
     });
+
+    //SELECT 1,2 FROM users WHERE id <= 5 AND age >= 25 AND (name = 'some_name' OR name = ''another_name)
+    let query = {
+        select:
+            {
+                values: ['1', '2']
+            }
+        ,
+        from: 'users',
+        where:
+            [
+                {
+                    condition:{
+                        value1: 'id',
+                        operator: 'eql',
+                        value2: '5'
+                    }
+                },
+                {
+                    and: [{
+                        condition: {
+                            val1: '',
+                            val2: '',
+                            operator: 'eq'
+                        }
+                    }, {clause: ''}]
+                },
+                {
+                    and: [
+                        {
+                        condition:
+                            {
+                            val1: '',
+                            val2: '',
+                            operator: 'eq'
+                            }
+                        },
+                        {
+                            condition: {
+                                val1: '',
+                                val2: '',
+                                operator: 'eq'
+                            }
+                        },
+                    {clause: 'or'}
+                    ]
+                }
+            ]
+    }
+
+/*let query = {
+    select:
+        {
+            values: ['1', '2']
+        }
+    ,
+    from: 'users',
+    where:
+        [
+            {
+                condition:{
+                    value1: 'id',
+                    operator: 'eql',
+                    value2: '5'
+                }
+            },
+            {
+                and: {
+                    value1: 'age',
+                    operator: 'eqg',
+                    value2: '25',
+                    clause:{}
+
+                }
+            },
+            {
+                and: {
+                    value1: '',
+                    operator: '',
+                    value2: '',
+                    clause:{
+                        or: {
+                            value1: 'name',
+                            operator: 'eq',
+                            value2: 'v2',
+                            clause:{}
+
+                        }
+                    }
+                }
+            }
+        ]
+}*/
+
+    console.log(query.where[0].and);
 });
+
