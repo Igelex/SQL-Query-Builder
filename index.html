@@ -12,7 +12,7 @@
 <div class="container">
     <div id="sql_input_container" class="row shadow-sm p-5 mb-1 bg-light rounded">
         <div class="col-12 w-100">
-            <ul id="sql_input" class="">
+            <ul id="sql_input" class="" style="position: relative">
 
             </ul>
         </div>
@@ -24,7 +24,7 @@
                     <input data-type="clause-value" type="text" class="value_input" disabled placeholder="Enter value">
                     <span class="remove_clause">+</span>
                 </div>
-                <span data-type="clause-select-block" class="clause_tag clause">SELECT</span>
+                <span data-type="clause-select-block" class="clause_tag clause clause_tag_notselected">SELECT</span>
                 <span data-type="clause-from-block" class="clause_tag clause">FROM</span>
                 <span data-type="clause-where-block" class="clause_tag clause">WHERE</span>
                 <span data-type="clause-distinct" class="clause_tag clause">DISTINCT </span>
@@ -41,19 +41,19 @@
             </div>
             <div class="col-xs-12 col-sm-6 sql_pool">
                 <h4 class="mb-4">Operators</h4>
-                <span data-type="operator-not" class="clause_tag clause operator">NOT</span>
-                <span data-type="operator-isnotnull" class="clause_tag clause operator">IS NOT NULL</span>
-                <span data-type="operator-innull" class="clause_tag clause operator">IS NULL</span>
-                <span data-type="operator-and-block" class="clause_tag clause operator">AND</span>
-                <span data-type="operator-bracel" class="clause_tag clause operator">(</span>
-                <span data-type="operator-bracer" class="clause_tag clause operator">)</span>
-                <span data-type="operator-or" class="clause_tag clause operator">OR</span>
-                <span data-type="operator-eq" class="clause_tag clause operator">==</span>
-                <span data-type="operator-gt" class="clause_tag clause operator">&gt;</span>
-                <span data-type="operator-lt" class="clause_tag clause operator">&lt;</span>
-                <span data-type="operator-get" class="clause_tag clause operator">&gt;=</span>
-                <span data-type="operator-let" class="clause_tag clause operator">&lt;=</span>
-                <span data-type="operator-universal" class="clause_tag clause operator">*</span>
+                <span data-type="operator-not" class="clause_tag operator">NOT</span>
+                <span data-type="operator-isnotnull" class="clause_tag operator">IS NOT NULL</span>
+                <span data-type="operator-innull" class="clause_tag operator">IS NULL</span>
+                <span data-type="operator-and-block" class="clause_tag operator">AND</span>
+                <span data-type="operator-bracel" class="clause_tag operator">(</span>
+                <span data-type="operator-bracer" class="clause_tag operator">)</span>
+                <span data-type="operator-or" class="clause_tag operator">OR</span>
+                <span data-type="operator-eq" class="clause_tag operator">==</span>
+                <span data-type="operator-gt" class="clause_tag operator">&gt;</span>
+                <span data-type="operator-lt" class="clause_tag operator">&lt;</span>
+                <span data-type="operator-get" class="clause_tag operator">&gt;=</span>
+                <span data-type="operator-let" class="clause_tag operator">&lt;=</span>
+                <span data-type="operator-universal" class="clause_tag operator">*</span>
             </div>
         </div>
     </div>

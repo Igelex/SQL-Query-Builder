@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    font-family: Montserrat;
+}
+
 /***********************************************************************************************************************
 *main container for query input
 */
@@ -22,6 +28,7 @@
 }
 
 #sql_input li {
+    position: relative;
     border-radius: 0.25rem;
 }
 /***********************************************************************************************************************
@@ -66,8 +73,11 @@
 /***********************************************************************************************************************
 *Custom clause tag
 */
+.clause, .operator {
+    margin-bottom: 0px;
+}
 .clause_tag {
-    transition: background-color .5s;
+    transition: background-color .5s, color .5s;
     display: inline-block;
     padding: 0.35em 0.4em;
     font-size: 18px;
@@ -76,54 +86,70 @@
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
-    color: #fff;
-    background-color: #399dfa;
     cursor: pointer;
 }
-.clause_tag:hover{
+
+.clause {
+    color: #fff;
+    background-color: #399dfa;
+}
+
+.clause:hover{
     background-color: #3888bb;
 }
 
 .clause_tag_selected {
-    cursor: move;
+    color: #399dfa;
+    /*font-weight: 600 !important;*/
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0;
 }
+
+.clause_tag_selected_highlight{
+    color: #fff;
+    background-color: #399dfa;
+}
+
 /*Operator clauses*/
 .operator {
     background-color: #b37eff;
+    color: white;
 }
+
+.operator_selected {
+    color: #b37eff;
+}
+
+.operator_selected_highlight{
+    background-color: #b37eff;
+    color: white;
+}
+
 /******************************
 *Icon for removing tags
 */
 .remove_clause {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    color: white;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     position: relative;
-    left: -1px;
+    /*left: -1px;*/
+}
+
+.remove_clause:hover {
+    background-color: #3888bb;
 }
 
 /*******************
 *Clauses placeholder for inserting clauses between clauses
 */
-.clause_placeholder {
-    cursor: pointer;
-    text-align: center;
-    transition: all .5s;
-    position: relative;
-    display: inline-block;
-    width: 10px;
-    bottom: 0;
+.add_clause {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
-.clause_placeholder:hover{
-    margin: 0 3px;
-    border: 2px solid #658bff;
-    border-radius: 0.25rem;
-    width: 20px;
-}
-.clause_placeholder > i {
-    color: #658bff;
-    visibility: hidden;
+
+.add_clause > i {
+    color: white;
 }
 
 /***********************************************************************************************************************
@@ -250,4 +276,18 @@ li {
         -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
         box-shadow: 0 0 0 0 rgba(204,169,44, 0);
     }
+}
+
+.selected_tag_controls_container{
+    border-radius: 0.25rem;
+    width: fit-content;
+    position: absolute;
+    top: -100%;
+    text-align: center;
+    left: 25%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.selected_tag_container {
+    position: relative;
 }
