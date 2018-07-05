@@ -128,9 +128,10 @@ $(document).ready(() => {
 
         input.blur(() => {
 
-            if (input.val() || input.val() !== '') {
+            if (!input.val() || input.val() === '') {
                 return;
             }
+            span.text(input.val());
             span.css({'visibility': 'visible'});
             input.fadeToggle().toggleClass('on-top');
             updateOutput();
