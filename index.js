@@ -18,7 +18,7 @@ $(document).ready(() => {
      * @param container - current <li> element in the sortable list of clauses
      */
     const addPlaceholder = (container) => {
-        let placeholder_button = $('<a title="add new tag" class="add_clause"><i>+</i></a>'); //template
+        let placeholder_button = $('<a title="add new tag" class="add_clause_plus_button"><i>+</i></a>'); //template
 
         $(container).append(placeholder_button); //append template to the current <li>
 
@@ -26,7 +26,7 @@ $(document).ready(() => {
         $(placeholder_button).click(() => {
             let overlay_position = input_container.offset(); // place modal under input container
             current_clause_tag_placeholder = container; // save <li> globally, is needed to find position where new tag must be placed
-            overlay.css({'top': overlay_position.top + input_container.outerHeight()});//// place modal under input container
+            overlay.css({'top': overlay_position.top + input_container.outerHeight()});// place modal under input container
             overlay.fadeIn(300); // show modal
         });
     };
@@ -63,7 +63,7 @@ $(document).ready(() => {
 
         input_container.append(clause_value_input);
         console.warn(clause_value_input);
-        addPlaceholder(clause_value_input, clause_value_input.find('.selected_tag_controls_container'));
+        addPlaceholder(clause_value_input);
         updateOutput();
     };
 
@@ -110,39 +110,34 @@ $(document).ready(() => {
     const buildClauseTagElement = (text, elem) => {
         const clause_li_item = $(`<li class="sortable_clauses pulse"></li>`);
         const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
-        const div_controls = $(`<div class="selected_tag_controls_container"></div>`);
-        const div_container = $(`<div style="display: inline"><div class="clause_controls_placeholder"></div></div>`);
         const remove_clause_icon = $(`<span class="remove_clause clause_tag clause">&times;</span>`);
 
-        div_container.append(div_controls.append(remove_clause_icon));
-        div_container.append(clause_tag);
-        clause_li_item.append(div_container);
-
-        //clause_li_item.click(()=> div_controls.fadeToggle(300));
-
+        clause_li_item.append(clause_tag);
+        clause_li_item.append(remove_clause_icon);
 
         if ($(elem).is('.operator')) {
             remove_clause_icon.addClass('operator_selected');
             clause_tag.addClass('operator_selected');
-
-            div_container.mouseover(()=> {
+            clause_li_item.mouseover(()=> {
                 clause_tag.addClass('operator_selected_highlight');
-                div_controls.css({'opacity':'1'});
+                remove_clause_icon.css({'display':'initial'});
+                remove_clause_icon.css({'opacity':'1'});
             });
-
-            div_container.mouseout(()=> {
+            clause_li_item.mouseout(()=> {
                 clause_tag.removeClass('operator_selected_highlight');
-                //remove_clause_icon.removeClass('operator_selected_highlight remove_clause_fadein');
+                remove_clause_icon.css({'opacity':'0'});
+                remove_clause_icon.css({'display':'none'});
             });
         } else {
-            div_container.mouseover(()=> {
+            clause_li_item.mouseover(()=> {
                 clause_tag.addClass('clause_tag_selected_highlight');
-                div_controls.css({'opacity':'1'});
+                remove_clause_icon.css({'display':'initial'});
+                remove_clause_icon.css({'opacity':'1'});
             });
-
-            div_container.mouseout(()=> {
+            clause_li_item.mouseout(()=> {
                 clause_tag.removeClass('clause_tag_selected_highlight');
-                div_controls.css({'opacity':'0'});
+                remove_clause_icon.css({'opacity':'0'});
+                remove_clause_icon.css({'display':'none'});
             });
         }
 

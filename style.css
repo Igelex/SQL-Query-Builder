@@ -74,7 +74,7 @@ body {
 *Custom clause tag
 */
 .clause, .operator {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .clause_tag {
     transition: background-color .5s, color .5s;
@@ -128,18 +128,15 @@ body {
 /******************************
 *Icon for removing tags
 */
-.temp {
-    position: absolute;
-    left: 0;
-    top: -2rem;
-    background-color: transparent;
-}
 .remove_clause {
-    background: #658bff;
-    transition: background-color .5s;
+    transition: background-color .5s, opacity .5s, display .5s;
     color: white;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    right: 100%;
 }
 
 .remove_clause_fadein {
@@ -153,21 +150,22 @@ body {
 /*******************
 *Clauses placeholder for inserting clauses between clauses
 */
-.add_clause {
+.add_clause_plus_button {
     cursor: pointer;
     text-align: center;
     transition: all .5s;
+    position: relative;
     display: inline-block;
     width: 10px;
     bottom: 0;
 }
-.add_clause:hover{
+.add_clause_plus_button:hover{
     margin: 0 3px;
     border: 2px solid #658bff;
     border-radius: 0.25rem;
     width: 20px;
 }
-.add_clause > i {
+.add_clause_plus_button > i {
     color: #658bff;
     visibility: hidden;
 }
