@@ -223,7 +223,12 @@ $(document).ready(() => {
     // init jquery-ui sortable
     $(input_container).sortable({
         revert: true,
-        stop: () => {
+        start: ( event, ui ) => {
+            console.log($(ui.helper[0]));
+            $(ui.helper[0]).css({'opacity': '0.5'});
+        },
+        stop: (event, ui) => {
+            $(ui.item).css({'opacity': '1'});
             updateOutput();
         },
         tolerance: "intersect",
@@ -241,14 +246,17 @@ $(document).ready(() => {
         revert: 'invalid',
         revertDuration: 300,
         delay: 150,
-
+        start: ( event, ui ) => {
+            console.log($(ui.helper[0]));
+            $(ui.helper[0]).css({'opacity': '0.5'});
+        },
         // creates new element on drop
         stop: (event, ui) => {
 
             let current_elem = $(ui.helper[0]); //clone of dragged element
 
             //if prev is <li>, elements was dropped in input container, that means an new element must be added
-            if (current_elem.prev().is('li')) {
+            if (current_elem.parent().is('#sql_input')) {
                 let new_elem;
                 if (current_elem.is('span')) {
                     new_elem = buildClauseTagElement(current_elem.text(), current_elem); // add new clause tag
