@@ -127,20 +127,19 @@ $(document).ready(() => {
         });
 
         input.blur(() => {
-            span.css({'visibility': 'visible'});
+
             if (input.val() || input.val() !== '') {
-                span.text(input.val());
-            } else {
-                span.text(input.attr('placeholder'));
+                return;
             }
+            span.css({'visibility': 'visible'});
             input.fadeToggle().toggleClass('on-top');
             updateOutput();
         });
 
         if (input.val() === 'Enter value') {
             span.css({'visibility': 'hidden'});
-            input.fadeToggle()/*.toggleClass('on-top')*/;
-            input.focus();
+            input.css({'display': 'inline'});
+            input.toggleClass('on-top').focus();
         }
 
     };
