@@ -18,15 +18,15 @@ $(document).ready(() => {
      * @param container - current <li> element in the sortable list of clauses
      */
     const addPlaceholder = (container) => {
-        let placeholder_button = $('<a title="add new tag" class="add_clause_plus_button clause_tag clause add_clause_plus_button_hide"><i>+</i></a>'); //template
+        let placeholder_button = $('<a title="add new tag" class="controls_add_button controls clause_tag clause controls_hide"><i>+</i></a>'); //template
 
         $(container).append(placeholder_button); //append template to the current <li>
 
         container.mouseover(()=> {
-            placeholder_button.toggleClass('add_clause_plus_button_hide');
+            placeholder_button.toggleClass('controls_hide');
         });
         container.mouseout(()=> {
-            placeholder_button.toggleClass('add_clause_plus_button_hide');
+            placeholder_button.toggleClass('controls_hide');
         });
 
         //on click displays a modal with clauses
@@ -52,6 +52,10 @@ $(document).ready(() => {
             updateOutput(); // update SQL query output
         });
     });
+    $('.sql_pool_overlay .icon_close_overlay').click( () => {
+        $('.sql_pool_overlay').fadeOut(300);
+    });
+
     $('.sql_pool_overlay .clause_value').click(() => {
         let clause_value_input = buildClauseValueInputElement($(this).text(), this);
         clause_value_input.insertAfter(current_clause_tag_placeholder);
@@ -75,18 +79,24 @@ $(document).ready(() => {
     };
 
     const buildClauseValueInputElement = (value = "", elem) => {
-        const clause_value_container =
-            $(`<div class="clause_value_container">
-                <input data-type="${$(elem).attr('data-type')}" type="text" class="value_input clause_tag_selected" placeholder="Enter value" value="${value}">
-              </div>`);
-        const remove_clause_icon = $(`<span class="remove_clause clause_tag">&times;</span>`);
-        const li_item = $(`<li class="sortable_clauses pulse"><div class="clause_controls_placeholder"></div></li>`);
+        const clause_value_input =
+            $(`<input data-type="${$(elem).attr('data-type')}" type="text" class="value_input value_input_selected" placeholder="Enter value" value="${value}">`);
+        const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide clause_tag">&times;</span>`);
+        const li_item = $(`<li class="sortable_clauses pulse"></li>`);
 
-        li_item.append(clause_value_container);
         li_item.append(remove_clause_icon);
+        li_item.append(clause_value_input);
 
-        li_item.click(()=> div_controls.fadeToggle(300));
-        //li_item.mouseout(()=> div_controls.fadeOut(300));
+        li_item.mouseover(()=> {
+            clause_value_input.toggleClass('value_input_selected');
+            remove_clause_icon.toggleClass('controls_hide');
+            li_item.css({'z-index': '1000'});
+        });
+        li_item.mouseout(()=> {
+            clause_value_input.toggleClass('value_input_selected');
+            remove_clause_icon.toggleClass('controls_hide');
+            li_item.css({'z-index': 'initial'});
+        });
 
         remove_clause_icon.click(() => {
             li_item.fadeOut(300, () => {
@@ -95,12 +105,11 @@ $(document).ready(() => {
             });
         });
 
-        let value_input = li_item.find('.value_input');
-        value_input.focus();
-        value_input.blur(() => {
+        clause_value_input.focus();
+        clause_value_input.blur(() => {
             updateOutput();
         });
-        value_input.keypress(() => {
+        clause_value_input.keypress(() => {
             //setTimeout(100, updateOutput());
             updateOutput();
         });
@@ -117,7 +126,7 @@ $(document).ready(() => {
     const buildClauseTagElement = (text, elem) => {
         const clause_li_item = $(`<li class="sortable_clauses pulse"></li>`);
         const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
-        const remove_clause_icon = $(`<span class="remove_clause remove_clause_hide clause_tag clause">&times;</span>`);
+        const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide clause_tag">&times;</span>`);
 
         clause_li_item.append(clause_tag);
         clause_li_item.append(remove_clause_icon);
@@ -127,23 +136,23 @@ $(document).ready(() => {
             clause_tag.addClass('operator_selected');
             clause_li_item.mouseover(()=> {
                 clause_tag.addClass('operator_selected_highlight');
-                remove_clause_icon.toggleClass('remove_clause_hide');
+                remove_clause_icon.toggleClass('controls_hide');
                 clause_li_item.css({'z-index': '1000'});
             });
             clause_li_item.mouseout(()=> {
                 clause_tag.removeClass('operator_selected_highlight');
-                remove_clause_icon.toggleClass('remove_clause_hide');
+                remove_clause_icon.toggleClass('controls_hide');
                 clause_li_item.css({'z-index': 'initial'});
             });
         } else {
             clause_li_item.mouseover(()=> {
                 clause_tag.addClass('clause_tag_selected_highlight');
-                remove_clause_icon.toggleClass('remove_clause_hide');
+                remove_clause_icon.toggleClass('controls_hide');
                 clause_li_item.css({'z-index': '1000'});
             });
             clause_li_item.mouseout(()=> {
                 clause_tag.removeClass('clause_tag_selected_highlight');
-                remove_clause_icon.toggleClass('remove_clause_hide');
+                remove_clause_icon.toggleClass('controls_hide');
                 clause_li_item.css({'z-index': 'initial'});
             });
         }
@@ -261,7 +270,7 @@ $(document).ready(() => {
     /**
      * copy SQL query output to the clipboard
      */
-    $('.icon').click(() => {
+    $('.icon_close_overlay').click(() => {
         let copied_text = '';
 
         $('#sql_query_output span').each((i, item) => {

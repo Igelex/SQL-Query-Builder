@@ -24,19 +24,21 @@ body {
 }
 
 .sortable_clauses {
-    margin: 5px 0 5px 0;
+    margin: 5px 0 6px 0;
 }
 
 #sql_input li {
     position: relative;
     border-radius: 0.25rem;
+    margin-right: 8px;
 }
 /***********************************************************************************************************************
 *Custom clause value input element
 */
 .value_input {
+    transition: all .5s;
     width: 100px !important;
-    height: 35px;
+    height: 31px;
     background: #f4f1f5;
     border-bottom: 3px #bfbfbf solid;
     border-top: none;
@@ -47,29 +49,23 @@ body {
     outline-width: 0;
 }
 
+.value_input_selected {
+    background-color: transparent;
+    border-color: transparent !important;
+    color: rgb(67, 67, 67);
+}
+
+.value_input_selected_highlight {
+    background-color: transparent;
+    border-color: transparent !important;
+    color: rgb(67, 67, 67);
+}
+
 .value_input:focus {
-    border-bottom-color: rgba(63, 174, 232, 0.85);
+    border-bottom: 3px rgba(63, 174, 232, 0.85) solid !important;
+    background: #f4f1f5 !important;
 }
 
-.clause_value_container {
-    width: auto;
-    transition: background-color .3s;
-    display: inline-block;
-    background: #f4f1f5;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    cursor: pointer;
-}
-
-.clause_value_container:hover {
-    background-color: #bfbfbf;
-}
-
-.clause_value_container > span {
-    display: inline !important;
-    margin-right: 5px;
-    color: gray;
-}
 /***********************************************************************************************************************
 *Custom clause tag
 */
@@ -125,44 +121,32 @@ body {
 }
 
 /******************************
-*Icon for removing tags
+*Icon buttons for removing and adding tags
 */
-.remove_clause {
-    transition: background-color .5s, opacity .5s, display .5s;
-    color: white;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+.controls {
+    color: #383838 !important;
+    background-color: rgba(191, 191, 191, 0.70);
     position: absolute;
     text-align: center;
+}
+
+.controls:hover {
+    background-color: rgb(191, 191, 191);
+}
+
+.controls_remove_button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     right: 100%;
 }
 
-.remove_clause_hide {
+.controls_hide {
     display: none;
 }
 
-.remove_clause:hover {
-    background-color: #3888bb;
-}
-/*******************
-*Clauses placeholder for inserting clauses between clauses
-*/
-.add_clause_plus_button {
-    transition: background-color .5s, opacity .5s, display .5s;
-    color: white !important;
+.controls_add_button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    position: absolute;
-    text-align: center;
-    /*right: 100%;*/
-}
-
-.add_clause_plus_button_hide {
-    display: none;
-}
-
-.add_clause_plus_button:hover {
-    background-color: #3888bb;
 }
 
 /***********************************************************************************************************************
@@ -207,7 +191,7 @@ li {
 /***********************************************************************************************************************
 *Custom helper icons
 */
-.icon {
+.icon_close_overlay {
     transition: color .5s;
     color: gray;
     padding: 6px;
@@ -216,7 +200,7 @@ li {
     /*top: -20px;*/
 }
 
-.icon:hover {
+.icon_close_overlay:hover {
     color: rgba(81, 148, 180, 0.51);
     cursor: pointer;
 }
