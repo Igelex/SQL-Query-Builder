@@ -99,10 +99,9 @@ body {
 }
 
 .clause_tag_selected {
+    border-radius: 0;
     color: #399dfa;
     /*font-weight: 600 !important;*/
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0;
 }
 
 .clause_tag_selected_highlight{
@@ -133,15 +132,13 @@ body {
     color: white;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    opacity: 0;
     position: absolute;
     text-align: center;
     right: 100%;
 }
 
-.remove_clause_fadein {
-    padding: 0.35em 0.4em;
-    width: auto;
+.remove_clause_hide {
+    display: none;
 }
 
 .remove_clause:hover {
@@ -151,23 +148,21 @@ body {
 *Clauses placeholder for inserting clauses between clauses
 */
 .add_clause_plus_button {
-    cursor: pointer;
+    transition: background-color .5s, opacity .5s, display .5s;
+    color: white !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    position: absolute;
     text-align: center;
-    transition: all .5s;
-    position: relative;
-    display: inline-block;
-    width: 10px;
-    bottom: 0;
+    /*right: 100%;*/
 }
-.add_clause_plus_button:hover{
-    margin: 0 3px;
-    border: 2px solid #658bff;
-    border-radius: 0.25rem;
-    width: 20px;
+
+.add_clause_plus_button_hide {
+    display: none;
 }
-.add_clause_plus_button > i {
-    color: #658bff;
-    visibility: hidden;
+
+.add_clause_plus_button:hover {
+    background-color: #3888bb;
 }
 
 /***********************************************************************************************************************

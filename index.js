@@ -18,9 +18,16 @@ $(document).ready(() => {
      * @param container - current <li> element in the sortable list of clauses
      */
     const addPlaceholder = (container) => {
-        let placeholder_button = $('<a title="add new tag" class="add_clause_plus_button"><i>+</i></a>'); //template
+        let placeholder_button = $('<a title="add new tag" class="add_clause_plus_button clause_tag clause add_clause_plus_button_hide"><i>+</i></a>'); //template
 
         $(container).append(placeholder_button); //append template to the current <li>
+
+        container.mouseover(()=> {
+            placeholder_button.toggleClass('add_clause_plus_button_hide');
+        });
+        container.mouseout(()=> {
+            placeholder_button.toggleClass('add_clause_plus_button_hide');
+        });
 
         //on click displays a modal with clauses
         $(placeholder_button).click(() => {
@@ -110,7 +117,7 @@ $(document).ready(() => {
     const buildClauseTagElement = (text, elem) => {
         const clause_li_item = $(`<li class="sortable_clauses pulse"></li>`);
         const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
-        const remove_clause_icon = $(`<span class="remove_clause clause_tag clause">&times;</span>`);
+        const remove_clause_icon = $(`<span class="remove_clause remove_clause_hide clause_tag clause">&times;</span>`);
 
         clause_li_item.append(clause_tag);
         clause_li_item.append(remove_clause_icon);
@@ -120,24 +127,24 @@ $(document).ready(() => {
             clause_tag.addClass('operator_selected');
             clause_li_item.mouseover(()=> {
                 clause_tag.addClass('operator_selected_highlight');
-                remove_clause_icon.css({'display':'initial'});
-                remove_clause_icon.css({'opacity':'1'});
+                remove_clause_icon.toggleClass('remove_clause_hide');
+                clause_li_item.css({'z-index': '1000'});
             });
             clause_li_item.mouseout(()=> {
                 clause_tag.removeClass('operator_selected_highlight');
-                remove_clause_icon.css({'opacity':'0'});
-                remove_clause_icon.css({'display':'none'});
+                remove_clause_icon.toggleClass('remove_clause_hide');
+                clause_li_item.css({'z-index': 'initial'});
             });
         } else {
             clause_li_item.mouseover(()=> {
                 clause_tag.addClass('clause_tag_selected_highlight');
-                remove_clause_icon.css({'display':'initial'});
-                remove_clause_icon.css({'opacity':'1'});
+                remove_clause_icon.toggleClass('remove_clause_hide');
+                clause_li_item.css({'z-index': '1000'});
             });
             clause_li_item.mouseout(()=> {
                 clause_tag.removeClass('clause_tag_selected_highlight');
-                remove_clause_icon.css({'opacity':'0'});
-                remove_clause_icon.css({'display':'none'});
+                remove_clause_icon.toggleClass('remove_clause_hide');
+                clause_li_item.css({'z-index': 'initial'});
             });
         }
 
