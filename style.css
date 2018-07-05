@@ -36,29 +36,25 @@ body {
 *Custom clause value input element
 */
 .value_input {
-    transition: all .5s;
-    width: 100px !important;
+    left: 0;
+    transition: border .5s;
+    width: 110px !important;
     height: 31px;
     background: #f4f1f5;
     border-bottom: 3px #bfbfbf solid;
     border-top: none;
     border-left: none;
     border-right: none;
-    display: inline !important;
     padding-left: 10px;
+    display: inline;
     outline-width: 0;
 }
 
 .value_input_selected {
-    background-color: transparent;
-    border-color: transparent !important;
-    color: rgb(67, 67, 67);
-}
-
-.value_input_selected_highlight {
-    background-color: transparent;
-    border-color: transparent !important;
-    color: rgb(67, 67, 67);
+    left: 0;
+    display: none;
+    position: absolute;
+    width: 100% !important;
 }
 
 .value_input:focus {
@@ -66,6 +62,25 @@ body {
     background: #f4f1f5 !important;
 }
 
+.value_tag {
+    background-color: rgba(191, 191, 191, 0.70);
+    color: rgb(67, 67, 67);
+}
+
+.value_tag:hover {
+    background-color: rgb(191, 191, 191);
+;
+}
+
+.value_tag_selected {
+    background-color: transparent;
+    color: rgb(67, 67, 67);
+}
+
+.value_tag_selected_highlight {
+    border-radius: 0 !important;
+    background-color: #bfbfbf;
+}
 /***********************************************************************************************************************
 *Custom clause tag
 */
@@ -73,7 +88,7 @@ body {
     margin-bottom: 0;
 }
 .clause_tag {
-    transition: background-color .5s, color .5s;
+    transition: background-color .5s, color .5s, border-radius .5s;
     display: inline-block;
     padding: 0.35em 0.4em;
     font-size: 18px;
@@ -95,12 +110,12 @@ body {
 }
 
 .clause_tag_selected {
-    border-radius: 0;
     color: #399dfa;
     /*font-weight: 600 !important;*/
 }
 
 .clause_tag_selected_highlight{
+    border-radius: 0;
     color: #fff;
     background-color: #399dfa;
 }
@@ -116,6 +131,7 @@ body {
 }
 
 .operator_selected_highlight{
+    border-radius: 0;
     background-color: #b37eff;
     color: white;
 }
@@ -203,6 +219,10 @@ li {
 .icon_close_overlay:hover {
     color: rgba(81, 148, 180, 0.51);
     cursor: pointer;
+}
+
+.on-top{
+    z-index: 1000 !important;
 }
 
 /*******************************************
