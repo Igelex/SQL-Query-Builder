@@ -78,11 +78,11 @@ $(document).ready(() => {
         updateOutput();
     };
 
-    const buildClauseValueInputElement = (value = 'Enter value', elem) => {
+    const buildClauseValueInputElement = (value = '') => {
         const clause_value_input =
-            $(`<input type="text" class="value_input value_input_selected" placeholder="Enter value" value="${value}">`);
+            $(`<input data-type="clause-value" type="text" class="value_input value_input_selected" placeholder="Enter value" value="${value ? value : ''}">`);
         const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide clause_tag">&times;</span>`);
-        const value_tag = $(`<span class="value_tag_selected clause_tag">${value}</span>`);
+        const value_tag = $(`<span class="value_tag_selected clause_tag">${value ? value : 'Enter value'}</span>`);
         const li_item = $(`<li class="sortable_clauses pulse"></li>`);
 
         li_item.append(remove_clause_icon);
@@ -122,7 +122,7 @@ $(document).ready(() => {
 
         span.dblclick(() => {
             span.css({'visibility': 'hidden'});
-            input.fadeToggle().toggleClass('on-top');
+            input.fadeToggle().toggleClass('on-top')/*.val(span.text())*/;
             input.focus();
         });
 
@@ -137,10 +137,10 @@ $(document).ready(() => {
             updateOutput();
         });
 
-        if (input.val() === 'Enter value') {
+        if (span.text() === 'Enter value') {
             span.css({'visibility': 'hidden'});
             input.css({'display': 'inline'});
-            input.toggleClass('on-top').focus();
+            input.focus();
         }
 
     };
@@ -211,6 +211,7 @@ $(document).ready(() => {
             let elem = $('<span></span>');// clause or value that must be highlighted will be stored in <span>
 
             if ($(item).is('input')) {
+                console.log($(item).val());
                 elem.text($(item).val());
                 elem.addClass('output_value');
             } else {
