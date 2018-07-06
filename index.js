@@ -8,7 +8,7 @@ import './style.css';
 
 $(document).ready(() => {
     let clauses = $('#sql_pool_container span.clause, #sql_pool_container span.operator'); //get clauses tags from pool
-    let clause_value = $('.value_tag');  // get clause value input fields
+    let clause_value = $('#sql_pool_container .value_tag');  // get clause value input fields
     let input_container = $('#sql_input'); // container for building sql queries, all tag will be placed here
     let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
     let overlay = $('.sql_pool_overlay'); // modal with clauses
@@ -41,7 +41,7 @@ $(document).ready(() => {
     /**
      * Defines click event for all clauses in modal, that adds a tag/input by clicking placeholder button between clauses
      */
-    $('.sql_pool_overlay span.clause .sql_pool_overlay span.operator').each(function () {
+    $('.sql_pool_overlay span.clause, .sql_pool_overlay span.operator').each(function () {
         $(this).click(function () {
             let clause_tag = buildClauseTagElement($(this).text(), this); //builds new tag
             clause_tag.addClass('disp-none pulse');
@@ -57,9 +57,9 @@ $(document).ready(() => {
     });
 
     $('.sql_pool_overlay .value_tag').click(() => {
-        let clause_value_input = buildClauseValueInputElement('Enter value', this);
+        let clause_value_input = buildClauseValueInputElement();
         clause_value_input.insertAfter(current_clause_tag_placeholder);
-        addPlaceholder(current_clause_tag_placeholder.next());
+        addPlaceholder(clause_value_input);
         overlay.fadeOut(300, () => overlay.offset({top: 0, left: 0}));//fade out and reset position of overlay
         updateOutput();
     });
@@ -322,7 +322,7 @@ $(document).ready(() => {
             console.log(e);
         }
         hidden_input.remove();
-    })
+    });
 
     const toggleElementClasses = (elems, toggle_classes) => {
         $(elems).each((i, elem) => {

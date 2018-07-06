@@ -88,7 +88,7 @@ body {
     margin-bottom: 0;
 }
 .clause_tag {
-    transition: background-color .5s, color .5s, border-radius .5s;
+    transition: background-color .5s, color .5s;
     display: inline-block;
     padding: 0.35em 0.4em;
     font-size: 18px;
