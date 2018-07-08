@@ -5,6 +5,7 @@ import 'jquery-ui-bundle';
 //import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
+import './my_first_sass.scss';
 
 $(document).ready(() => {
     let clauses = $('#sql_pool_container span.clause, #sql_pool_container span.operator'); //get clauses tags from pool
