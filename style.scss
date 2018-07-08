@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+/***********************************************************************************************************************
+*color variables
+*/
+$tag-clause-color: #399dfa;
+$tag-clause-color-hover: #3888bb;
+$tag-operator-color: #b37eff;
+$tag-operator-color-hover: #8261b9;
+$tag-input-color: rgba(191, 191, 191, 0.70);
+$tag-input-color-hover: rgb(191, 191, 191);
+
+/***********************************************************************************************************************
+*mixins
+*/
+@mixin tag-clause-highlight($bg-color) {
+  background-color: $bg-color;
+  border-radius: 0;
+  color: white;
+  font-weight: normal;
+}
+
+@mixin tag-clause-selected($color) {
+  background-color: transparent;
+  color: $color;
+  font-weight: 700;
+}
+
+@mixin clause-tag ($btlr: 0.25rem, $btrr: 0.25rem, $bbrr: 0.25rem, $bblr: 0.25rem) {
+  transition: background-color .5s, color .5s;
+  display: inline-block;
+  padding: 0.35em 0.4em;
+  font-size: 18px;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: $btlr $btrr $bbrr $bblr;
+  cursor: pointer;
+}
+
+body {
+  font-family: Montserrat;
+}
+
+/***********************************************************************************************************************
+*main container for query input
+*/
+#sql_input_container {
+  border-bottom: 4px #658bff solid !important;
+}
+
+#sql_input {
+  width: 100%;
+  min-height: 60px;
+  padding: 6px;
+  background: white;
+  border: 3px solid #f4f1f5;
+  display: flex;
+  justify-content: start !important;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.clause_items {
+  margin: 5px 0 6px 0;
+  .clause_tag.clause {
+    @include tag-clause-selected($tag-clause-color);
+  }
+  .clause_tag.operator {
+    @include tag-clause-selected($tag-operator-color);
+  }
+  .clause_tag.value {
+    @include tag-clause-selected($tag-clause-color);
+  }
+  &:hover {
+    z-index: 1000;
+    .clause_tag.clause {
+      @include tag-clause-highlight($tag-clause-color);
+    }
+    .clause_tag.operator {
+      @include tag-clause-highlight($tag-operator-color)
+    }
+    .clause_tag.value {
+      @include tag-clause-selected($tag-clause-color);
+    }
+    .controls {
+      display: inline-block;
+    }
+  }
+}
+
+#sql_input li {
+  position: relative;
+  border-radius: 0.25rem;
+  margin-right: 8px;
+}
+
+/***********************************************************************************************************************
+*Custom clause value input element
+*/
+.value_input {
+  left: 0;
+  transition: border .5s;
+  width: 110px !important;
+  height: 31px;
+  background: #f4f1f5;
+  border-bottom: 3px #bfbfbf solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-left: 10px;
+  display: inline;
+  outline-width: 0;
+}
+
+.value_input_selected {
+  left: 0;
+  display: none;
+  position: absolute;
+  width: 100% !important;
+}
+
+.value_input:focus {
+  border-bottom: 3px rgba(63, 174, 232, 0.85) solid !important;
+  background: #f4f1f5 !important;
+}
+
+.value_tag {
+  background-color: $tag-input-color;
+  color: rgb(67, 67, 67);
+  &:hover {
+    background-color: $tag-input-color-hover;
+  }
+}
+
+.value_tag_selected {
+  background-color: transparent;
+  color: rgb(67, 67, 67);
+}
+
+.value_tag_selected_highlight {
+  border-radius: 0 !important;
+  background-color: #bfbfbf;
+}
+
+/***********************************************************************************************************************
+*Custom clause tag
+*/
+.clause, .operator {
+  margin-bottom: 0;
+}
+
+.clause_tag {
+  @include clause-tag();
+  &.clause {
+    color: #fff;
+    background-color: $tag-clause-color;
+    &:hover {
+      background-color: $tag-clause-color-hover;
+    }
+  }
+  &.operator {
+    background-color: $tag-operator-color;
+    color: white;
+    &:hover {
+      background-color: $tag-operator-color-hover;
+    }
+  }
+}
+/******************************
+*Icon buttons for removing and adding tags
+*/
+.controls {
+  color: #383838 !important;
+  background-color: rgba(191, 191, 191, 0.70);
+  position: absolute;
+  text-align: center;
+  &:hover{
+    background-color: rgb(191, 191, 191);
+  }
+}
+
+.controls_remove_button {
+  @include clause-tag(0.25rem, 0, 0, .25rem);
+  display: none;
+  right: 100%;
+}
+
+.controls_add_button {
+  @include clause-tag(0, 0.25rem, 0.25rem, 0);
+  display: none;
+}
+
+/***********************************************************************************************************************
+*Container with all provided tags
+*/
+.sql_pool {
+  transition: background-color .5s;
+  line-height: 50%;
+  background: transparent;
+}
+
+.sql_pool span {
+  margin-bottom: 10px;
+}
+
+li {
+  list-style-type: none;
+}
+
+/***********************************************************************************************************************
+*Output highlighting
+*/
+#sql_query_output span {
+  padding: 5px 5px;
+
+}
+
+.output_clause {
+  font-weight: bold;
+  color: #658bff;
+}
+
+.output_value {
+  color: gray;
+}
+
+.output_operator {
+  font-weight: bold;
+  color: #b37eff;
+}
+
+/***********************************************************************************************************************
+*Custom helper icons
+*/
+.icon_close_overlay {
+  transition: color .5s;
+  color: gray;
+  padding: 6px;
+  position: absolute;
+  right: 10px;
+  /*top: -20px;*/
+}
+
+.icon_close_overlay:hover {
+  color: rgba(81, 148, 180, 0.51);
+  cursor: pointer;
+}
+
+.on-top {
+  z-index: 1000 !important;
+}
+
+/*******************************************
+*Pool Overlay
+*/
+.sql_pool_overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+}
+
+.sql_pool_overlay_content {
+  border-top: 4px #658bff solid;
+  border-bottom: 4px #658bff solid;
+}
+
+.sql_pool_overlay_content .clause_tag, .sql_pool_overlay_content .clause_value_container {
+  margin-bottom: 5px;
+}
+
+.alert {
+  margin: 0;
+}
+
+.sort-placeholder {
+  border: 2px solid rgba(57, 157, 250, 0.29);
+  background-color: rgba(232, 232, 232, 0.52);
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+/*******************************************
+*Helper
+*/
+.disp-none {
+  display: none;
+}
+
+.pulse {
+  animation: pulse 1s;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.73);
+    box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
+  }
+  70% {
+    -moz-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}
+
+.selected_tag_controls_container {
+  transition: opacity .5s;
+  opacity: 0;
+  border-radius: 0.25rem;
+  width: fit-content;
+  position: absolute;
+  top: -110%;
+  text-align: center;
+  left: 25%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.selected_tag_container {
+  position: relative;
+}
+
+.clause_controls_placeholder {
+  /*background-color: #bfbfbf;*/
+  position: absolute;
+  height: 100%;
+  width: 80%;
+  top: -100%;
+
+}

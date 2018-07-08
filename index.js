@@ -1,11 +1,8 @@
 import 'bootstrap';
 import 'popper.js';
 import 'jquery-ui-bundle';
-//import '@fortawesome/fontawesome-free/js/all.js';
-//import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './style.css';
-import './my_first_sass.scss';
+import './style.scss';
 
 $(document).ready(() => {
     let clauses = $('#sql_pool_container span.clause, #sql_pool_container span.operator'); //get clauses tags from pool
@@ -19,7 +16,7 @@ $(document).ready(() => {
      * @param container - current <li> element in the sortable list of clauses
      */
     const addPlaceholder = (container) => {
-        let placeholder_button = $('<a title="add new tag" class="controls_add_button controls clause_tag clause controls_hide"><i>+</i></a>'); //template
+        let placeholder_button = $('<span title="add new tag" class="controls_add_button controls controls_hide">+</span>'); //template
 
         $(container).append(placeholder_button); //append template to the current <li>
 
@@ -84,7 +81,7 @@ $(document).ready(() => {
             $(`<input data-type="clause-value" type="text" class="value_input value_input_selected" placeholder="Enter value" value="${value ? value : ''}">`);
         const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide clause_tag">&times;</span>`);
         const value_tag = $(`<span class="value_tag_selected clause_tag">${value ? value : 'Enter value'}</span>`);
-        const li_item = $(`<li class="sortable_clauses pulse"></li>`);
+        const li_item = $(`<li class="clause_items pulse"></li>`);
 
         li_item.append(remove_clause_icon);
         li_item.append(value_tag);
@@ -154,37 +151,18 @@ $(document).ready(() => {
     };
 
     const buildClauseTagElement = (text, elem) => {
-        const clause_li_item = $(`<li class="sortable_clauses pulse"></li>`);
-        const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
-        const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide clause_tag">&times;</span>`);
+        const clause_li_item = $(`<li class="clause_items pulse"></li>`);
+        const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag">${text}</span>`);
+        const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide">&times;</span>`);
 
         clause_li_item.append(clause_tag);
         clause_li_item.append(remove_clause_icon);
 
         if ($(elem).is('.operator')) {
-            remove_clause_icon.addClass('operator_selected');
-            clause_tag.addClass('operator_selected');
-            clause_li_item.mouseover(()=> {
-                clause_tag.addClass('operator_selected_highlight');
-                remove_clause_icon.toggleClass('controls_hide');
-                clause_li_item.css({'z-index': '1000'});
-            });
-            clause_li_item.mouseout(()=> {
-                clause_tag.removeClass('operator_selected_highlight');
-                remove_clause_icon.toggleClass('controls_hide');
-                clause_li_item.css({'z-index': 'initial'});
-            });
+            clause_tag.addClass('operator');
+
         } else {
-            clause_li_item.mouseover(()=> {
-                clause_tag.addClass('clause_tag_selected_highlight');
-                remove_clause_icon.toggleClass('controls_hide');
-                clause_li_item.css({'z-index': '1000'});
-            });
-            clause_li_item.mouseout(()=> {
-                clause_tag.removeClass('clause_tag_selected_highlight');
-                remove_clause_icon.toggleClass('controls_hide');
-                clause_li_item.css({'z-index': 'initial'});
-            });
+            clause_tag.addClass('clause');
         }
 
         $(remove_clause_icon).click(() => {
@@ -271,7 +249,7 @@ $(document).ready(() => {
     });
 
     // init jquery-ui draggable, all item are draggable
-    $(clauses).draggable({
+    $(clauses, clause_value).draggable({
         connectToSortable: '#sql_input',
         helper: 'clone',
         revert: 'invalid',
