@@ -47,11 +47,11 @@ body {
 /***********************************************************************************************************************
 *main container for query input
 */
-#sql_input_container {
+#sql-input-container {
   border-bottom: 4px #658bff solid !important;
 }
 
-#sql_input {
+#sql-input {
   width: 100%;
   min-height: 60px;
   padding: 6px;
@@ -63,26 +63,26 @@ body {
   align-items: center;
 }
 
-.clause_items {
+.clause-items {
   margin: 5px 0 6px 0;
-  .clause_tag.clause {
+  .clause-tag.clause {
     @include tag-clause-selected($tag-clause-color);
   }
-  .clause_tag.operator {
+  .clause-tag.operator {
     @include tag-clause-selected($tag-operator-color);
   }
-  .clause_tag.value_tag {
+  .clause-tag.value-tag {
     @include tag-clause-selected($tag-value-color-text);
   }
   &:hover {
     z-index: 1000;
-    .clause_tag.clause {
+    .clause-tag.clause {
       @include tag-clause-highlight($tag-clause-color);
     }
-    .clause_tag.operator {
+    .clause-tag.operator {
       @include tag-clause-highlight($tag-operator-color)
     }
-    .clause_tag.value_tag {
+    .clause-tag.value-tag {
       @include tag-clause-highlight($tag-value-color, $tag-value-color-text);
     }
     .controls {
@@ -91,7 +91,7 @@ body {
   }
 }
 
-#sql_input li {
+#sql-input li {
   position: relative;
   border-radius: 0.25rem;
   margin-right: 8px;
@@ -100,7 +100,7 @@ body {
 /***********************************************************************************************************************
 *Custom clause value input element
 */
-.value_input {
+.value-input {
   transition: border .5s;
   height: 31px;
   background: #f4f1f5;
@@ -120,23 +120,12 @@ body {
   }
 }
 
-
-.value_tag {
+.value-tag {
   background-color: $tag-value-color;
   color: rgb(67, 67, 67);
   &:hover {
     background-color: $tag-value-color-hover;
   }
-}
-
-.value_tag_selected {
-  background-color: transparent;
-  color: rgb(67, 67, 67);
-}
-
-.value_tag_selected_highlight {
-  border-radius: 0 !important;
-  background-color: #bfbfbf;
 }
 
 /***********************************************************************************************************************
@@ -146,7 +135,7 @@ body {
   margin-bottom: 0;
 }
 
-.clause_tag {
+.clause-tag {
   @include clause-tag();
   &.clause {
     color: #fff;
@@ -163,26 +152,34 @@ body {
     }
   }
 }
+/*Placeholder for draggable items */
+.sort-placeholder {
+  border: 2px solid rgba(57, 157, 250, 0.29);
+  background-color: rgba(232, 232, 232, 0.52);
+  margin: 0 5px;
+  border-radius: 5px;
+}
 /******************************
-*Icon buttons for removing and adding tags
+*control buttons for removing and adding tags
 */
 .controls {
   color: #383838 !important;
   background-color: rgba(191, 191, 191, 0.70);
   position: absolute;
   text-align: center;
+  font-weight: bold;
   &:hover{
     background-color: rgb(191, 191, 191);
   }
 }
 
-.controls_remove_button {
+.controls-remove-button {
   @include clause-tag(0.25rem, 0, 0, .25rem);
   display: none;
   right: 100%;
 }
 
-.controls_add_button {
+.controls-add-button {
   @include clause-tag(0, 0.25rem, 0.25rem, 0);
   display: none;
 }
@@ -190,13 +187,13 @@ body {
 /***********************************************************************************************************************
 *Container with all provided tags
 */
-.sql_pool {
+.sql-pool {
   transition: background-color .5s;
   line-height: 50%;
   background: transparent;
 }
 
-.sql_pool span {
+.sql-pool span {
   margin-bottom: 10px;
 }
 
@@ -207,29 +204,29 @@ li {
 /***********************************************************************************************************************
 *Output highlighting
 */
-#sql_query_output span {
+#sql-query-output span {
   padding: 5px 5px;
 
 }
 
-.output_clause {
+.output-clause {
   font-weight: bold;
   color: #658bff;
 }
 
-.output_value {
+.output-value {
   color: gray;
 }
 
-.output_operator {
+.output-operator {
   font-weight: bold;
   color: #b37eff;
 }
 
-/***********************************************************************************************************************
-*Custom helper icons
+/*******************************************
+*icons
 */
-.icon_close_overlay {
+.icon-close-overlay {
   transition: color .5s;
   color: gray;
   padding: 6px;
@@ -238,19 +235,15 @@ li {
   /*top: -20px;*/
 }
 
-.icon_close_overlay:hover {
+.icon-close-overlay:hover {
   color: rgba(81, 148, 180, 0.51);
   cursor: pointer;
-}
-
-.on-top {
-  z-index: 1000 !important;
 }
 
 /*******************************************
 *Pool Overlay
 */
-.sql_pool_overlay {
+.sql-pool-overlay {
   display: none;
   position: absolute;
   top: 0;
@@ -260,24 +253,22 @@ li {
   height: auto;
 }
 
-.sql_pool_overlay_content {
+.sql-pool-overlay-content {
   border-top: 4px #658bff solid;
   border-bottom: 4px #658bff solid;
 }
 
-.sql_pool_overlay_content .clause_tag, .sql_pool_overlay_content .clause_value_container {
-  margin-bottom: 5px;
+.sql-pool-overlay-content {
+  .clause-tag {
+    margin-bottom: 5px;
+  }
+  .clause-value-container {
+    margin-bottom: 5px;
+  }
 }
 
 .alert {
   margin: 0;
-}
-
-.sort-placeholder {
-  border: 2px solid rgba(57, 157, 250, 0.29);
-  background-color: rgba(232, 232, 232, 0.52);
-  margin: 0 5px;
-  border-radius: 5px;
 }
 
 /*******************************************
@@ -293,13 +284,16 @@ li {
 
 @-webkit-keyframes pulse {
   0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+    -moz-box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.73);
+    box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
   }
   70% {
-    -webkit-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+    -moz-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
   }
   100% {
-    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
   }
 }
 
@@ -318,7 +312,7 @@ li {
   }
 }
 
-.selected_tag_controls_container {
+.selected-tag-controls-container {
   transition: opacity .5s;
   opacity: 0;
   border-radius: 0.25rem;
@@ -330,11 +324,11 @@ li {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
 }
 
-.selected_tag_container {
+.selected-tag-container {
   position: relative;
 }
 
-.clause_controls_placeholder {
+.clause-controls-placeholder {
   /*background-color: #bfbfbf;*/
   position: absolute;
   height: 100%;
