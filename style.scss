@@ -7,16 +7,17 @@ $tag-clause-color: #399dfa;
 $tag-clause-color-hover: #3888bb;
 $tag-operator-color: #b37eff;
 $tag-operator-color-hover: #8261b9;
-$tag-input-color: rgba(191, 191, 191, 0.70);
-$tag-input-color-hover: rgb(191, 191, 191);
+$tag-value-color: rgba(191, 191, 191, 0.70);
+$tag-value-color-text: #434343;
+$tag-value-color-hover: #BFBFBF;
 
 /***********************************************************************************************************************
 *mixins
 */
-@mixin tag-clause-highlight($bg-color) {
+@mixin tag-clause-highlight($bg-color, $color: white) {
   background-color: $bg-color;
   border-radius: 0;
-  color: white;
+  color: $color;
   font-weight: normal;
 }
 
@@ -70,8 +71,8 @@ body {
   .clause_tag.operator {
     @include tag-clause-selected($tag-operator-color);
   }
-  .clause_tag.value {
-    @include tag-clause-selected($tag-clause-color);
+  .clause_tag.value_tag {
+    @include tag-clause-selected($tag-value-color-text);
   }
   &:hover {
     z-index: 1000;
@@ -81,8 +82,8 @@ body {
     .clause_tag.operator {
       @include tag-clause-highlight($tag-operator-color)
     }
-    .clause_tag.value {
-      @include tag-clause-selected($tag-clause-color);
+    .clause_tag.value_tag {
+      @include tag-clause-highlight($tag-value-color, $tag-value-color-text);
     }
     .controls {
       display: inline-block;
@@ -100,9 +101,7 @@ body {
 *Custom clause value input element
 */
 .value_input {
-  left: 0;
   transition: border .5s;
-  width: 110px !important;
   height: 31px;
   background: #f4f1f5;
   border-bottom: 3px #bfbfbf solid;
@@ -110,27 +109,23 @@ body {
   border-left: none;
   border-right: none;
   padding-left: 10px;
-  display: inline;
   outline-width: 0;
-}
-
-.value_input_selected {
   left: 0;
   display: none;
   position: absolute;
   width: 100% !important;
+  &:focus {
+    border-bottom: 3px rgba(63, 174, 232, 0.85) solid ;
+    background: #f4f1f5;
+  }
 }
 
-.value_input:focus {
-  border-bottom: 3px rgba(63, 174, 232, 0.85) solid !important;
-  background: #f4f1f5 !important;
-}
 
 .value_tag {
-  background-color: $tag-input-color;
+  background-color: $tag-value-color;
   color: rgb(67, 67, 67);
   &:hover {
-    background-color: $tag-input-color-hover;
+    background-color: $tag-value-color-hover;
   }
 }
 

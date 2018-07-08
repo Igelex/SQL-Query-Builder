@@ -16,17 +16,9 @@ $(document).ready(() => {
      * @param container - current <li> element in the sortable list of clauses
      */
     const addPlaceholder = (container) => {
-        let placeholder_button = $('<span title="add new tag" class="controls_add_button controls controls_hide">+</span>'); //template
+        let placeholder_button = $('<span title="add new tag" class="controls_add_button controls">+</span>'); //template
 
         $(container).append(placeholder_button); //append template to the current <li>
-
-        container.mouseover(()=> {
-            placeholder_button.toggleClass('controls_hide');
-        });
-        container.mouseout(()=> {
-            placeholder_button.toggleClass('controls_hide');
-        });
-
         //on click displays a modal with clauses
         $(placeholder_button).click(() => {
             let overlay_position = input_container.offset(); // place modal under input container
@@ -80,21 +72,12 @@ $(document).ready(() => {
         const clause_value_input =
             $(`<input data-type="clause-value" type="text" class="value_input value_input_selected" placeholder="Enter value" value="${value ? value : ''}">`);
         const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide clause_tag">&times;</span>`);
-        const value_tag = $(`<span class="value_tag_selected clause_tag">${value ? value : 'Enter value'}</span>`);
+        const value_tag = $(`<span class="value_tag clause_tag">${value ? value : 'Enter value'}</span>`);
         const li_item = $(`<li class="clause_items pulse"></li>`);
 
         li_item.append(remove_clause_icon);
         li_item.append(value_tag);
         li_item.append(clause_value_input);
-
-        li_item.mouseover(()=> {
-            toggleElementClasses([remove_clause_icon, value_tag], ['controls_hide', 'value_tag_selected_highlight']);
-            li_item.css({'z-index': '1000'});
-        });
-        li_item.mouseout(()=> {
-            toggleElementClasses([remove_clause_icon, value_tag], ['controls_hide', 'value_tag_selected_highlight']);
-            li_item.css({'z-index': 'initial'});
-        });
 
         toggleValueInput(clause_value_input, value_tag);
 
@@ -120,18 +103,16 @@ $(document).ready(() => {
 
         span.dblclick(() => {
             span.css({'visibility': 'hidden'});
-            input.fadeToggle().toggleClass('on-top')/*.val(span.text())*/;
-            input.focus();
+            input.fadeToggle().focus();
         });
 
         input.blur(() => {
-
             if (!input.val() || input.val() === '') {
                 return;
             }
             span.text(input.val());
             span.css({'visibility': 'visible'});
-            input.fadeToggle().toggleClass('on-top');
+            input.fadeToggle();
             updateOutput();
         });
 
@@ -153,7 +134,7 @@ $(document).ready(() => {
     const buildClauseTagElement = (text, elem) => {
         const clause_li_item = $(`<li class="clause_items pulse"></li>`);
         const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag">${text}</span>`);
-        const remove_clause_icon = $(`<span class="controls_remove_button controls controls_hide">&times;</span>`);
+        const remove_clause_icon = $(`<span class="controls_remove_button controls">&times;</span>`);
 
         clause_li_item.append(clause_tag);
         clause_li_item.append(remove_clause_icon);
