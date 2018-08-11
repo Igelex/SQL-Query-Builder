@@ -1,8 +1,6 @@
-import 'bootstrap';
-import 'popper.js';
 import 'jquery-ui-bundle';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.scss';
+import 'normalize.css';
 
 $(document).ready(() => {
     let clauses = $('#sql-pool-container span.clause, #sql-pool-container span.operator'); //get clauses tags from pool
@@ -154,7 +152,7 @@ $(document).ready(() => {
     };
 
     /**
-     * This method biuld SQL query string and show it in output container, calls avery time if user make some changes in
+     * This method build SQL query string and show it in output container, calls avery time if user make some changes in
      * input
      */
     const updateOutput = () => {
