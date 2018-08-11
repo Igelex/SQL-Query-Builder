@@ -35,15 +35,30 @@ for (let i in tags) {
 query_builder_tags_container.append(query_builder_tags_clauses);
 query_builder_tags_container.append(query_builder_tags_operators);
 
+query_builder_container.append(query_builder_tags_container);
+query_builder_container.append(query_builder_output_container);
+
+$('body').append(query_builder_container);
+
 
 function appendValueTag(name, index) {
     query_builder_tags_clauses.append(`<span data-clause-id="${index}" class="value-tag clause-tag">${name}</span>`);
 }
 
 function appendClauseTag(name, index) {
+    name = name.toUpperCase();
     query_builder_tags_clauses.append(`<span data-clause-id="${index}" class="clause-tag clause">${name}</span>`);
 }
 
 function appendOperatorTag(name, index) {
+    name = name.toUpperCase();
     query_builder_tags_operators.append(`<span data-clause-id="${index}" class="clause-tag operator">${name}</span>`);
+}
+
+function init(container = null) {
+    if (container) {
+        $(container).append(query_builder_container);
+    } else {
+
+    }
 }

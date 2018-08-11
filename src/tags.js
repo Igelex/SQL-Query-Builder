@@ -96,32 +96,27 @@ const tags = [
     {
         type: 'operator',
         block: false,
-        name: '<)'
+        name: '<'
     },
     {
         type: 'operator',
         block: false,
-        name: '>)'
+        name: '>'
     },
     {
         type: 'operator',
         block: false,
-        name: '<=)'
+        name: '<='
     },
     {
         type: 'operator',
         block: false,
-        name: '>=)'
+        name: '>='
     },
     {
         type: 'operator',
         block: false,
         name: '+'
-    },
-    {
-        type: 'operator',
-        block: false,
-        name: '('
     },
     {
         type: 'operator',
