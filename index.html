@@ -7,64 +7,57 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
           integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <title>SQL Builder</title>
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            min-width: 100vw;
+        }
+        .test {
+            width: 100%;
+            height: 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #sqlqb {
+            width: 70%;
+            margin: 0 auto;
+            min-height: 45%;
+        }
+        button {
+            font-size: 1.5rem !important;
+            font-weight: bold;
+            border: transparent;
+            border-radius: 25px;
+            height: 50px;
+            padding: 0 20px;
+            color: white;
+            background: #399dfa;
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
+        }
+
+        #divider {
+            height: 10%;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
-<!--
-<div id="query-builder-container">
-    <div id="query-builder-input-container">
-
-        <ul id="query-builder-input" class=""></ul>
-
-    </div>
-
-    <div id="query-builder-tags-container">
-
-        <div id="query-builder-tags-clauses" class="sql-pool">
-            <h4 class="mb-4">Clauses</h4>
-            <span class="value-tag clause-tag">Enter value</span>
-            <span data-type="clause-select-block" class="clause-tag clause">SELECT</span>
-            <span data-type="clause-from-block" class="clause-tag clause">FROM</span>
-            <span data-type="clause-where-block" class="clause-tag clause">WHERE</span>
-            <span data-type="clause-distinct" class="clause-tag clause">DISTINCT </span>
-            <span data-type="clause-count-block" class="clause-tag clause">COUNT</span>
-            <span data-type="clause-limit-block" class="clause-tag clause">LIMIT</span>
-            <span data-type="clause-orderby-block" class="clause-tag clause">ORDER BY</span>
-            <span data-type="clause-asc" class="clause-tag clause">ASC</span>
-            <span data-type="clause-desc" class="clause-tag clause">DESC</span>
-            <span data-type="clause-having-block" class="clause-tag clause">HAVING</span>
-            <span data-type="clause-sum" class="clause-tag clause">SUM</span>
-            <span data-type="clause-avg" class="clause-tag clause">AVG</span>
-            <span data-type="clause-min" class="clause-tag clause">MIN</span>
-            <span data-type="clause-max" class="clause-tag clause">MAX</span>
-        </div>
-        <div id="query-builder-tags-operators" class="sql-pool">
-            <h4 class="mb-4">Operators</h4>
-            <span data-type="operator-not" class="clause-tag operator">NOT</span>
-            <span data-type="operator-isnotnull" class="clause-tag operator">IS NOT NULL</span>
-            <span data-type="operator-innull" class="clause-tag operator">IS NULL</span>
-            <span data-type="operator-and-block" class="clause-tag operator">AND</span>
-            <span data-type="operator-bracel" class="clause-tag operator">(</span>
-            <span data-type="operator-bracer" class="clause-tag operator">)</span>
-            <span data-type="operator-or" class="clause-tag operator">OR</span>
-            <span data-type="operator-eq" class="clause-tag operator">==</span>
-            <span data-type="operator-gt" class="clause-tag operator">&gt;</span>
-            <span data-type="operator-lt" class="clause-tag operator">&lt;</span>
-            <span data-type="operator-get" class="clause-tag operator">&gt;=</span>
-            <span data-type="operator-let" class="clause-tag operator">&lt;=</span>
-            <span data-type="operator-universal" class="clause-tag operator">*</span>
-        </div>
-    </div>
-
-    <div id="query-builder-output-container" class="">
-
-        <div class="alert alert-secondary">
-            <i id="query-builder-copy-icon" class="far fa-copy fa-lg icon-close-overlay"></i>
-            <div id="query-builder-output">OUTPUT</div>
-        </div>
-
-    </div>
+<div class="test">
+    <button>SHOW BUILDER</button>
 </div>
--->
+
+<div id="divider">OR JUST USE IN FLOW</div>
+
+<div id="sqlqb"></div>
 
 <div class="sql-pool-overlay">
     <div class="container">

@@ -39,7 +39,7 @@ query_builder_tags_container.append(query_builder_tags_operators);
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
-$('body').append(query_builder_container);
+//$('body').append(query_builder_container);
 
 //Add initial Clauses
 /*inputClauseTag(1);
@@ -79,7 +79,7 @@ function appendOperatorTag(name, index) {
     query_builder_tags_operators.append(clause);
 }
 
-function init(container = null) {
+export function init(container = null) {
     if (container) {
         $(container).append(query_builder_container);
     } else {

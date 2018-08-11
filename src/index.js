@@ -1,10 +1,14 @@
 import 'jquery-ui-bundle';
-import './styles/containers.scss';
-import './style.scss';
+import '../styles/containers.scss';
+import '../styles/style.scss';
 import 'normalize.css';
-import './src/init_layout';
+import {init} from './init_layout';
+export function showBuilder(container) {
+    init(container);
+}
 
 $(document).ready(() => {
+
     let clauses = $('#query-builder-tags-clauses span.clause, #query-builder-tags-operators span.operator'); //get clauses tags from pool
     let clause_value = $('#query-builder-tags-clauses .value-tag');  // get clause value input fields
     let input_container = $('#query-builder-input'); // container for building sql queries, all tag will be placed here
@@ -245,7 +249,7 @@ $(document).ready(() => {
             //if prev is <li>, elements was dropped in input container, that means a new element must be added
             if (current_elem.parent().is('#query-builder-input')) {
                 let new_elem;
-                if (current_elem.is('span.clause')) {
+                if (current_elem.is('span.clause-tag')) {
                     new_elem = buildClauseTagElement(current_elem.text(), current_elem); // add new clause tag
                 } else {
                     new_elem = buildClauseValueInputElement('', current_elem); // else add new value input

@@ -8,7 +8,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: './index.js',
+        index: './src/index.js',
+        src: './test'
     },
     output: {
         filename: '[name].js',
