@@ -3,6 +3,8 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -31,6 +33,7 @@ module.exports = {
     devtool: NODE_ENV === 'development' ? 'source-map' : null,
 
     plugins: [
+        new CleanWebpackPlugin('dist', {} ),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
@@ -45,6 +48,10 @@ module.exports = {
             jQuery: 'jquery',
             "window.jQuery": "jquery'",
             "window.$": "jquery"
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].css"
         })
     ],
 
@@ -56,6 +63,15 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                 }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    // fallback to style-loader in development
+                    process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader"
+                ]
             },
             {
                 test: /\.css$/,

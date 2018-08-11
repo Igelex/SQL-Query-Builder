@@ -1,39 +1,29 @@
 import 'bootstrap';
 import 'popper.js';
 import 'jquery-ui-bundle';
-//import '@fortawesome/fontawesome-free/js/all.js';
-//import '@fortawesome/fontawesome-free/css/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './style.css';
+import './style.scss';
 
 $(document).ready(() => {
-    let clauses = $('#sql_pool_container span.clause_tag'); //get clauses tags from pool
-    let clause_value = $('#sql_pool_container .clause_value');  // get clause value input fields
-    let input_container = $('#sql_input'); // container for building sql queries, all tag will be placed here
+    let clauses = $('#sql-pool-container span.clause, #sql-pool-container span.operator'); //get clauses tags from pool
+    let clause_value = $('#sql-pool-container .value-tag');  // get clause value input fields
+    let input_container = $('#sql-input'); // container for building sql queries, all tag will be placed here
     let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
-    let overlay = $('.sql_pool_overlay'); // modal with clauses
+    let overlay = $('.sql-pool-overlay'); // modal with clauses
 
     /**
      * Adds a plus button between clauses in @input_container, that allows adding clauses between clauses on click
      * @param container - current <li> element in the sortable list of clauses
      */
     const addPlaceholder = (container) => {
-        let placeholder_button = $('<a data-toggle="tooltip" title="hello" class="clause_placeholder"><i>+</i></a>'); //template
+        let placeholder_button = $('<span title="add new tag" class="controls-add-button controls">+</span>'); //template
 
         $(container).append(placeholder_button); //append template to the current <li>
-
-        //define events for the @placeholder_button
-        placeholder_button.mouseover(() => {
-            $(placeholder_button).find('i').css({'visibility': 'visible'}); //show the button only on hover
-        });
-        placeholder_button.mouseout(() => {
-            $(placeholder_button).find('i').css({'visibility': 'hidden'});
-        });
         //on click displays a modal with clauses
         $(placeholder_button).click(() => {
             let overlay_position = input_container.offset(); // place modal under input container
             current_clause_tag_placeholder = container; // save <li> globally, is needed to find position where new tag must be placed
-            overlay.css({'top': overlay_position.top + input_container.outerHeight()});//// place modal under input container
+            overlay.css({'top': overlay_position.top + input_container.outerHeight()});// place modal under input container
             overlay.fadeIn(300); // show modal
         });
     };
@@ -41,10 +31,10 @@ $(document).ready(() => {
     /**
      * Defines click event for all clauses in modal, that adds a tag/input by clicking placeholder button between clauses
      */
-    $('.sql_pool_overlay span.clause_tag').each(function () {
+    $('.sql-pool-overlay span.clause, .sql-pool-overlay span.operator').each(function () {
         $(this).click(function () {
             let clause_tag = buildClauseTagElement($(this).text(), this); //builds new tag
-            clause_tag.addClass('disp-none pulse');
+            clause_tag.addClass('pulse');
             clause_tag.insertAfter(current_clause_tag_placeholder); //inserts new tag to the DOM
             addPlaceholder(current_clause_tag_placeholder.next()); // adds placeholder button
             clause_tag.fadeIn(1000);
@@ -52,10 +42,14 @@ $(document).ready(() => {
             updateOutput(); // update SQL query output
         });
     });
-    $('.sql_pool_overlay .clause_value').click(() => {
-        let clause_value_input = buildClauseValueInputElement($(this).text(), this);
+    $('.sql-pool-overlay .icon-close-overlay').click( () => {
+        $('.sql-pool-overlay').fadeOut(300);
+    });
+
+    $('.sql-pool-overlay .value-tag').click(() => {
+        let clause_value_input = buildClauseValueInputElement();
         clause_value_input.insertAfter(current_clause_tag_placeholder);
-        addPlaceholder(current_clause_tag_placeholder.next());
+        addPlaceholder(clause_value_input);
         overlay.fadeOut(300, () => overlay.offset({top: 0, left: 0}));//fade out and reset position of overlay
         updateOutput();
     });
@@ -65,42 +59,67 @@ $(document).ready(() => {
      * @param value - optional value, that can be displayed in input
      * @param elem -
      */
-    const addClauseValueInput = (value = "", elem) => {
+    const addClauseValueInput = (value, elem) => {
         let clause_value_input = buildClauseValueInputElement(value, elem);
-
         input_container.append(clause_value_input);
         addPlaceholder(clause_value_input);
         updateOutput();
     };
 
-    const buildClauseValueInputElement = (value = "", elem) => {
-        const clause_value_container =
-            $(`<div class="clause_value_container">
-                <input data-type="${$(elem).attr('data-type')}" type="text" class="value_input clause_tag_selected" placeholder="Enter value" value="${value}">
-              </div>`);
-        const remove_clause_icon = $(`<span class="remove_clause">&times;</span>`);
-        const li_item = $(`<li class="sortable_clauses pulse"></li>`);
+    const buildClauseValueInputElement = (value = '') => {
+        const clause_value_input =
+            $(`<input data-type="clause-value" type="text" class="value-input value-input-selected" placeholder="Enter value" value="${value ? value : ''}">`);
+        const remove_clause_icon = $(`<span class="controls-remove-button controls controls-hide clause-tag">&times;</span>`);
+        const value_tag = $(`<span class="value-tag clause-tag">${value ? value : 'Enter value'}</span>`);
+        const li_item = $(`<li class="clause-items pulse"></li>`);
 
-        clause_value_container.append(remove_clause_icon);
-        li_item.append(clause_value_container);
+        li_item.append(remove_clause_icon);
+        li_item.append(value_tag);
+        li_item.append(clause_value_input);
 
-        remove_clause_icon.dblclick(() => {
+        toggleValueInput(clause_value_input, value_tag);
+
+        remove_clause_icon.click(() => {
             li_item.fadeOut(300, () => {
                 li_item.remove();
                 updateOutput();
             });
         });
 
-        let value_input = li_item.find('.value_input');
-        value_input.focus();
-        value_input.blur(() => {
+        clause_value_input.focus();
+        clause_value_input.blur(() => {
             updateOutput();
         });
-        value_input.keypress(() => {
+        clause_value_input.keypress(() => {
             //setTimeout(100, updateOutput());
             updateOutput();
         });
         return li_item;
+    };
+
+    const toggleValueInput = (input, span) => {
+
+        span.dblclick(() => {
+            span.css({'visibility': 'hidden'});
+            input.fadeToggle().focus();
+        });
+
+        input.blur(() => {
+            if (!input.val() || input.val() === '') {
+                return;
+            }
+            span.text(input.val());
+            span.css({'visibility': 'visible'});
+            input.fadeToggle();
+            updateOutput();
+        });
+
+        if (span.text() === 'Enter value') {
+            span.css({'visibility': 'hidden'});
+            input.css({'display': 'inline'});
+            input.focus();
+        }
+
     };
 
     const addClause = (text, elem) => {
@@ -111,21 +130,26 @@ $(document).ready(() => {
     };
 
     const buildClauseTagElement = (text, elem) => {
-        const clause_li_item = $(`<li class="sortable_clauses pulse"></li>`);
-        const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause_tag clause_tag_selected">${text}</span>`);
-        const remove_clause_icon = $(`<span class="remove_clause clause_tag">&times;</span>`);
+        const clause_li_item = $(`<li class="clause-items pulse"></li>`);
+        const clause_tag = $(`<span data-type="${$(elem).attr('data-type')}" class="clause-tag">${text}</span>`);
+        const remove_clause_icon = $(`<span class="controls-remove-button controls">&times;</span>`);
+
+        clause_li_item.append(clause_tag);
+        clause_li_item.append(remove_clause_icon);
+
         if ($(elem).is('.operator')) {
-            remove_clause_icon.addClass('operator');
             clause_tag.addClass('operator');
+
+        } else {
+            clause_tag.addClass('clause');
         }
+
         $(remove_clause_icon).click(() => {
             $(clause_li_item).fadeOut(300, () => {
                 clause_li_item.remove();
                 updateOutput();
             });
         });
-        clause_li_item.append(clause_tag);
-        clause_li_item.append(remove_clause_icon);
         return clause_li_item;
     };
 
@@ -134,7 +158,7 @@ $(document).ready(() => {
      * input
      */
     const updateOutput = () => {
-        let output_container = $('#sql_query_output');
+        let output_container = $('#sql-query-output');
         output_container.empty(); //clear container
 
         //TODO: change that for DIVA
@@ -149,9 +173,9 @@ $(document).ready(() => {
                 elem.addClass('output_value');
             } else {
                 if ($(item).is('[data-type^="operator"]')) {
-                    elem.addClass('output_operator');
+                    elem.addClass('output-operator');
                 } else {
-                    elem.addClass('output_clause');
+                    elem.addClass('output-clause');
                 }
                 elem.text($(item).text());
             }
@@ -160,7 +184,7 @@ $(document).ready(() => {
                 elem.before('<br>');
             }
         });
-        output_container.append('<span class="output_clause">;</span>'); // close query with ;
+        output_container.append('<span class="output-clause">;</span>'); // close query with ;
     };
 
     //Add initial Clauses
@@ -186,7 +210,12 @@ $(document).ready(() => {
     // init jquery-ui sortable
     $(input_container).sortable({
         revert: true,
-        stop: () => {
+        start: ( event, ui ) => {
+            console.log($(ui.helper[0]));
+            $(ui.helper[0]).css({'opacity': '0.5'});
+        },
+        stop: (event, ui) => {
+            $(ui.item).css({'opacity': '1'});
             updateOutput();
         },
         tolerance: "intersect",
@@ -198,20 +227,23 @@ $(document).ready(() => {
     });
 
     // init jquery-ui draggable, all item are draggable
-    $(clauses).draggable({
-        connectToSortable: '#sql_input',
+    $(clauses, clause_value).draggable({
+        connectToSortable: '#sql-input',
         helper: 'clone',
         revert: 'invalid',
         revertDuration: 300,
         delay: 150,
-
+        start: ( event, ui ) => {
+            console.log($(ui.helper[0]));
+            $(ui.helper[0]).css({'opacity': '0.5'});
+        },
         // creates new element on drop
         stop: (event, ui) => {
 
             let current_elem = $(ui.helper[0]); //clone of dragged element
 
             //if prev is <li>, elements was dropped in input container, that means an new element must be added
-            if (current_elem.prev().is('li')) {
+            if (current_elem.parent().is('#sql-input')) {
                 let new_elem;
                 if (current_elem.is('span')) {
                     new_elem = buildClauseTagElement(current_elem.text(), current_elem); // add new clause tag
@@ -233,10 +265,10 @@ $(document).ready(() => {
     /**
      * copy SQL query output to the clipboard
      */
-    $('.icon').click(() => {
+    $('.icon-close-overlay').click(() => {
         let copied_text = '';
 
-        $('#sql_query_output span').each((i, item) => {
+        $('#sql-query-output span').each((i, item) => {
             copied_text += `${item.textContent.trim()} `; // get text of all spans in output
         });
         let hidden_input = $('<input type="text">');//create input element to copy text to clipboard
@@ -249,6 +281,12 @@ $(document).ready(() => {
         }
         hidden_input.remove();
     });
+
+    const toggleElementClasses = (elems, toggle_classes) => {
+        $(elems).each((i, elem) => {
+           elem.toggleClass(toggle_classes[i]);
+        });
+    };
 
     //SELECT 1,2 FROM users WHERE id <= 5 AND age >= 25 AND (name = 'some_name' OR name = ''another_name)
     let query = {
@@ -343,6 +381,6 @@ $(document).ready(() => {
         ]
 }*/
 
-    console.log(query.where[0].and);
+   //console.log(query.where[0].and);
 });
 
