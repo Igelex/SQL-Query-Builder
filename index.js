@@ -1,11 +1,12 @@
 import 'jquery-ui-bundle';
+import './styles/containers.scss';
 import './style.scss';
 import 'normalize.css';
 
 $(document).ready(() => {
     let clauses = $('#sql-pool-container span.clause, #sql-pool-container span.operator'); //get clauses tags from pool
     let clause_value = $('#sql-pool-container .value-tag');  // get clause value input fields
-    let input_container = $('#sql-input'); // container for building sql queries, all tag will be placed here
+    let input_container = $('#query-builder-input'); // container for building sql queries, all tag will be placed here
     let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
     let overlay = $('.sql-pool-overlay'); // modal with clauses
 
@@ -156,7 +157,7 @@ $(document).ready(() => {
      * input
      */
     const updateOutput = () => {
-        let output_container = $('#sql-query-output');
+        let output_container = $('#query-builder-output');
         output_container.empty(); //clear container
 
         //TODO: change that for DIVA
@@ -263,10 +264,10 @@ $(document).ready(() => {
     /**
      * copy SQL query output to the clipboard
      */
-    $('.icon-close-overlay').click(() => {
+    $('#query-builder-copy-icon').click(() => {
         let copied_text = '';
 
-        $('#sql-query-output span').each((i, item) => {
+        $('#query-builder-output span').each((i, item) => {
             copied_text += `${item.textContent.trim()} `; // get text of all spans in output
         });
         let hidden_input = $('<input type="text">');//create input element to copy text to clipboard
