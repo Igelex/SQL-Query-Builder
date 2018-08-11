@@ -2,10 +2,11 @@ import 'jquery-ui-bundle';
 import './styles/containers.scss';
 import './style.scss';
 import 'normalize.css';
+import './src/init_layout';
 
 $(document).ready(() => {
-    let clauses = $('#sql-pool-container span.clause, #sql-pool-container span.operator'); //get clauses tags from pool
-    let clause_value = $('#sql-pool-container .value-tag');  // get clause value input fields
+    let clauses = $('#query-builder-tags-clauses span.clause, #query-builder-tags-operators span.operator'); //get clauses tags from pool
+    let clause_value = $('#query-builder-tags-clauses .value-tag');  // get clause value input fields
     let input_container = $('#query-builder-input'); // container for building sql queries, all tag will be placed here
     let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
     let overlay = $('.sql-pool-overlay'); // modal with clauses
@@ -241,7 +242,7 @@ $(document).ready(() => {
 
             let current_elem = $(ui.helper[0]); //clone of dragged element
 
-            //if prev is <li>, elements was dropped in input container, that means an new element must be added
+            //if prev is <li>, elements was dropped in input container, that means a new element must be added
             if (current_elem.parent().is('#sql-input')) {
                 let new_elem;
                 if (current_elem.is('span')) {
