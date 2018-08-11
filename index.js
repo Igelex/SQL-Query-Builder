@@ -243,9 +243,9 @@ $(document).ready(() => {
             let current_elem = $(ui.helper[0]); //clone of dragged element
 
             //if prev is <li>, elements was dropped in input container, that means a new element must be added
-            if (current_elem.parent().is('#sql-input')) {
+            if (current_elem.parent().is('#query-builder-input')) {
                 let new_elem;
-                if (current_elem.is('span')) {
+                if (current_elem.is('span.clause')) {
                     new_elem = buildClauseTagElement(current_elem.text(), current_elem); // add new clause tag
                 } else {
                     new_elem = buildClauseValueInputElement('', current_elem); // else add new value input
