@@ -1,4 +1,5 @@
 import {tags} from './tags';
+import {inputValueTag, inputClauseTag} from './input';
 
 const query_builder_container = $(
     `<div id="query-builder-container">
@@ -40,19 +41,42 @@ query_builder_container.append(query_builder_output_container);
 
 $('body').append(query_builder_container);
 
+//Add initial Clauses
+/*inputClauseTag(1);
+inputValueTag('first_name');
+inputValueTag('last_name');
+inputClauseTag(2);
+inputValueTag('users');
+inputClauseTag(3);*/
+
 
 function appendValueTag(name, index) {
-    query_builder_tags_clauses.append(`<span data-clause-id="${index}" class="value-tag clause-tag">${name}</span>`);
+    const clause = $(`<span data-clause-id="${index}" class="value-tag clause-tag">${name}</span>`);
+    /*clause.click(() => {
+        console.warn(index);
+        inputValueTag();
+    });*/
+    query_builder_tags_clauses.append(clause);
 }
 
 function appendClauseTag(name, index) {
     name = name.toUpperCase();
-    query_builder_tags_clauses.append(`<span data-clause-id="${index}" class="clause-tag clause">${name}</span>`);
+    const clause = $(`<span data-clause-id="${index}" class="clause-tag clause">${name}</span>`);
+    /*clause.click(() => {
+        console.warn(index);
+        inputClauseTag(index);
+    });*/
+    query_builder_tags_clauses.append(clause);
 }
 
 function appendOperatorTag(name, index) {
     name = name.toUpperCase();
-    query_builder_tags_operators.append(`<span data-clause-id="${index}" class="clause-tag operator">${name}</span>`);
+    const clause = $(`<span data-clause-id="${index}" class="clause-tag operator">${name}</span>`);
+    /*clause.click(() => {
+        console.warn(index);
+        inputClauseTag(index);
+    });*/
+    query_builder_tags_operators.append(clause);
 }
 
 function init(container = null) {

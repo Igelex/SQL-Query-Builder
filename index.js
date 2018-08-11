@@ -227,8 +227,8 @@ $(document).ready(() => {
     });
 
     // init jquery-ui draggable, all item are draggable
-    $(clauses, clause_value).draggable({
-        connectToSortable: '#sql-input',
+    $('#query-builder-tags-container span').draggable({
+        connectToSortable: '#query-builder-input',
         helper: 'clone',
         revert: 'invalid',
         revertDuration: 300,
@@ -282,12 +282,6 @@ $(document).ready(() => {
         hidden_input.remove();
     });
 
-    const toggleElementClasses = (elems, toggle_classes) => {
-        $(elems).each((i, elem) => {
-           elem.toggleClass(toggle_classes[i]);
-        });
-    };
-
     //SELECT 1,2 FROM users WHERE id <= 5 AND age >= 25 AND (name = 'some_name' OR name = ''another_name)
     let query = {
         select:
@@ -317,12 +311,12 @@ $(document).ready(() => {
                 {
                     and: [
                         {
-                        condition:
-                            {
-                            val1: '',
-                            val2: '',
-                            operator: 'eq'
-                            }
+                            condition:
+                                {
+                                    val1: '',
+                                    val2: '',
+                                    operator: 'eq'
+                                }
                         },
                         {
                             condition: {
@@ -331,56 +325,55 @@ $(document).ready(() => {
                                 operator: 'eq'
                             }
                         },
-                    {clause: 'or'}
+                        {clause: 'or'}
                     ]
                 }
             ]
     }
 
-/*let query = {
-    select:
-        {
-            values: ['1', '2']
-        }
-    ,
-    from: 'users',
-    where:
-        [
+    /*let query = {
+        select:
             {
-                condition:{
-                    value1: 'id',
-                    operator: 'eql',
-                    value2: '5'
-                }
-            },
-            {
-                and: {
-                    value1: 'age',
-                    operator: 'eqg',
-                    value2: '25',
-                    clause:{}
+                values: ['1', '2']
+            }
+        ,
+        from: 'users',
+        where:
+            [
+                {
+                    condition:{
+                        value1: 'id',
+                        operator: 'eql',
+                        value2: '5'
+                    }
+                },
+                {
+                    and: {
+                        value1: 'age',
+                        operator: 'eqg',
+                        value2: '25',
+                        clause:{}
 
-                }
-            },
-            {
-                and: {
-                    value1: '',
-                    operator: '',
-                    value2: '',
-                    clause:{
-                        or: {
-                            value1: 'name',
-                            operator: 'eq',
-                            value2: 'v2',
-                            clause:{}
+                    }
+                },
+                {
+                    and: {
+                        value1: '',
+                        operator: '',
+                        value2: '',
+                        clause:{
+                            or: {
+                                value1: 'name',
+                                operator: 'eq',
+                                value2: 'v2',
+                                clause:{}
 
+                            }
                         }
                     }
                 }
-            }
-        ]
-}*/
+            ]
+    }*/
 
-   //console.log(query.where[0].and);
+    //console.log(query.where[0].and);
 });
-
