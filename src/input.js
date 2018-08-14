@@ -3,26 +3,25 @@ import {tags} from './tags';
 let input_container = $('#query-builder-input'); // container for building sql queries, all tags will be placed here
 let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
 
-
-/**appends new value tag to input container
- * @param name - text for input
- */
-export function inputValueTag(name) {
-    addClauseValueInput(name);
-}
-
-export function inputClauseTag(index) {
-    addClause(index);
-}
-
-const addClause = (index) => {
-    let clause_tag = buildClauseTagElement(index);
+export const inputClauseElement = (index) => {
+    let clause_tag = buildClauseElement(index);
     input_container.append(clause_tag);
-    addPlusControl(clause_tag);
+    appendPlusControl(clause_tag);
     //updateOutput();
 };
 
-const buildClauseTagElement = (index) => {
+/**
+ * Adds new clause value input to the input container
+ * @param name - optional value, that can be displayed in input
+ */
+export const inputClauseValueElement = (name) => {
+    let clause_value_input = buildClauseValueElement(name);
+    input_container.append(clause_value_input);
+    appendPlusControl(clause_value_input);
+    //updateOutput();
+};
+
+const buildClauseElement = (index) => {
     const clause_li_item = $(`<li class="clause-items pulse"></li>`);
     const clause_tag = $(`<span data-clause-id="${index}" class="clause-tag clause">${tags[index].name}</span>`);
     const remove_clause_icon = $(`<span class="controls-remove-button controls">&times;</span>`);
@@ -44,19 +43,7 @@ const buildClauseTagElement = (index) => {
     return clause_li_item;
 };
 
-
-/**
- * Adds new clause value input to the input container
- * @param name - optional value, that can be displayed in input
- */
-const addClauseValueInput = (name) => {
-    let clause_value_input = buildClauseValueInputElement(name);
-    input_container.append(clause_value_input);
-    addPlusControl(clause_value_input);
-    //updateOutput();
-};
-
-const buildClauseValueInputElement = (name = '') => {
+const buildClauseValueElement = (name = '') => {
     const clause_value_input =
         $(`<input data-type="clause-value" type="text" class="value-input value-input-selected" placeholder="Enter value" value="${name ? name : ''}">`);
     const remove_clause_icon = $(`<span class="controls-remove-button controls controls-hide clause-tag">&times;</span>`);
@@ -88,7 +75,7 @@ const buildClauseValueInputElement = (name = '') => {
 };
 
 /**
- * Hide or show input field on dbclick
+ * Hide or show input field on dbclick/unfocused
  * @param input
  * @param span
  */
@@ -121,7 +108,7 @@ const toggleValueInput = (input, span) => {
  * Adds a plus button between clauses in @input_container, that allows adding clauses between clauses on click
  * @param container - current <li> element in the sortable list of clauses
  */
-const addPlusControl = (container) => {
+const appendPlusControl = (container) => {
     let placeholder_button = $('<span title="add new tag" class="controls-add-button controls">+</span>'); //template
 
     $(container).append(placeholder_button); //append template to the current <li>
