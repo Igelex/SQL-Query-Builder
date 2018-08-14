@@ -201,16 +201,16 @@ function fn () {
     addClause('WHERE', clauses[2]);*/
 
 // set initial onclick event for the value input in clauses pool, on click input will be added to the input container
-    clause_value.click(() => {
+    /*clause_value.click(() => {
         addClauseValueInput();
-    });
+    });*/
 
 // set initial onclick event for each clause tag in clauses pool, on click tag will be added to the input container
-    $(clauses).each(function () {
+    /*$(clauses).each(function () {
         $(this).click(function () {
             addClause($(this).text(), this);
         });
-    });
+    });*/
 
 // init jquery-ui sortable
     $(input_container).sortable({

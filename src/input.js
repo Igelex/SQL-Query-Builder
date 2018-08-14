@@ -1,13 +1,12 @@
 import {tags} from './tags';
 
-let input_container = $('#query-builder-input'); // container for building sql queries, all tags will be placed here
 let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
 
 export const inputClauseElement = (index) => {
     let clause_tag = buildClauseElement(index);
-    input_container.append(clause_tag);
     appendPlusControl(clause_tag);
     //updateOutput();
+    return clause_tag;
 };
 
 /**
@@ -16,14 +15,14 @@ export const inputClauseElement = (index) => {
  */
 export const inputClauseValueElement = (name) => {
     let clause_value_input = buildClauseValueElement(name);
-    input_container.append(clause_value_input);
     appendPlusControl(clause_value_input);
     //updateOutput();
+    return clause_value_input;
 };
 
 const buildClauseElement = (index) => {
     const clause_li_item = $(`<li class="clause-items pulse"></li>`);
-    const clause_tag = $(`<span data-clause-id="${index}" class="clause-tag clause">${tags[index].name}</span>`);
+    const clause_tag = $(`<span data-clause-id="${index}" class="clause-tag clause">${tags[index].name.toUpperCase()}</span>`);
     const remove_clause_icon = $(`<span class="controls-remove-button controls">&times;</span>`);
 
     clause_li_item.append(clause_tag);

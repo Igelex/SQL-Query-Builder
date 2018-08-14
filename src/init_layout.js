@@ -3,10 +3,10 @@ import {inputClauseElement, inputClauseValueElement} from './input';
 
 const query_builder_container = $(
     `<div id="query-builder-container">
-        <div id="query-builder-input-container">
-            <ul id="query-builder-input" class=""></ul>
-         </div>        
+               
     </div>`),
+    query_builder_input_container = $(`<div id="query-builder-input-container"></div> `),
+    query_builder_input = $(`<ul id="query-builder-input" class=""></ul>`),
     query_builder_tags_container = $(`<div id="query-builder-tags-container"></div>`),
     query_builder_tags_clauses = $(`<div id="query-builder-tags-clauses"><h4 class="mb-4">Clauses</h4></div>`),
     query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4 class="mb-4">Operators</h4></div>`),
@@ -17,6 +17,9 @@ const query_builder_container = $(
                 <div id="query-builder-output">OUTPUT</div>
             </div>
         </div>`);
+
+query_builder_input_container.append(query_builder_input);
+query_builder_container.append(query_builder_input_container);
 
 for (let i in tags) {
     let tag = tags[i];
@@ -39,6 +42,8 @@ query_builder_tags_container.append(query_builder_tags_operators);
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
+let input_container = $('#query-builder-input'); // container for building sql queries, all tags will be placed here
+
 initDragAndDrop();//Make Elements interactive
 
 //Add initial Clauses
@@ -54,7 +59,7 @@ function appendClauseValueElement(name, index) {
     const clause = $(`<span data-clause-id="${index}" class="value-tag clause-tag">${name}</span>`);
     clause.click(() => {
         console.warn(index);
-        inputClauseValueElement();
+        query_builder_input.append(inputClauseValueElement());
     });
     query_builder_tags_clauses.append(clause);
 }
@@ -63,8 +68,9 @@ function appendClauseElement(name, index) {
     name = name.toUpperCase();
     const clause = $(`<span data-clause-id="${index}" class="clause-tag clause">${name}</span>`);
     clause.click(() => {
-        console.warn(index);
-        inputClauseElement(index);
+        console.warn(input_container);
+        query_builder_input.append(inputClauseElement(index));
+
     });
     query_builder_tags_clauses.append(clause);
 }
@@ -87,7 +93,9 @@ export async function init(container = null) {
     }
 }
 
+function initElements() {
 
+}
 
 function initDragAndDrop() {
 
