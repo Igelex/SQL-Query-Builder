@@ -79,9 +79,9 @@ function appendOperatorTag(name, index) {
     query_builder_tags_operators.append(clause);
 }
 
-export function init(container = null) {
+export async function init(container = null) {
     if (container) {
-        $(container).append(query_builder_container);
+        await $(container).append(query_builder_container);
     } else {
 
     }

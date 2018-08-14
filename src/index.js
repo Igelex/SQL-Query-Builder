@@ -3,11 +3,12 @@ import '../styles/containers.scss';
 import '../styles/style.scss';
 import 'normalize.css';
 import {init} from './init_layout';
+
 export function showBuilder(container) {
-    init(container);
+    init(container).then(fn);
 }
 
-$(document).ready(() => {
+function fn () {
 
     let clauses = $('#query-builder-tags-clauses span.clause, #query-builder-tags-operators span.operator'); //get clauses tags from pool
     let clause_value = $('#query-builder-tags-clauses .value-tag');  // get clause value input fields
@@ -46,7 +47,7 @@ $(document).ready(() => {
             updateOutput(); // update SQL query output
         });
     });
-    $('.sql-pool-overlay .icon-close-overlay').click( () => {
+    $('.sql-pool-overlay .icon-close-overlay').click(() => {
         $('.sql-pool-overlay').fadeOut(300);
     });
 
@@ -191,7 +192,7 @@ $(document).ready(() => {
         output_container.append('<span class="output-clause">;</span>'); // close query with ;
     };
 
-    //Add initial Clauses
+//Add initial Clauses
     addClause('SELECT', clauses[0]);
     addClauseValueInput('first_name', clause_value[0]);
     addClauseValueInput('last_name', clause_value[0]);
@@ -199,22 +200,22 @@ $(document).ready(() => {
     addClauseValueInput('users', clause_value[0]);
     addClause('WHERE', clauses[2]);
 
-    // set initial onclick event for the value input in clauses pool, on click input will be added to the input container
+// set initial onclick event for the value input in clauses pool, on click input will be added to the input container
     clause_value.click(() => {
         addClauseValueInput();
     });
 
-    // set initial onclick event for each clause tag in clauses pool, on click tag will be added to the input container
+// set initial onclick event for each clause tag in clauses pool, on click tag will be added to the input container
     $(clauses).each(function () {
         $(this).click(function () {
             addClause($(this).text(), this);
         });
     });
 
-    // init jquery-ui sortable
+// init jquery-ui sortable
     $(input_container).sortable({
         revert: true,
-        start: ( event, ui ) => {
+        start: (event, ui) => {
             console.log($(ui.helper[0]));
             $(ui.helper[0]).css({'opacity': '0.5'});
         },
@@ -230,14 +231,14 @@ $(document).ready(() => {
         delay: 150,
     });
 
-    // init jquery-ui draggable, all item are draggable
+// init jquery-ui draggable, all item are draggable
     $('#query-builder-tags-container span').draggable({
         connectToSortable: '#query-builder-input',
         helper: 'clone',
         revert: 'invalid',
         revertDuration: 300,
         delay: 150,
-        start: ( event, ui ) => {
+        start: (event, ui) => {
             console.log($(ui.helper[0]));
             $(ui.helper[0]).css({'opacity': '0.5'});
         },
@@ -260,7 +261,7 @@ $(document).ready(() => {
                     current_elem.remove(); // remove clone of dragged element
                     addPlaceholder(new_elem); // add placeholder button
                     updateOutput();// and update output
-                },600)
+                }, 600)
             }
         }
     });
@@ -286,98 +287,100 @@ $(document).ready(() => {
         hidden_input.remove();
     });
 
-    //SELECT 1,2 FROM users WHERE id <= 5 AND age >= 25 AND (name = 'some_name' OR name = ''another_name)
-    let query = {
-        select:
+}
+
+//SELECT 1,2 FROM users WHERE id <= 5 AND age >= 25 AND (name = 'some_name' OR name = ''another_name)
+let query = {
+    select:
+        {
+            values: ['1', '2']
+        }
+    ,
+    from: 'users',
+    where:
+        [
             {
-                values: ['1', '2']
-            }
-        ,
-        from: 'users',
-        where:
-            [
-                {
-                    condition:{
-                        value1: 'id',
-                        operator: 'eql',
-                        value2: '5'
+                condition: {
+                    value1: 'id',
+                    operator: 'eql',
+                    value2: '5'
+                }
+            },
+            {
+                and: [{
+                    condition: {
+                        val1: '',
+                        val2: '',
+                        operator: 'eq'
                     }
-                },
-                {
-                    and: [{
+                }, {clause: ''}]
+            },
+            {
+                and: [
+                    {
+                        condition:
+                            {
+                                val1: '',
+                                val2: '',
+                                operator: 'eq'
+                            }
+                    },
+                    {
                         condition: {
                             val1: '',
                             val2: '',
                             operator: 'eq'
                         }
-                    }, {clause: ''}]
-                },
-                {
-                    and: [
-                        {
-                            condition:
-                                {
-                                    val1: '',
-                                    val2: '',
-                                    operator: 'eq'
-                                }
-                        },
-                        {
-                            condition: {
-                                val1: '',
-                                val2: '',
-                                operator: 'eq'
-                            }
-                        },
-                        {clause: 'or'}
-                    ]
-                }
-            ]
-    }
-
-    /*let query = {
-        select:
-            {
-                values: ['1', '2']
+                    },
+                    {clause: 'or'}
+                ]
             }
-        ,
-        from: 'users',
-        where:
-            [
-                {
-                    condition:{
-                        value1: 'id',
-                        operator: 'eql',
-                        value2: '5'
-                    }
-                },
-                {
-                    and: {
-                        value1: 'age',
-                        operator: 'eqg',
-                        value2: '25',
-                        clause:{}
+        ]
+}
 
-                    }
-                },
-                {
-                    and: {
-                        value1: '',
-                        operator: '',
-                        value2: '',
-                        clause:{
-                            or: {
-                                value1: 'name',
-                                operator: 'eq',
-                                value2: 'v2',
-                                clause:{}
+/*let query = {
+    select:
+        {
+            values: ['1', '2']
+        }
+    ,
+    from: 'users',
+    where:
+        [
+            {
+                condition:{
+                    value1: 'id',
+                    operator: 'eql',
+                    value2: '5'
+                }
+            },
+            {
+                and: {
+                    value1: 'age',
+                    operator: 'eqg',
+                    value2: '25',
+                    clause:{}
 
-                            }
+                }
+            },
+            {
+                and: {
+                    value1: '',
+                    operator: '',
+                    value2: '',
+                    clause:{
+                        or: {
+                            value1: 'name',
+                            operator: 'eq',
+                            value2: 'v2',
+                            clause:{}
+
                         }
                     }
                 }
-            ]
-    }*/
+            }
+        ]
+}*/
 
-    //console.log(query.where[0].and);
-});
+//console.log(query.where[0].and);
+
