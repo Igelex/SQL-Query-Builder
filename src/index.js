@@ -193,12 +193,12 @@ function fn () {
     };
 
 //Add initial Clauses
-    addClause('SELECT', clauses[0]);
+    /*addClause('SELECT', clauses[0]);
     addClauseValueInput('first_name', clause_value[0]);
     addClauseValueInput('last_name', clause_value[0]);
     addClause('FROM', clauses[1]);
     addClauseValueInput('users', clause_value[0]);
-    addClause('WHERE', clauses[2]);
+    addClause('WHERE', clauses[2]);*/
 
 // set initial onclick event for the value input in clauses pool, on click input will be added to the input container
     clause_value.click(() => {
