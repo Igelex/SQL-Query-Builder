@@ -68,9 +68,7 @@ function appendClauseElement(name, index) {
     name = name.toUpperCase();
     const clause = $(`<span data-clause-id="${index}" class="clause-tag clause">${name}</span>`);
     clause.click(() => {
-        console.warn(input_container);
         query_builder_input.append(inputClauseElement(index));
-
     });
     query_builder_tags_clauses.append(clause);
 }
@@ -79,18 +77,17 @@ function appendOperatorTag(name, index) {
     name = name.toUpperCase();
     const clause = $(`<span data-clause-id="${index}" class="clause-tag operator">${name}</span>`);
     clause.click(() => {
-        console.warn(index);
         inputClauseElement(index);
     });
     query_builder_tags_operators.append(clause);
 }
 
-export async function init(container = null) {
+export function init(container = null) {
     if (container) {
-        await $(container).append(query_builder_container);
+        $(container).append(query_builder_container);
         initDragAndDrop();
     } else {
-
+        console.error('Container for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")');
     }
 }
 
