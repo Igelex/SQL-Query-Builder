@@ -6,7 +6,7 @@ const query_builder_container = $(
                
     </div>`),
     query_builder_input_container = $(`<div id="query-builder-input-container"></div> `),
-    query_builder_input = $(`<ul id="query-builder-input" class=""></ul>`),
+    query_builder_input = $(`<ul id="query-builder-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
     query_builder_tags_container = $(`<div id="query-builder-tags-container"></div>`),
     query_builder_tags_clauses = $(`<div id="query-builder-tags-clauses"><h4 class="mb-4">Clauses</h4></div>`),
     query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4 class="mb-4">Operators</h4></div>`),
@@ -42,8 +42,6 @@ query_builder_tags_container.append(query_builder_tags_operators);
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
-let input_container = $('#query-builder-input'); // container for building sql queries, all tags will be placed here
-
 initDragAndDrop();//Make Elements interactive
 
 //Add initial Clauses
@@ -77,7 +75,7 @@ function appendOperatorTag(name, index) {
     name = name.toUpperCase();
     const clause = $(`<span data-clause-id="${index}" class="clause-tag operator">${name}</span>`);
     clause.click(() => {
-        inputClauseElement(index);
+        query_builder_input.append(inputClauseElement(index));
     });
     query_builder_tags_operators.append(clause);
 }
