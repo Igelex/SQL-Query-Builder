@@ -212,60 +212,6 @@ function fn () {
         });
     });*/
 
-// init jquery-ui sortable
-    $(input_container).sortable({
-        revert: true,
-        start: (event, ui) => {
-            console.log($(ui.helper[0]));
-            $(ui.helper[0]).css({'opacity': '0.5'});
-        },
-        stop: (event, ui) => {
-            $(ui.item).css({'opacity': '1'});
-            updateOutput();
-        },
-        tolerance: "intersect",
-        containment: "parent",
-        forceHelperSize: true,
-        forcePlaceholderSize: true,
-        placeholder: 'sort-placeholder',
-        delay: 150,
-    });
-
-// init jquery-ui draggable, all item are draggable
-    $('#query-builder-tags-container span').draggable({
-        connectToSortable: '#query-builder-input',
-        helper: 'clone',
-        revert: 'invalid',
-        revertDuration: 300,
-        delay: 150,
-        start: (event, ui) => {
-            console.log($(ui.helper[0]));
-            $(ui.helper[0]).css({'opacity': '0.5'});
-        },
-        // creates new element on drop
-        stop: (event, ui) => {
-
-            let current_elem = $(ui.helper[0]); //clone of dragged element
-
-            //if prev is <li>, elements was dropped in input container, that means a new element must be added
-            if (current_elem.parent().is('#query-builder-input')) {
-                let new_elem;
-                if (current_elem.is('span.clause-tag')) {
-                    new_elem = buildClauseTagElement(current_elem.text(), current_elem); // add new clause tag
-                } else {
-                    new_elem = buildClauseValueInputElement('', current_elem); // else add new value input
-                }
-                //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
-                setTimeout(() => {
-                    new_elem.insertAfter(current_elem.prev()); //insert new element on right position
-                    current_elem.remove(); // remove clone of dragged element
-                    addPlaceholder(new_elem); // add placeholder button
-                    updateOutput();// and update output
-                }, 600)
-            }
-        }
-    });
-    $('ul, li').disableSelection();
 
     /**
      * copy SQL query output to the clipboard

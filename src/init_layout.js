@@ -88,19 +88,16 @@ function appendOperatorTag(name, index) {
 export async function init(container = null) {
     if (container) {
         await $(container).append(query_builder_container);
+        initDragAndDrop();
     } else {
 
     }
 }
 
-function initElements() {
-
-}
-
 function initDragAndDrop() {
 
     // init jquery-ui sortable
-    $('#query-builder-input-container').sortable({
+    $(query_builder_input).sortable({
         revert: true,
         start: (event, ui) => {
             console.log($(ui.helper[0]));
@@ -118,7 +115,7 @@ function initDragAndDrop() {
         delay: 150,
     });
 
-    $('#query-builder-input-container').disableSelection();
+    $(query_builder_input).disableSelection();
 
     // init jquery-ui draggable, all item are draggable
     $('#query-builder-tags-container span').draggable({
@@ -128,7 +125,7 @@ function initDragAndDrop() {
         revertDuration: 300,
         delay: 150,
         start: (event, ui) => {
-            console.log($(ui.helper[0]));
+            //console.log($(ui.helper[0]));
             $(ui.helper[0]).css({'opacity': '0.5'});
         },
         // creates new element on drop
@@ -136,20 +133,25 @@ function initDragAndDrop() {
 
             let current_elem = $(ui.helper[0]); //clone of dragged element
 
+            let tag_id = current_elem.attr('data-clause-id');
+
             //if prev is <li>, elements was dropped in input container, that means a new element must be added
             if (current_elem.parent().is('#query-builder-input')) {
                 let new_elem;
-                if (current_elem.is('span.clause-tag')) {
-                    new_elem = buildClauseTagElement(current_elem.text(), current_elem); // add new clause tag
+                if (tags[tag_id].type !== 'value') {
+                    new_elem = inputClauseElement(tag_id); // add new clause tag
                 } else {
-                    new_elem = buildClauseValueInputElement('', current_elem); // else add new value input
+                    new_elem = inputClauseValueElement(); // else add new value input
                 }
                 //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
                 setTimeout(() => {
-                    new_elem.insertAfter(current_elem.prev()); //insert new element on right position
+                    if (current_elem.prev().length !== 0) {
+                        new_elem.insertAfter(current_elem.prev()); //insert new element on right position
+                    } else {
+                        query_builder_input.append(new_elem);
+                    }
                     current_elem.remove(); // remove clone of dragged element
-                    addPlaceholder(new_elem); // add placeholder button
-                    updateOutput();// and update output
+                    //updateOutput();// and update output
                 }, 600)
             }
         }
