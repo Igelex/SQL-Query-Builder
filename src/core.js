@@ -7,11 +7,15 @@ export const Core = (function (){
             this[_elements] = [];
         }
 
-        addElement(element) {
-            this[_elements].push(element);
+        addElement(position = this[_elements].length - 1, element) {
+            this[_elements].slice(position, 0, element);
         }
 
-        removelement() {
+        removelement(position) {
+            this[_elements].slice(position, 1);
+        }
+
+        getElements() {
             return this[_elements];
         }
     }
