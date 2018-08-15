@@ -1,8 +1,8 @@
-export const Core = (function (){
+export const Store = (function (){
 
-    const _elements = new Symbol();
+    const _elements = Symbol();
 
-    class Core {
+    class Store {
         constructor() {
             this[_elements] = [];
         }
@@ -15,10 +15,16 @@ export const Core = (function (){
             this[_elements].slice(position, 1);
         }
 
+        setElements(elements) {
+            this[_elements] = elements;
+            console.log(this[_elements]);
+        }
+
         getElements() {
             return this[_elements];
         }
     }
-    return new Core();
+
+    return new Store();
 
 }());

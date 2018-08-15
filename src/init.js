@@ -1,5 +1,6 @@
 import {tags} from './tags';
 import {inputClauseElement, inputClauseValueElement} from './input';
+import {Store} from './store';
 
 const query_builder_container = $(
     `<div id="query-builder-container">
@@ -53,29 +54,29 @@ inputValueTag('users');
 inputClauseTag(3);*/
 
 
-function appendClauseValueElement(name, index) {
-    const clause = $(`<span data-clause-id="${index}" class="value-tag clause-tag">${name}</span>`);
+function appendClauseValueElement(name, id) {
+    const clause = $(`<span data-clause-id="${id}" class="value-tag clause-tag">${name}</span>`);
     clause.click(() => {
-        console.warn(index);
-        query_builder_input.append(inputClauseValueElement());
+        console.warn(id);
+        query_builder_input.append(inputClauseValueElement(id));
     });
     query_builder_tags_clauses.append(clause);
 }
 
-function appendClauseElement(name, index) {
+function appendClauseElement(name, id) {
     name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${index}" class="clause-tag clause">${name}</span>`);
+    const clause = $(`<span data-clause-id="${id}" class="clause-tag clause">${name}</span>`);
     clause.click(() => {
-        query_builder_input.append(inputClauseElement(index));
+        query_builder_input.append(inputClauseElement(id));
     });
     query_builder_tags_clauses.append(clause);
 }
 
-function appendOperatorTag(name, index) {
+function appendOperatorTag(name, id) {
     name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${index}" class="clause-tag operator">${name}</span>`);
+    const clause = $(`<span data-clause-id="${id}" class="clause-tag operator">${name}</span>`);
     clause.click(() => {
-        query_builder_input.append(inputClauseElement(index));
+        query_builder_input.append(inputClauseElement(id));
     });
     query_builder_tags_operators.append(clause);
 }
@@ -95,7 +96,6 @@ function initDragAndDrop() {
     $(query_builder_input).sortable({
         revert: true,
         start: (event, ui) => {
-            console.log($(ui.helper[0]));
             $(ui.helper[0]).css({'opacity': '0.5'});
         },
         stop: (event, ui) => {
@@ -108,6 +108,15 @@ function initDragAndDrop() {
         forcePlaceholderSize: true,
         placeholder: 'sort-placeholder',
         delay: 150,
+        update: function (event, ui) {
+            setTimeout(() => {
+                let elements = [...$(this).children()].map((elem) => ({
+                    id: $(elem).attr('data-clause-id'),
+                    payload: $(elem).text()
+                }));
+                Store.setElements(elements);
+            }, 100);
+        }
     });
 
     $(query_builder_input).disableSelection();
@@ -136,10 +145,11 @@ function initDragAndDrop() {
                 if (tags[tag_id].type !== 'value') {
                     new_elem = inputClauseElement(tag_id); // add new clause tag
                 } else {
-                    new_elem = inputClauseValueElement(); // else add new value input
+                    new_elem = inputClauseValueElement(tag_id); // else add new value input
                 }
                 //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
                 setTimeout(() => {
+                    //FIXME: cant add element on the start if elements.length > 0
                     if (current_elem.prev().length !== 0) {
                         new_elem.insertAfter(current_elem.prev()); //insert new element on right position
                     } else {
