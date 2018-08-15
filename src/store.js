@@ -1,3 +1,5 @@
+import updateOutput from './output'
+
 export const Store = (function (){
 
     const _elements = Symbol();
@@ -23,6 +25,7 @@ export const Store = (function (){
                     id: $(elem).attr('data-clause-id'),
                     payload: $(elem).children().first().text()
                 }));
+                updateOutput(this[_elements]);
                 console.log(this[_elements]);
             }, 1000);
         }

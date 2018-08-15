@@ -1,5 +1,5 @@
 import {CLAUSES, CLAUSES_TYPES} from './const';
-import {inputElement} from './input';
+import {inputElement} from './element_builder';
 import {Store} from './store';
 
 const query_builder_container = $(

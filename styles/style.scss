@@ -191,8 +191,11 @@ li {
 /***********************************************************************************************************************
 *Output highlighting
 */
-#sql-query-output span {
+#query-builder-output span {
+  font-size: 18px;
+  font-weight: 700;
   padding: 5px 5px;
+  display: inline-block;
 
 }
 
