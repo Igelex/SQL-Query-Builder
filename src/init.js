@@ -71,20 +71,11 @@ function appendOperatorTag(name, id) {
     query_builder_tags_operators.append(clause);
 }
 
-export function init(
-    {container, initElements} = {container: null, initElements: [{id:1, text:''}, {id:0, text:'first_name'}, {id:2, text:''}, {id:0, text:'users'}]}
-    ) {
-    console.warn(initElements);
-    if (container) {
-        $(container).append(query_builder_container);
-        initDragAndDrop();//Make Elements interactive
-
-        initElements.forEach((item) => {
-            query_builder_input.append(inputElement(item.id, item.text));
-        })
-    } else {
-        console.error('Container for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")');
-    }
+function commitChanges() {
+    Store.setElements([...$(query_builder_input).children()].map((elem) => ({
+        id: $(elem).attr('data-clause-id'),
+        payload: $(elem).children().first().text()
+    })));
 }
 
 function initDragAndDrop() {
@@ -106,13 +97,7 @@ function initDragAndDrop() {
         placeholder: 'sort-placeholder',
         delay: 150,
         update: function (event, ui) {
-            setTimeout(() => {
-                let elements = [...$(this).children()].map((elem) => ({
-                    id: $(elem).attr('data-clause-id'),
-                    payload: $(elem).children().first().text()
-                }));
-                Store.setElements(elements);
-            }, 100);
+            setTimeout(commitChanges(), 100);
         }
     });
 
@@ -138,12 +123,7 @@ function initDragAndDrop() {
 
             //if prev is <li>, elements was dropped in input container, that means a new element must be added
             if (current_elem.parent().is('#query-builder-input')) {
-                let new_elem;
-                if (CLAUSES[tag_id].type !== 'value') {
-                    new_elem = inputClauseElement(tag_id); // add new clause tag
-                } else {
-                    new_elem = inputClauseValueElement(tag_id); // else add new value input
-                }
+                let new_elem = inputElement(tag_id);
                 //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
                 setTimeout(() => {
                     //FIXME: cant add element on the start if elements.length > 0
@@ -159,4 +139,23 @@ function initDragAndDrop() {
         }
     });
     $('#query-builder-tags-container').disableSelection();
+}
+
+export function init(
+    {container, initElements} = {
+        container: null,
+        initElements: [{id: 1, text: ''}, {id: 0, text: 'first_name'}, {id: 2, text: ''}, {id: 0, text: 'users'}]
+    }
+) {
+    console.warn(initElements);
+    if (container) {
+        $(container).append(query_builder_container);
+        initDragAndDrop();//Make Elements interactive
+
+        initElements.forEach((item) => {
+            query_builder_input.append(inputElement(item.id, item.text));
+        })
+    } else {
+        console.error('Container for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")');
+    }
 }
