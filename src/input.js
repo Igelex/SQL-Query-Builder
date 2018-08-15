@@ -2,14 +2,14 @@ import {CLAUSES, CLAUSES_TYPES} from "./const";
 
 let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
 
-export function inputElement (id, text) {
+export function inputElement(id, text) {
     let clause = CLAUSES[id];
-    
+
     switch (clause.type) {
         case CLAUSES_TYPES.ClAUSE:
             return inputClauseElement(id);
         case CLAUSES_TYPES.VALUE:
-            return inputClauseValueElement(id,text);
+            return inputClauseValueElement(id, text);
         case CLAUSES_TYPES.OPERATOR:
             return inputClauseElement(id);
     }
