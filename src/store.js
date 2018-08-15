@@ -17,9 +17,14 @@ export const Store = (function (){
             this[_elements].slice(position, 1);
         }
 
-        setElements(elements) {
-            this[_elements] = elements;
-            console.log(this[_elements]);
+        commit() {
+            setTimeout(() => {
+                this[_elements] = [...$('#query-builder-input').children()].map((elem) => ({
+                    id: $(elem).attr('data-clause-id'),
+                    payload: $(elem).children().first().text()
+                }));
+                console.log(this[_elements]);
+            }, 1000);
         }
 
         getElements() {

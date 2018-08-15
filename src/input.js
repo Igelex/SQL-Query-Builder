@@ -1,4 +1,5 @@
 import {CLAUSES, CLAUSES_TYPES} from "./const";
+import {Store} from './store';
 
 let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
 
@@ -49,6 +50,7 @@ const buildClauseElement = (id) => {
     $(remove_clause_icon).click(() => {
         $(clause_li_item).fadeOut(300, () => {
             clause_li_item.remove();
+            Store.commit();
             //updateOutput();
         });
     });
@@ -71,12 +73,14 @@ const buildClauseValueElement = (id, name = '') => {
     remove_clause_icon.click(() => {
         li_item.fadeOut(300, () => {
             li_item.remove();
+            Store.commit();
             //updateOutput();
         });
     });
 
     clause_value_input.focus();
     clause_value_input.blur(() => {
+        Store.commit();
         //updateOutput();
     });
     clause_value_input.keypress(() => {
@@ -132,3 +136,10 @@ const appendPlusControl = (container) => {
         overlay.fadeIn(300); // show modal
     });*/
 };
+
+function commitChanges() {
+    Store.commit([...$('#query_builder_input').children()].map((elem) => ({
+        id: $(elem).attr('data-clause-id'),
+        payload: $(elem).children().first().text()
+    })));
+}

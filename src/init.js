@@ -73,10 +73,7 @@ function appendOperatorTag(name, id) {
 }
 
 function commitChanges() {
-    Store.setElements([...$(query_builder_input).children()].map((elem) => ({
-        id: $(elem).attr('data-clause-id'),
-        payload: $(elem).children().first().text()
-    })));
+    Store.commit();
 }
 
 function initDragAndDrop() {
@@ -148,14 +145,14 @@ export function init(
         initElements: [{id: 1, text: ''}, {id: 0, text: 'first_name'}, {id: 2, text: ''}, {id: 0, text: 'users'}]
     }
 ) {
-    console.warn(initElements);
     if (container) {
         $(container).append(query_builder_container);
         initDragAndDrop();//Make Elements interactive
 
         initElements.forEach((item) => {
             query_builder_input.append(inputElement(item.id, item.text));
-        })
+        });
+        commitChanges();
     } else {
         console.error('Container for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")');
     }
