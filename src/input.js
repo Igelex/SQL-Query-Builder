@@ -49,8 +49,8 @@ const buildClauseValueElement = (id, name = '') => {
     const value_tag = $(`<span class="value-tag clause-tag">${name ? name : 'Enter value'}</span>`);
     const li_item = $(`<li data-clause-id="${id}" class="clause-items pulse"></li>`);
 
-    li_item.append(remove_clause_icon);
     li_item.append(value_tag);
+    li_item.append(remove_clause_icon);
     li_item.append(clause_value_input);
 
     toggleValueInput(clause_value_input, value_tag);

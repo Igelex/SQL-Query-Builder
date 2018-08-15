@@ -7,8 +7,10 @@ export const Store = (function (){
             this[_elements] = [];
         }
 
-        addElement(position = this[_elements].length - 1, element) {
+        addElement(position, element) {
+            if (this[_elements].length === 0 || position < 0) this[_elements].push(element);
             this[_elements].slice(position, 0, element);
+            console.log(this[_elements]);
         }
 
         removelement(position) {

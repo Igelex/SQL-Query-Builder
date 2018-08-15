@@ -43,8 +43,6 @@ query_builder_tags_container.append(query_builder_tags_operators);
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
-initDragAndDrop();//Make Elements interactive
-
 //Add initial Clauses
 /*inputClauseTag(1);
 inputValueTag('first_name');
@@ -57,7 +55,7 @@ inputClauseTag(3);*/
 function appendClauseValueElement(name, id) {
     const clause = $(`<span data-clause-id="${id}" class="value-tag clause-tag">${name}</span>`);
     clause.click(() => {
-        console.warn(id);
+        Store.addElement(-1, {id: id, payload: name});
         query_builder_input.append(inputClauseValueElement(id));
     });
     query_builder_tags_clauses.append(clause);
@@ -67,6 +65,7 @@ function appendClauseElement(name, id) {
     name = name.toUpperCase();
     const clause = $(`<span data-clause-id="${id}" class="clause-tag clause">${name}</span>`);
     clause.click(() => {
+        Store.addElement(-1, {id: id, payload: ''});
         query_builder_input.append(inputClauseElement(id));
     });
     query_builder_tags_clauses.append(clause);
@@ -84,7 +83,7 @@ function appendOperatorTag(name, id) {
 export function init(container = null) {
     if (container) {
         $(container).append(query_builder_container);
-        initDragAndDrop();
+        initDragAndDrop();//Make Elements interactive
     } else {
         console.error('Container for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")');
     }
@@ -112,7 +111,7 @@ function initDragAndDrop() {
             setTimeout(() => {
                 let elements = [...$(this).children()].map((elem) => ({
                     id: $(elem).attr('data-clause-id'),
-                    payload: $(elem).text()
+                    payload: $(elem).children().first().text()
                 }));
                 Store.setElements(elements);
             }, 100);
