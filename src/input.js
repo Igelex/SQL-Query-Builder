@@ -1,6 +1,19 @@
-import {tags} from './tags';
+import {CLAUSES, CLAUSES_TYPES} from "./const";
 
 let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
+
+export function inputElement (id, text) {
+    let clause = CLAUSES[id];
+    
+    switch (clause.type) {
+        case CLAUSES_TYPES.ClAUSE:
+            return inputClauseElement(id);
+        case CLAUSES_TYPES.VALUE:
+            return inputClauseValueElement(id,text);
+        case CLAUSES_TYPES.OPERATOR:
+            return inputClauseElement(id);
+    }
+}
 
 export const inputClauseElement = (id) => {
     let clause_tag = buildClauseElement(id);
@@ -22,13 +35,13 @@ export const inputClauseValueElement = (id, name) => {
 
 const buildClauseElement = (id) => {
     const clause_li_item = $(`<li data-clause-id="${id}" class="clause-items pulse"></li>`);
-    const clause_tag = $(`<span class="clause-tag clause">${tags[id].name.toUpperCase()}</span>`);
+    const clause_tag = $(`<span class="clause-tag clause">${CLAUSES[id].name.toUpperCase()}</span>`);
     const remove_clause_icon = $(`<span class="controls-remove-button controls">&times;</span>`);
 
     clause_li_item.append(clause_tag);
     clause_li_item.append(remove_clause_icon);
 
-    if (tags[id].type === 'operator') {
+    if (CLAUSES[id].type === 'operator') {
         clause_tag.addClass('operator');
         clause_tag.removeClass('clause');
     }

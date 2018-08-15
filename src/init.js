@@ -1,5 +1,5 @@
-import {tags} from './tags';
-import {inputClauseElement, inputClauseValueElement} from './input';
+import {CLAUSES, CLAUSES_TYPES} from './const';
+import {inputElement} from './input';
 import {Store} from './store';
 
 const query_builder_container = $(
@@ -22,16 +22,16 @@ const query_builder_container = $(
 query_builder_input_container.append(query_builder_input);
 query_builder_container.append(query_builder_input_container);
 
-for (let i in tags) {
-    let tag = tags[i];
+for (let i in CLAUSES) {
+    let tag = CLAUSES[i];
     switch (tag.type) {
-        case 'value':
+        case CLAUSES_TYPES.VALUE:
             appendClauseValueElement(tag.name, i);
             break;
-        case 'clause':
+        case CLAUSES_TYPES.ClAUSE:
             appendClauseElement(tag.name, i);
             break;
-        case 'operator':
+        case CLAUSES_TYPES.OPERATOR:
             appendOperatorTag(tag.name, i);
             break;
     }
@@ -43,20 +43,11 @@ query_builder_tags_container.append(query_builder_tags_operators);
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
-//Add initial Clauses
-/*inputClauseTag(1);
-inputValueTag('first_name');
-inputValueTag('last_name');
-inputClauseTag(2);
-inputValueTag('users');
-inputClauseTag(3);*/
-
-
 function appendClauseValueElement(name, id) {
     const clause = $(`<span data-clause-id="${id}" class="value-tag clause-tag">${name}</span>`);
     clause.click(() => {
         Store.addElement(-1, {id: id, payload: name});
-        query_builder_input.append(inputClauseValueElement(id));
+        query_builder_input.append(inputElement(id));
     });
     query_builder_tags_clauses.append(clause);
 }
@@ -66,7 +57,7 @@ function appendClauseElement(name, id) {
     const clause = $(`<span data-clause-id="${id}" class="clause-tag clause">${name}</span>`);
     clause.click(() => {
         Store.addElement(-1, {id: id, payload: ''});
-        query_builder_input.append(inputClauseElement(id));
+        query_builder_input.append(inputElement(id));
     });
     query_builder_tags_clauses.append(clause);
 }
@@ -75,7 +66,7 @@ function appendOperatorTag(name, id) {
     name = name.toUpperCase();
     const clause = $(`<span data-clause-id="${id}" class="clause-tag operator">${name}</span>`);
     clause.click(() => {
-        query_builder_input.append(inputClauseElement(id));
+        query_builder_input.append(inputElement(id));
     });
     query_builder_tags_operators.append(clause);
 }
@@ -141,7 +132,7 @@ function initDragAndDrop() {
             //if prev is <li>, elements was dropped in input container, that means a new element must be added
             if (current_elem.parent().is('#query-builder-input')) {
                 let new_elem;
-                if (tags[tag_id].type !== 'value') {
+                if (CLAUSES[tag_id].type !== 'value') {
                     new_elem = inputClauseElement(tag_id); // add new clause tag
                 } else {
                     new_elem = inputClauseValueElement(tag_id); // else add new value input
