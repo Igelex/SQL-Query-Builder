@@ -41,7 +41,7 @@ const buildClauseElement = (id) => {
     clause_li_item.append(clause_tag);
     clause_li_item.append(remove_clause_icon);
 
-    if (CLAUSES[id].type === 'operator') {
+    if (CLAUSES[id].type === CLAUSES_TYPES.OPERATOR) {
         clause_tag.addClass('operator');
         clause_tag.removeClass('clause');
     }

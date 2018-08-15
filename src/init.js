@@ -9,8 +9,8 @@ const query_builder_container = $(
     query_builder_input_container = $(`<div id="query-builder-input-container"></div> `),
     query_builder_input = $(`<ul id="query-builder-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
     query_builder_tags_container = $(`<div id="query-builder-tags-container"></div>`),
-    query_builder_tags_clauses = $(`<div id="query-builder-tags-clauses"><h4 class="mb-4">Clauses</h4></div>`),
-    query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4 class="mb-4">Operators</h4></div>`),
+    query_builder_tags_clauses = $(`<div id="query-builder-tags-clauses"><h4>Clauses</h4></div>`),
+    query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4>Operators</h4></div>`),
     query_builder_output_container = $(
         `<div id="query-builder-output-container">
             <div class="alert alert-secondary">
@@ -46,8 +46,8 @@ query_builder_container.append(query_builder_output_container);
 function appendClauseValueElement(name, id) {
     const clause = $(`<span data-clause-id="${id}" class="value-tag clause-tag">${name}</span>`);
     clause.click(() => {
-        Store.addElement(-1, {id: id, payload: name});
         query_builder_input.append(inputElement(id));
+        commitChanges();
     });
     query_builder_tags_clauses.append(clause);
 }
@@ -56,8 +56,8 @@ function appendClauseElement(name, id) {
     name = name.toUpperCase();
     const clause = $(`<span data-clause-id="${id}" class="clause-tag clause">${name}</span>`);
     clause.click(() => {
-        Store.addElement(-1, {id: id, payload: ''});
         query_builder_input.append(inputElement(id));
+        commitChanges();
     });
     query_builder_tags_clauses.append(clause);
 }
@@ -67,6 +67,7 @@ function appendOperatorTag(name, id) {
     const clause = $(`<span data-clause-id="${id}" class="clause-tag operator">${name}</span>`);
     clause.click(() => {
         query_builder_input.append(inputElement(id));
+        commitChanges();
     });
     query_builder_tags_operators.append(clause);
 }
