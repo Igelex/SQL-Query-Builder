@@ -13,10 +13,8 @@ const query_builder_container = $(
     query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4>Operators</h4></div>`),
     query_builder_output_container = $(
         `<div id="query-builder-output-container">
-            <div class="alert alert-secondary">
-                <i id="query-builder-copy-icon" class="far fa-copy fa-lg icon-close-overlay"></i>
-                <div id="query-builder-output">OUTPUT</div>
-            </div>
+            <i id="query-builder-copy-icon" class="far fa-copy fa-lg query-builder-icon query-builder-icon-copy"></i>
+            <div id="query-builder-output"></div>
         </div>`);
 
 query_builder_input_container.append(query_builder_input);

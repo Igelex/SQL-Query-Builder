@@ -216,20 +216,17 @@ li {
 /*******************************************
 *icons
 */
-.icon-close-overlay {
-  transition: color .5s;
+.query-builder-icon {
   color: gray;
+  transition: .3s;
   padding: 6px;
-  position: absolute;
-  right: 10px;
-  /*top: -20px;*/
+  font-size: 18px;
+  &-copy {
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 16px);
+  }
 }
-
-.icon-close-overlay:hover {
-  color: rgba(81, 148, 180, 0.51);
-  cursor: pointer;
-}
-
 /*******************************************
 *Pool Overlay
 */
@@ -270,18 +267,6 @@ li {
 
 .pulse {
   animation: pulse 1s;
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
-  }
 }
 
 @keyframes pulse {

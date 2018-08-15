@@ -1,4 +1,3 @@
-import {Store} from "./store";
 import {CLAUSES, CLAUSES_TYPES} from "./const";
 
 /**
@@ -11,10 +10,6 @@ export default (elements) => {
     if(!output_container) output_container = $('#query-builder-output');
 
     output_container.empty(); //clear container
-
-    console.error(output_container);
-
-    //let query_items = Store.getElements(); //get all clauses, added by user
 
     elements.forEach((item, i) => {
 
@@ -30,7 +25,7 @@ export default (elements) => {
                 elem.addClass('output-clause');
                 break;
             case CLAUSES_TYPES.VALUE:
-                elem.text(` "${item.payload}"`);
+                elem.text(`"${item.payload}"`);
                 elem.addClass('output_value');
                 break;
             case CLAUSES_TYPES.OPERATOR:
@@ -44,5 +39,5 @@ export default (elements) => {
             elem.before('<br>');
         }
     });
-    output_container.append('<span class="output-clause">;</span>'); // close query with ;
+    //output_container.append('<span class="output-clause">;</span>'); // close query with ;
 };
