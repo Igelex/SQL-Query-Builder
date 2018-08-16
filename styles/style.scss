@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import '_variables';
 
 /***********************************************************************************************************************
 *color variables
@@ -89,22 +90,9 @@ body {
 *Custom clause value input element
 */
 .value-input {
-  transition: border .5s;
-  height: 31px;
-  background: #f4f1f5;
-  border-bottom: 3px #bfbfbf solid;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  padding-left: 10px;
-  outline-width: 0;
-  left: 0;
-  display: none;
-  position: absolute;
-  width: 100% !important;
+  @include value-input;
   &:focus {
-    border-bottom: 3px rgba(63, 174, 232, 0.85) solid ;
-    background: #f4f1f5;
+    border-bottom: 3px $borc-input-focus solid ;
   }
 }
 
@@ -124,7 +112,7 @@ body {
 }
 
 .clause-tag {
-  @include clause-tag();
+  @include tag();
   &.clause {
     color: #fff;
     background-color: $tag-clause-color;
@@ -142,10 +130,7 @@ body {
 }
 /*Placeholder for draggable items */
 .sort-placeholder {
-  border: 2px solid rgba(57, 157, 250, 0.29);
-  background-color: rgba(232, 232, 232, 0.52);
-  margin: 0 5px;
-  border-radius: 5px;
+  @include draggable-placeholder;
 }
 /******************************
 *control buttons for removing and adding tags
@@ -226,36 +211,6 @@ li {
     right: 10px;
     top: calc(50% - 16px);
   }
-}
-/*******************************************
-*Pool Overlay
-*/
-.sql-pool-overlay {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: auto;
-}
-
-.sql-pool-overlay-content {
-  border-top: 4px #658bff solid;
-  border-bottom: 4px #658bff solid;
-}
-
-.sql-pool-overlay-content {
-  .clause-tag {
-    margin-bottom: 5px;
-  }
-  .clause-value-container {
-    margin-bottom: 5px;
-  }
-}
-
-.alert {
-  margin: 0;
 }
 
 /*******************************************
