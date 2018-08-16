@@ -1,5 +1,6 @@
-import {tags} from './tags';
-import {inputClauseElement, inputClauseValueElement} from './input';
+import {CLAUSES, CLAUSES_TYPES} from './const';
+import {inputElement} from './element_builder';
+import {Store} from './store';
 
 const query_builder_container = $(
     `<div id="query-builder-container">
@@ -8,29 +9,27 @@ const query_builder_container = $(
     query_builder_input_container = $(`<div id="query-builder-input-container"></div> `),
     query_builder_input = $(`<ul id="query-builder-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
     query_builder_tags_container = $(`<div id="query-builder-tags-container"></div>`),
-    query_builder_tags_clauses = $(`<div id="query-builder-tags-clauses"><h4 class="mb-4">Clauses</h4></div>`),
-    query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4 class="mb-4">Operators</h4></div>`),
+    query_builder_tags_clauses = $(`<div id="query-builder-tags-clauses"><h4>Clauses</h4></div>`),
+    query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4>Operators</h4></div>`),
     query_builder_output_container = $(
         `<div id="query-builder-output-container">
-            <div class="alert alert-secondary">
-                <i id="query-builder-copy-icon" class="far fa-copy fa-lg icon-close-overlay"></i>
-                <div id="query-builder-output">OUTPUT</div>
-            </div>
+            <i id="query-builder-copy-icon" class="far fa-copy fa-lg query-builder-icon query-builder-icon-copy"></i>
+            <div id="query-builder-output"></div>
         </div>`);
 
 query_builder_input_container.append(query_builder_input);
 query_builder_container.append(query_builder_input_container);
 
-for (let i in tags) {
-    let tag = tags[i];
+for (let i in CLAUSES) {
+    let tag = CLAUSES[i];
     switch (tag.type) {
-        case 'value':
+        case CLAUSES_TYPES.VALUE:
             appendClauseValueElement(tag.name, i);
             break;
-        case 'clause':
+        case CLAUSES_TYPES.ClAUSE:
             appendClauseElement(tag.name, i);
             break;
-        case 'operator':
+        case CLAUSES_TYPES.OPERATOR:
             appendOperatorTag(tag.name, i);
             break;
     }
@@ -42,51 +41,37 @@ query_builder_tags_container.append(query_builder_tags_operators);
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
-initDragAndDrop();//Make Elements interactive
-
-//Add initial Clauses
-/*inputClauseTag(1);
-inputValueTag('first_name');
-inputValueTag('last_name');
-inputClauseTag(2);
-inputValueTag('users');
-inputClauseTag(3);*/
-
-
-function appendClauseValueElement(name, index) {
-    const clause = $(`<span data-clause-id="${index}" class="value-tag clause-tag">${name}</span>`);
+function appendClauseValueElement(name, id) {
+    const clause = $(`<span data-clause-id="${id}" class="value-tag clause-tag">${name}</span>`);
     clause.click(() => {
-        console.warn(index);
-        query_builder_input.append(inputClauseValueElement());
+        query_builder_input.append(inputElement(id));
+        commitChanges();
     });
     query_builder_tags_clauses.append(clause);
 }
 
-function appendClauseElement(name, index) {
+function appendClauseElement(name, id) {
     name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${index}" class="clause-tag clause">${name}</span>`);
+    const clause = $(`<span data-clause-id="${id}" class="clause-tag clause">${name}</span>`);
     clause.click(() => {
-        query_builder_input.append(inputClauseElement(index));
+        query_builder_input.append(inputElement(id));
+        commitChanges();
     });
     query_builder_tags_clauses.append(clause);
 }
 
-function appendOperatorTag(name, index) {
+function appendOperatorTag(name, id) {
     name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${index}" class="clause-tag operator">${name}</span>`);
+    const clause = $(`<span data-clause-id="${id}" class="clause-tag operator">${name}</span>`);
     clause.click(() => {
-        query_builder_input.append(inputClauseElement(index));
+        query_builder_input.append(inputElement(id));
+        commitChanges();
     });
     query_builder_tags_operators.append(clause);
 }
 
-export function init(container = null) {
-    if (container) {
-        $(container).append(query_builder_container);
-        initDragAndDrop();
-    } else {
-        console.error('Container for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")');
-    }
+function commitChanges() {
+    Store.commit();
 }
 
 function initDragAndDrop() {
@@ -95,7 +80,6 @@ function initDragAndDrop() {
     $(query_builder_input).sortable({
         revert: true,
         start: (event, ui) => {
-            console.log($(ui.helper[0]));
             $(ui.helper[0]).css({'opacity': '0.5'});
         },
         stop: (event, ui) => {
@@ -108,6 +92,9 @@ function initDragAndDrop() {
         forcePlaceholderSize: true,
         placeholder: 'sort-placeholder',
         delay: 150,
+        update: function (event, ui) {
+            setTimeout(commitChanges(), 100);
+        }
     });
 
     $(query_builder_input).disableSelection();
@@ -132,14 +119,10 @@ function initDragAndDrop() {
 
             //if prev is <li>, elements was dropped in input container, that means a new element must be added
             if (current_elem.parent().is('#query-builder-input')) {
-                let new_elem;
-                if (tags[tag_id].type !== 'value') {
-                    new_elem = inputClauseElement(tag_id); // add new clause tag
-                } else {
-                    new_elem = inputClauseValueElement(); // else add new value input
-                }
+                let new_elem = inputElement(tag_id);
                 //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
                 setTimeout(() => {
+                    //FIXME: cant add element on the start if elements.length > 0
                     if (current_elem.prev().length !== 0) {
                         new_elem.insertAfter(current_elem.prev()); //insert new element on right position
                     } else {
@@ -152,4 +135,23 @@ function initDragAndDrop() {
         }
     });
     $('#query-builder-tags-container').disableSelection();
+}
+
+export function init(
+    {container, initElements} = {
+        container: null,
+        initElements: [{id: 1, text: ''}, {id: 0, text: 'first_name'}, {id: 2, text: ''}, {id: 0, text: 'users'}]
+    }
+) {
+    if (container &&  container !== '') {
+        $(container).append(query_builder_container);
+        initDragAndDrop();//Make Elements interactive
+
+        initElements.forEach((item) => {
+            query_builder_input.append(inputElement(item.id, item.text));
+        });
+        commitChanges();
+    } else {
+        console.error('%cContainer for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
+    }
 }

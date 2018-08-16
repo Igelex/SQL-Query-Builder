@@ -1,9 +1,23 @@
-import {tags} from './tags';
+import {CLAUSES, CLAUSES_TYPES} from "./const";
+import {Store} from './store';
 
 let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
 
-export const inputClauseElement = (index) => {
-    let clause_tag = buildClauseElement(index);
+export function inputElement(id, text) {
+    let clause = CLAUSES[id];
+
+    switch (clause.type) {
+        case CLAUSES_TYPES.ClAUSE:
+            return inputClauseElement(id);
+        case CLAUSES_TYPES.VALUE:
+            return inputClauseValueElement(id, text);
+        case CLAUSES_TYPES.OPERATOR:
+            return inputClauseElement(id);
+    }
+}
+
+export const inputClauseElement = (id) => {
+    let clause_tag = buildClauseElement(id);
     appendPlusControl(clause_tag);
     //updateOutput();
     return clause_tag;
@@ -13,22 +27,22 @@ export const inputClauseElement = (index) => {
  * Adds new clause value input to the input container
  * @param name - optional value, that can be displayed in input
  */
-export const inputClauseValueElement = (name) => {
-    let clause_value_input = buildClauseValueElement(name);
+export const inputClauseValueElement = (id, name) => {
+    let clause_value_input = buildClauseValueElement(id, name);
     appendPlusControl(clause_value_input);
     //updateOutput();
     return clause_value_input;
 };
 
-const buildClauseElement = (index) => {
-    const clause_li_item = $(`<li class="clause-items pulse"></li>`);
-    const clause_tag = $(`<span data-clause-id="${index}" class="clause-tag clause">${tags[index].name.toUpperCase()}</span>`);
+const buildClauseElement = (id) => {
+    const clause_li_item = $(`<li data-clause-id="${id}" class="clause-items pulse"></li>`);
+    const clause_tag = $(`<span class="clause-tag clause">${CLAUSES[id].name.toUpperCase()}</span>`);
     const remove_clause_icon = $(`<span class="controls-remove-button controls">&times;</span>`);
 
     clause_li_item.append(clause_tag);
     clause_li_item.append(remove_clause_icon);
 
-    if (tags[index].type === 'operator') {
+    if (CLAUSES[id].type === CLAUSES_TYPES.OPERATOR) {
         clause_tag.addClass('operator');
         clause_tag.removeClass('clause');
     }
@@ -36,21 +50,22 @@ const buildClauseElement = (index) => {
     $(remove_clause_icon).click(() => {
         $(clause_li_item).fadeOut(300, () => {
             clause_li_item.remove();
+            Store.commit();
             //updateOutput();
         });
     });
     return clause_li_item;
 };
 
-const buildClauseValueElement = (name = '') => {
+const buildClauseValueElement = (id, name = '') => {
     const clause_value_input =
         $(`<input data-type="clause-value" type="text" class="value-input value-input-selected" placeholder="Enter value" value="${name ? name : ''}">`);
     const remove_clause_icon = $(`<span class="controls-remove-button controls controls-hide clause-tag">&times;</span>`);
     const value_tag = $(`<span class="value-tag clause-tag">${name ? name : 'Enter value'}</span>`);
-    const li_item = $(`<li class="clause-items pulse"></li>`);
+    const li_item = $(`<li data-clause-id="${id}" class="clause-items pulse"></li>`);
 
-    li_item.append(remove_clause_icon);
     li_item.append(value_tag);
+    li_item.append(remove_clause_icon);
     li_item.append(clause_value_input);
 
     toggleValueInput(clause_value_input, value_tag);
@@ -58,12 +73,14 @@ const buildClauseValueElement = (name = '') => {
     remove_clause_icon.click(() => {
         li_item.fadeOut(300, () => {
             li_item.remove();
+            Store.commit();
             //updateOutput();
         });
     });
 
     clause_value_input.focus();
     clause_value_input.blur(() => {
+        Store.commit();
         //updateOutput();
     });
     clause_value_input.keypress(() => {
@@ -119,3 +136,10 @@ const appendPlusControl = (container) => {
         overlay.fadeIn(300); // show modal
     });*/
 };
+
+function commitChanges() {
+    Store.commit([...$('#query_builder_input').children()].map((elem) => ({
+        id: $(elem).attr('data-clause-id'),
+        payload: $(elem).children().first().text()
+    })));
+}
