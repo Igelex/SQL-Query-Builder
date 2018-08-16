@@ -9,6 +9,7 @@ $tag-clause: 'sqlqb-tag-clause';
 $tag-operator: 'sqlqb-tag-operator';
 $tag-value: 'sqlqb-tag-value';
 $value-input: 'sqlqb-value-input';
+$font-family: 'Motserrat';
 
 /***********************************************************************************************************************
 *Variables for tags that will be displayed on initialization
@@ -23,7 +24,7 @@ $bc-value: rgba(191, 191, 191, 0.70);
 $bc-value-hover: #BFBFBF;
 
 /*Tags font option*/
-$f-family-tag: 'Motserrat';
+$f-family-tag: $font-family;
 $f-size-tag: 18px;
 $f-weight-tag: 700;
 $f-color-tag: white;
@@ -50,6 +51,7 @@ $f-color-control-hover: #383838;
 /***********************************************************************************************************************
 *Input element for entering values
 */
+$f-family-input: $font-family;
 $bc-input: #f4f1f5;
 $borc-input: #bfbfbf; //border color
 $borc-input-focus: rgba(63, 174, 232, 0.85); //border color on focus
@@ -96,6 +98,7 @@ $f-size-input: 18px * $scale-factor;
 }
 
 @mixin value-input () {
+  font-family: $f-family-input;
   transition: border .5s;
   height: $h-input;
   background: $bc-input;
