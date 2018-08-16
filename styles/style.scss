@@ -4,19 +4,15 @@
 /***********************************************************************************************************************
 *General layout containers
 */
-* {
-  box-sizing: border-box;
-}
-
 #sqlqb-container {
   width: 100%;
   height: auto;
   padding: 16px;
   *{
     box-sizing: border-box;
-    font-family: 'Montserrat';
+    font-family: $font-family;
   }
-  li {
+  li,ul {
     list-style: none;
     margin: 0;
   }
@@ -83,6 +79,9 @@
   }
 }
 
+/***********************************************************************************************************************
+*Elements styling
+*/
 #{$input-item} {
   margin: 5px 0 6px 0;
   #{$tag} {
