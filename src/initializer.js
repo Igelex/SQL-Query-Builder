@@ -143,7 +143,7 @@ export function init(
         initElements: [{id: 1, text: ''}, {id: 0, text: 'first_name'}, {id: 2, text: ''}, {id: 0, text: 'users'}]
     }
 ) {
-    if (container) {
+    if (container &&  container !== '') {
         $(container).append(query_builder_container);
         initDragAndDrop();//Make Elements interactive
 
@@ -152,6 +152,6 @@ export function init(
         });
         commitChanges();
     } else {
-        console.error('Container for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")');
+        console.error('%cContainer for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
     }
 }

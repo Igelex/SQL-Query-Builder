@@ -26,8 +26,8 @@ export const Store = (function (){
                     payload: $(elem).children().first().text()
                 }));
                 updateOutput(this[_elements]);
-                console.log(this[_elements]);
-            }, 1000);
+                console.table(this[_elements]);
+            }, 200);
         }
 
         getElements() {

@@ -13,8 +13,11 @@ export default (elements) => {
 
     elements.forEach((item, i) => {
 
-        console.log(item);
+        console.group();
+        console.log('%cHUI', 'background-color: green');
         console.log(i);
+        console.log('i am gray'.gray);
+        console.groupEnd();
 
         let clause = CLAUSES[item.id];
         let elem = $('<span></span>');// clause or value that must be highlighted will be stored in <span>
@@ -25,7 +28,7 @@ export default (elements) => {
                 elem.addClass('output-clause');
                 break;
             case CLAUSES_TYPES.VALUE:
-                elem.text(`"${item.payload}"`);
+                elem.text(`"${item.payload ? item.payload : 'Enter value'}"`);
                 elem.addClass('output_value');
                 break;
             case CLAUSES_TYPES.OPERATOR:
@@ -35,9 +38,10 @@ export default (elements) => {
         }
         output_container.append(elem);
 
+        //add new line
         if (clause.block && i > 0) {
             elem.before('<br>');
         }
     });
-    //output_container.append('<span class="output-clause">;</span>'); // close query with ;
+    output_container.append('<span class="output-clause">;</span>'); // close query with ;
 };
