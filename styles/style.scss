@@ -31,59 +31,53 @@
   }
 }
 
-/*
-
-
-
-!***********************************************************************************************************************
+/***********************************************************************************************************************
 *Custom clause value input element
-*!
-.value-input {
+*/
+#{$value-input} {
   @include value-input;
   &:focus {
     border-bottom: 3px $borc-input-focus solid ;
   }
 }
-
-.value-tag {
-  background-color: $tag-value-color;
-  color: rgb(67, 67, 67);
-  &:hover {
-    background-color: $tag-value-color-hover;
-  }
-}
-
-!***********************************************************************************************************************
+/***********************************************************************************************************************
 *Custom clause tag
-*!
+*/
 .clause, .operator {
   margin-bottom: 0;
 }
 
-.clause-tag {
+#{$tag} {
   @include tag();
-  &.clause {
-    color: #fff;
-    background-color: $tag-clause-color;
+  &#{$tag-clause} {
+    color: $f-color-tag;
+    background-color: $bc-clause;
     &:hover {
-      background-color: $tag-clause-color-hover;
+      background-color: $bc-clause-hover;
     }
   }
-  &.operator {
-    background-color: $tag-operator-color;
-    color: white;
+  &#{$tag-operator} {
+    color: $f-color-tag;
+    background-color: $bc-operator;
     &:hover {
-      background-color: $tag-operator-color-hover;
+      background-color: $bc-operator-hover;
+    }
+  }
+  &#{$tag-clause} {
+    color: $f-color-tag-value;
+    background-color: $bc-value;
+    &:hover {
+      background-color: $bc-value-hover;
     }
   }
 }
-!*Placeholder for draggable items *!
+/*Placeholder for draggable items */
 .sort-placeholder {
   @include draggable-placeholder;
 }
-!******************************
+/******************************
 *control buttons for removing and adding tags
-*!
+*/
 .controls {
   color: #383838 !important;
   background-color: rgba(191, 191, 191, 0.70);
@@ -106,9 +100,9 @@
   display: none;
 }
 
-!***********************************************************************************************************************
+/***********************************************************************************************************************
 *Container with all provided tags
-*!
+*/
 .sql-pool {
   transition: background-color .5s;
   line-height: 50%;
@@ -122,9 +116,9 @@ li {
   list-style-type: none;
 }
 
-!***********************************************************************************************************************
+/***********************************************************************************************************************
 *Output highlighting
-*!
+*/
 #query-builder-output span {
   font-size: 18px;
   font-weight: 700;
@@ -147,9 +141,9 @@ li {
   color: #b37eff;
 }
 
-!*******************************************
+/*******************************************
 *icons
-*!
+*/
 .query-builder-icon {
   color: gray;
   transition: .3s;
@@ -162,9 +156,9 @@ li {
   }
 }
 
-!*******************************************
+/*******************************************
 *Helper
-*!
+*/
 .disp-none {
   display: none;
 }
@@ -202,10 +196,9 @@ li {
 }
 
 .clause-controls-placeholder {
-  !*background-color: #bfbfbf;*!
+  /*background-color: #bfbfbf;*/
   position: absolute;
   height: 100%;
   width: 80%;
   top: -100%;
 }
-*/
