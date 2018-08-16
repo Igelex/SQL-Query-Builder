@@ -19,6 +19,12 @@ $tag-controls-add: "#{$prefix}tag-controls-add";
 
 $input-item: "#{$prefix}input-item";
 
+$animation-pulse: "#{$prefix}animation-pulse";
+
+$output-clause: "#{$prefix}output-clause";
+$output-operator: "#{$prefix}output-operator";
+$output-value: "#{$prefix}output-value";
+
 $font-family: "Motserrat";
 
 /***********************************************************************************************************************
@@ -135,4 +141,21 @@ $f-size-input: 18px * $scale-factor;
   background-color: rgba(232, 232, 232, 0.52);
   margin: 0 5px;
   border-radius: 5px;
+}
+
+/*Animations*/
+@mixin animation-pulse () {
+  animation: pulse 1s;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
 }

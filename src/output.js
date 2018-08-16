@@ -25,15 +25,15 @@ export default (elements) => {
         switch (clause.type) {
             case CLAUSES_TYPES.ClAUSE:
                 elem.text(clause.name.toUpperCase());
-                elem.addClass('output-clause');
+                elem.addClass('sqldb-output-clause');
                 break;
             case CLAUSES_TYPES.VALUE:
                 elem.text(`"${item.payload ? item.payload : 'Enter value'}"`);
-                elem.addClass('output_value');
+                elem.addClass('sqldb-output-value');
                 break;
             case CLAUSES_TYPES.OPERATOR:
                 elem.text(clause.name.toUpperCase());
-                elem.addClass('output-operator');
+                elem.addClass('sqldb-output-operator');
                 break;
         }
         output_container.append(elem);
@@ -43,5 +43,5 @@ export default (elements) => {
             elem.before('<br>');
         }
     });
-    output_container.append('<span class="output-clause">;</span>'); // close query with ;
+    output_container.append('<span class="sqldb-output-clause">;</span>'); // close query with ;
 };

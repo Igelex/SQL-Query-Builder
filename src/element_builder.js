@@ -35,7 +35,7 @@ export const inputClauseValueElement = (id, name) => {
 };
 
 const buildClauseElement = (id) => {
-    const clause_li_item = $(`<li data-clause-id="${id}" class="sqlqb-input-item pulse"></li>`);
+    const clause_li_item = $(`<li data-clause-id="${id}" class="sqlqb-input-item sqlqb-animation-pulse"></li>`);
     const clause_tag = $(`<span class="sqlqb-tag sqlqb-tag-clause">${CLAUSES[id].name.toUpperCase()}</span>`);
     const remove_clause_icon = $(`<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`);
 
@@ -62,7 +62,7 @@ const buildClauseValueElement = (id, name = '') => {
         $(`<input data-type="clause-value" type="text" class="sqlqb-value-input value-input-selected" placeholder="Enter value" value="${name ? name : ''}">`);
     const remove_clause_icon = $(`<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`);
     const value_tag = $(`<span class="sqlqb-tag sqlqb-tag-value">${name ? name : 'Enter value'}</span>`);
-    const li_item = $(`<li data-clause-id="${id}" class="sqlqb-input-item pulse"></li>`);
+    const li_item = $(`<li data-clause-id="${id}" class="sqlqb-input-item sqlqb-animation-pulse"></li>`);
 
     li_item.append(value_tag);
     li_item.append(remove_clause_icon);

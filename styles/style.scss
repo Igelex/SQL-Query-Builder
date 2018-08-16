@@ -11,7 +11,7 @@
       @include tag-selected($bc-operator);
     }
     &#{$tag-value} {
-      @include tag-selected($bc-value);
+      @include tag-selected($f-color-tag-value);
     }
   }
   &:hover {
@@ -92,21 +92,20 @@
 /***********************************************************************************************************************
 *Output highlighting
 */
-.output-clause {
-  font-weight: bold;
-  color: #658bff;
+#{$output-clause} {
+  color: $bc-clause;
 }
 
-.output-value {
-  color: gray;
+#{$output-value} {
+  color: $bc-value;
 }
 
-.output-operator {
-  font-weight: bold;
-  color: #b37eff;
+#{$output-operator} {
+  font-weight: $f-weight-tag;
+  color: $bc-operator;
 }
 
-/*******************************************
+/***********************************************************************************************************************
 *icons
 */
 .query-builder-icon {
@@ -121,51 +120,18 @@
   }
 }
 
-/*******************************************
+/***********************************************************************************************************************
 *Helper
 */
 .disp-none {
   display: none;
 }
 
-.pulse {
-  animation: pulse 1s;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
-  }
-}
-
-.selected-tag-controls-container {
-  transition: opacity .5s;
-  opacity: 0;
-  border-radius: 0.25rem;
-  width: fit-content;
-  position: absolute;
-  top: -110%;
-  text-align: center;
-  left: 25%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
-}
-
-.selected-tag-container {
-  position: relative;
-}
-
-.clause-controls-placeholder {
-  /*background-color: #bfbfbf;*/
-  position: absolute;
-  height: 100%;
-  width: 80%;
-  top: -100%;
+/***********************************************************************************************************************
+*Animations
+*/
+#{$animation-pulse} {
+  @include animation-pulse;
 }
 
 /***********************************************************************************************************************
