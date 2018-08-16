@@ -1,8 +1,6 @@
 import {CLAUSES, CLAUSES_TYPES} from "./const";
 import {Store} from './store';
 
-let current_clause_tag_placeholder; // placeholder between clause tags (plus button)
-
 export function inputElement(id, text) {
     let clause = CLAUSES[id];
 
@@ -19,7 +17,6 @@ export function inputElement(id, text) {
 export const inputClauseElement = (id) => {
     let clause_tag = buildClauseElement(id);
     appendPlusControl(clause_tag);
-    //updateOutput();
     return clause_tag;
 };
 
@@ -30,7 +27,6 @@ export const inputClauseElement = (id) => {
 export const inputClauseValueElement = (id, name) => {
     let clause_value_input = buildClauseValueElement(id, name);
     appendPlusControl(clause_value_input);
-    //updateOutput();
     return clause_value_input;
 };
 
@@ -51,7 +47,6 @@ const buildClauseElement = (id) => {
         $(clause_li_item).fadeOut(300, () => {
             clause_li_item.remove();
             Store.commit();
-            //updateOutput();
         });
     });
     return clause_li_item;
@@ -74,18 +69,15 @@ const buildClauseValueElement = (id, name = '') => {
         li_item.fadeOut(300, () => {
             li_item.remove();
             Store.commit();
-            //updateOutput();
         });
     });
 
     clause_value_input.focus();
     clause_value_input.blur(() => {
         Store.commit();
-        //updateOutput();
     });
     clause_value_input.keypress(() => {
-        //setTimeout(100, updateOutput());
-        //updateOutput();
+        //Store.commit();
     });
     return li_item;
 };
@@ -109,7 +101,6 @@ const toggleValueInput = (input, span) => {
         span.text(input.val());
         span.css({'visibility': 'visible'});
         input.fadeToggle();
-        //updateOutput();
     });
 
     if (span.text() === 'Enter value') {
@@ -117,22 +108,4 @@ const toggleValueInput = (input, span) => {
         input.css({'display': 'inline'});
         input.focus();
     }
-
-};
-
-/**
- * Adds a plus button between clauses in @input_container, that allows adding clauses between clauses on click
- * @param container - current <li> element in the sortable list of clauses
- */
-const appendPlusControl = (container) => {
-    let placeholder_button = $('<span title="add new tag" class="sqlqb-tag-controls sqlqb-tag-controls-add">+</span>'); //template
-
-    $(container).append(placeholder_button); //append template to the current <li>
-    //on click displays a modal with clauses
-    /*$(placeholder_button).click(() => {
-        let overlay_position = input_container.offset(); // place modal under input container
-        current_clause_tag_placeholder = container; // save <li> globally, is needed to find position where new tag must be placed
-        overlay.css({'top': overlay_position.top + input_container.outerHeight()});// place modal under input container
-        overlay.fadeIn(300); // show modal
-    });*/
 };
