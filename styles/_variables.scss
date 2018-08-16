@@ -2,14 +2,19 @@
 *General
 */
 
-$prefix: 'sqlqb-'; // Prefix for all classes in SQL QUERY BUILDER library
-$scale-factor: 1.3; // simply change value to change general size of tags (e.g. 1.3)
-$tag: 'sqlqb-tag';
-$tag-clause: 'sqlqb-tag-clause';
-$tag-operator: 'sqlqb-tag-operator';
-$tag-value: 'sqlqb-tag-value';
-$value-input: 'sqlqb-value-input';
-$font-family: 'Motserrat';
+$prefix: ".sqlqb-"; // Prefix for all classes in SQL QUERY BUILDER library
+$scale-factor: 1; // simply change value to change general size of tags (e.g. 1.3)
+
+/*Classes*/
+$tag: "#{$prefix}tag";
+$tag-clause: "#{$prefix}tag-clause";
+$tag-operator: "#{$prefix}tag-operator";
+$tag-controls: "#{$prefix}tag-controls";
+$tag-value: "#{$prefix}tag-value";
+$value-input: "#{$prefix}value-input";
+$input-item: "#{$prefix}input-item";
+
+$font-family: "Motserrat";
 
 /***********************************************************************************************************************
 *Variables for tags that will be displayed on initialization

@@ -3,18 +3,18 @@ import {inputElement} from './element_builder';
 import {Store} from './store';
 
 const query_builder_container = $(
-    `<div id="query-builder-container">
+    `<div id="sqlqb-container">
                
     </div>`),
-    query_builder_input_container = $(`<div id="query-builder-input-container"></div> `),
-    query_builder_input = $(`<ul id="query-builder-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
-    query_builder_tags_container = $(`<div id="query-builder-tags-container"></div>`),
-    query_builder_tags_clauses = $(`<div id="query-builder-tags-clauses"><h4>Clauses</h4></div>`),
-    query_builder_tags_operators = $(`<div id="query-builder-tags-operators"><h4>Operators</h4></div>`),
+    query_builder_input_container = $(`<div id="sqlqb-input-container"></div> `),
+    query_builder_input = $(`<ul id="sqlqb-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
+    query_builder_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
+    query_builder_tags_clauses = $(`<div id="sqlqb-tags-clauses"><h4>Clauses</h4></div>`),
+    query_builder_tags_operators = $(`<div id="sqlqb-tags-operators"><h4>Operators</h4></div>`),
     query_builder_output_container = $(
-        `<div id="query-builder-output-container">
-            <i id="query-builder-copy-icon" class="far fa-copy fa-lg query-builder-icon query-builder-icon-copy"></i>
-            <div id="query-builder-output"></div>
+        `<div id="sqlqb-output-container">
+            <i id="sqlqb-copy-icon" class="far fa-copy fa-lg sqlqb-icon sqlqb-icon-copy"></i>
+            <div id="sqlqb-output"></div>
         </div>`);
 
 query_builder_input_container.append(query_builder_input);
@@ -100,8 +100,8 @@ function initDragAndDrop() {
     $(query_builder_input).disableSelection();
 
     // init jquery-ui draggable, all item are draggable
-    $('#query-builder-tags-container span').draggable({
-        connectToSortable: '#query-builder-input',
+    $('#sqlqb-tags-container span').draggable({
+        connectToSortable: '#sqlqb-input',
         helper: 'clone',
         revert: 'invalid',
         revertDuration: 300,
@@ -118,7 +118,7 @@ function initDragAndDrop() {
             let tag_id = current_elem.attr('data-clause-id');
 
             //if prev is <li>, elements was dropped in input container, that means a new element must be added
-            if (current_elem.parent().is('#query-builder-input')) {
+            if (current_elem.parent().is('#sqlqb-input')) {
                 let new_elem = inputElement(tag_id);
                 //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
                 setTimeout(() => {
@@ -134,7 +134,7 @@ function initDragAndDrop() {
             }
         }
     });
-    $('#query-builder-tags-container').disableSelection();
+    $('#sqlqb-tags-container').disableSelection();
 }
 
 export function init(

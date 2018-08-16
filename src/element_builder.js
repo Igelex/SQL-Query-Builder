@@ -35,16 +35,16 @@ export const inputClauseValueElement = (id, name) => {
 };
 
 const buildClauseElement = (id) => {
-    const clause_li_item = $(`<li data-clause-id="${id}" class="clause-items pulse"></li>`);
-    const clause_tag = $(`<span class="clause-tag clause">${CLAUSES[id].name.toUpperCase()}</span>`);
-    const remove_clause_icon = $(`<span class="controls-remove-button controls">&times;</span>`);
+    const clause_li_item = $(`<li data-clause-id="${id}" class="sqlqb-input-item pulse"></li>`);
+    const clause_tag = $(`<span class="sqlqb-tag sqlqb-tag-clause">${CLAUSES[id].name.toUpperCase()}</span>`);
+    const remove_clause_icon = $(`<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`);
 
     clause_li_item.append(clause_tag);
     clause_li_item.append(remove_clause_icon);
 
     if (CLAUSES[id].type === CLAUSES_TYPES.OPERATOR) {
-        clause_tag.addClass('operator');
-        clause_tag.removeClass('clause');
+        clause_tag.addClass('sqlqb-tag-operator');
+        clause_tag.removeClass('sqlqb-tag-clause');
     }
 
     $(remove_clause_icon).click(() => {
@@ -59,10 +59,10 @@ const buildClauseElement = (id) => {
 
 const buildClauseValueElement = (id, name = '') => {
     const clause_value_input =
-        $(`<input data-type="clause-value" type="text" class="value-input value-input-selected" placeholder="Enter value" value="${name ? name : ''}">`);
-    const remove_clause_icon = $(`<span class="controls-remove-button controls controls-hide clause-tag">&times;</span>`);
-    const value_tag = $(`<span class="value-tag clause-tag">${name ? name : 'Enter value'}</span>`);
-    const li_item = $(`<li data-clause-id="${id}" class="clause-items pulse"></li>`);
+        $(`<input data-type="clause-value" type="text" class="sqlqb-value-input value-input-selected" placeholder="Enter value" value="${name ? name : ''}">`);
+    const remove_clause_icon = $(`<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`);
+    const value_tag = $(`<span class="sqlqb-tag sqlqb-tag-value">${name ? name : 'Enter value'}</span>`);
+    const li_item = $(`<li data-clause-id="${id}" class="sqlqb-input-item pulse"></li>`);
 
     li_item.append(value_tag);
     li_item.append(remove_clause_icon);
@@ -125,7 +125,7 @@ const toggleValueInput = (input, span) => {
  * @param container - current <li> element in the sortable list of clauses
  */
 const appendPlusControl = (container) => {
-    let placeholder_button = $('<span title="add new tag" class="controls-add-button controls">+</span>'); //template
+    let placeholder_button = $('<span title="add new tag" class="sqlqb-tag-controls sqlqb-tag-controls-add">+</span>'); //template
 
     $(container).append(placeholder_button); //append template to the current <li>
     //on click displays a modal with clauses
@@ -136,10 +136,3 @@ const appendPlusControl = (container) => {
         overlay.fadeIn(300); // show modal
     });*/
 };
-
-function commitChanges() {
-    Store.commit([...$('#query_builder_input').children()].map((elem) => ({
-        id: $(elem).attr('data-clause-id'),
-        payload: $(elem).children().first().text()
-    })));
-}
