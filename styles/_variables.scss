@@ -54,7 +54,7 @@ $bc-selected: transparent;
 
 /*Selected Tags controls-styling*/
 $bc-control: rgba(191, 191, 191, 0.70);
-$bc-control-hover: rgb(191, 191, 191);
+$bc-control-hover: rgb(155, 155, 155);
 $f-color-control: #383838;
 $f-color-control-hover: #383838;
 
@@ -78,7 +78,12 @@ $f-size-input: 18px * $scale-factor;
 }
 
 /*General tag layout*/
+@mixin tag-border-radius($btlr: $br-tag, $btrr: $br-tag, $bbrr: $br-tag, $bblr: $br-tag) {
+  border-radius: $btlr $btrr $bbrr $bblr;
+}
+
 @mixin tag ($btlr: $br-tag, $btrr: $br-tag, $bbrr: $br-tag, $bblr: $br-tag) {
+  @include tag-border-radius($btlr, $btrr, $bbrr, $bblr);
   transition: background-color .5s, color .5s;
   display: inline-block;
   padding: ($ptb-tag * $scale-factor) ($plr-tag * $scale-factor);
@@ -87,7 +92,6 @@ $f-size-input: 18px * $scale-factor;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: $btlr $btrr $bbrr $bblr;
   cursor: pointer;
 }
 
@@ -105,6 +109,7 @@ $f-size-input: 18px * $scale-factor;
   text-align: center;
   font-weight: bold;
   display: none;
+  height: 100%;
 }
 
 @mixin value-input () {

@@ -28,6 +28,9 @@
         @include tag-hover($bc-value, $f-color-tag-value, 0);
       }
     }
+    #{$tag-controls} {
+      display: inline-block;
+    }
   }
 }
 
@@ -72,16 +75,17 @@
 *control buttons for removing and adding tags
 */
 #{$tag-controls}{
+  @include tag();
   @include tag-controls();
   &:hover{
     background-color: $bc-control-hover;
   }
   &#{$tag-controls-remove} {
-    @include tag($br-tag, 0, 0, $br-tag);
+    @include tag-border-radius($br-tag, 0, 0, $br-tag);
     right: 100%;
   }
   &#{$tag-controls-add} {
-    @include tag(0, $br-tag, $br-tag, 0);
+    @include tag-border-radius(0, $br-tag, $br-tag, 0);
   }
 }
 
