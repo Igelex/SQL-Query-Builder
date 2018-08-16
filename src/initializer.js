@@ -3,9 +3,7 @@ import {inputElement} from './element_builder';
 import {Store} from './store';
 
 const query_builder_container = $(
-    `<div id="sqlqb-container">
-               
-    </div>`),
+    `<div id="sqlqb-container"></div>`),
     query_builder_input_container = $(`<div id="sqlqb-input-container"></div> `),
     query_builder_input = $(`<ul id="sqlqb-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
     query_builder_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
@@ -42,7 +40,7 @@ query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
 function appendClauseValueElement(name, id) {
-    const clause = $(`<span data-clause-id="${id}" class="value-tag clause-tag">${name}</span>`);
+    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-value">${name}</span>`);
     clause.click(() => {
         query_builder_input.append(inputElement(id));
         commitChanges();
@@ -52,7 +50,7 @@ function appendClauseValueElement(name, id) {
 
 function appendClauseElement(name, id) {
     name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${id}" class="clause-tag clause">${name}</span>`);
+    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-clause">${name}</span>`);
     clause.click(() => {
         query_builder_input.append(inputElement(id));
         commitChanges();
@@ -62,7 +60,7 @@ function appendClauseElement(name, id) {
 
 function appendOperatorTag(name, id) {
     name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${id}" class="clause-tag operator">${name}</span>`);
+    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-operator">${name}</span>`);
     clause.click(() => {
         query_builder_input.append(inputElement(id));
         commitChanges();

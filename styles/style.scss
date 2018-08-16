@@ -59,7 +59,7 @@
       background-color: $bc-operator-hover;
     }
   }
-  &#{$tag-clause} {
+  &#{$tag-value} {
     color: $f-color-tag-value;
     background-color: $bc-value;
     &:hover {
