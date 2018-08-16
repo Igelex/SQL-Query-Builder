@@ -15,7 +15,7 @@
     }
   }
   &:hover {
-    z-index: 1000;
+    z-index: 999;
     #{$tag} {
       @include tag(0, 0, 0, 0);
       &#{$tag-clause} {
@@ -43,10 +43,6 @@
 /***********************************************************************************************************************
 *Custom clause tag
 */
-.clause, .operator {
-  margin-bottom: 0;
-}
-
 #{$tag} {
   @include tag();
   &#{$tag-clause} {
@@ -71,62 +67,27 @@
     }
   }
 }
-/*Placeholder for draggable items */
-.sort-placeholder {
-  @include draggable-placeholder;
-}
-/******************************
-*control buttons for removing and adding tags
-*/
-.controls {
-  color: #383838 !important;
-  background-color: rgba(191, 191, 191, 0.70);
-  position: absolute;
-  text-align: center;
-  font-weight: bold;
-  &:hover{
-    background-color: rgb(191, 191, 191);
-  }
-}
-
-.controls-remove-button {
-  @include clause-tag(0.25rem, 0, 0, .25rem);
-  display: none;
-  right: 100%;
-}
-
-.controls-add-button {
-  @include clause-tag(0, 0.25rem, 0.25rem, 0);
-  display: none;
-}
 
 /***********************************************************************************************************************
-*Container with all provided tags
+*control buttons for removing and adding tags
 */
-.sql-pool {
-  transition: background-color .5s;
-  line-height: 50%;
-  background: transparent;
-}
-
-.sql-pool span {
-}
-
-li {
-  list-style-type: none;
+#{$tag-controls}{
+  @include tag-controls();
+  &:hover{
+    background-color: $bc-control-hover;
+  }
+  &#{$tag-controls-remove} {
+    @include tag($br-tag, 0, 0, $br-tag);
+    right: 100%;
+  }
+  &#{$tag-controls-add} {
+    @include tag(0, $br-tag, $br-tag, 0);
+  }
 }
 
 /***********************************************************************************************************************
 *Output highlighting
 */
-#query-builder-output span {
-  font-size: 18px;
-  font-weight: 700;
-  padding: 5px 5px;
-  display: inline-block;
-
-}
-
 .output-clause {
   font-weight: bold;
   color: #658bff;
@@ -201,4 +162,11 @@ li {
   height: 100%;
   width: 80%;
   top: -100%;
+}
+
+/***********************************************************************************************************************
+*Placeholder for draggable items
+*/
+.sort-placeholder {
+  @include draggable-placeholder;
 }

@@ -9,9 +9,14 @@ $scale-factor: 1; // simply change value to change general size of tags (e.g. 1.
 $tag: "#{$prefix}tag";
 $tag-clause: "#{$prefix}tag-clause";
 $tag-operator: "#{$prefix}tag-operator";
-$tag-controls: "#{$prefix}tag-controls";
+
 $tag-value: "#{$prefix}tag-value";
 $value-input: "#{$prefix}value-input";
+
+$tag-controls: "#{$prefix}tag-controls";
+$tag-controls-remove: "#{$prefix}tag-controls-remove";
+$tag-controls-add: "#{$prefix}tag-controls-add";
+
 $input-item: "#{$prefix}input-item";
 
 $font-family: "Motserrat";
@@ -94,8 +99,8 @@ $f-size-input: 18px * $scale-factor;
 }
 
 @mixin tag-controls () {
-  color: #383838 !important;
-  background-color: rgba(191, 191, 191, 0.70);
+  color: $f-color-control;
+  background-color: $bc-control;
   position: absolute;
   text-align: center;
   font-weight: bold;
