@@ -24,7 +24,7 @@
   border: 3px solid #f4f1f5;
 
   #sqlqb-input {
-    padding: 0;
+    padding: 10px 0;
     margin: 0;
     width: 100%;
     min-height: 60px;
@@ -82,6 +82,11 @@
 /***********************************************************************************************************************
 *Elements styling
 */
+.sqldb-header {
+  color: $f-color-header;
+  font-size: $f-size-header;
+}
+
 #{$input-item} {
   margin: 5px 0 6px 0;
   #{$tag} {

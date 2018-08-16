@@ -28,6 +28,8 @@ $output-value: "#{$prefix}output-value";
 $icon: "#{$prefix}icon";
 $icon-copy: "#{$icon}-copy";
 
+$header: "#{$prefix}header";
+
 $font-family: Montserrat;
 
 /***********************************************************************************************************************
@@ -57,6 +59,10 @@ $br-tag: 0.25rem; // border-radius
 /*Icons variables*/
 $c-icon: gray; //color
 $c-icon-hover: rgba(81, 148, 180, 0.51); //color
+
+/*Group headers text variables*/
+$f-color-header: black;
+$f-size-header: 18px;
 
 /***********************************************************************************************************************
 *Variables for selected tags in input container
