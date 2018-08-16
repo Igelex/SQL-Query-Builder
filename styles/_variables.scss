@@ -25,6 +25,9 @@ $output-clause: "#{$prefix}output-clause";
 $output-operator: "#{$prefix}output-operator";
 $output-value: "#{$prefix}output-value";
 
+$icon: "#{$prefix}icon";
+$icon-copy: "#{$icon}-copy";
+
 $font-family: "Motserrat";
 
 /***********************************************************************************************************************
@@ -50,6 +53,10 @@ $f-color-tag-value: #434343;
 $ptb-tag: 0.35em; //padding-top-bottom
 $plr-tag: 0.4em; //padding-left-right
 $br-tag: 0.25rem; // border-radius
+
+/*Icons variables*/
+$c-icon: gray; //color
+$c-icon-hover: rgba(81, 148, 180, 0.51); //color
 
 /***********************************************************************************************************************
 *Variables for selected tags in input container

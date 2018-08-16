@@ -1,5 +1,4 @@
 import 'jquery-ui-bundle';
-import '../styles/containers.scss';
 import '../styles/style.scss';
 import 'normalize.css';
 import {init} from './initializer';
