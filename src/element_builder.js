@@ -108,4 +108,14 @@ const toggleValueInput = (input, span) => {
         input.css({'display': 'inline'});
         input.focus();
     }
+
+};
+
+/**
+ * Adds a plus button between clauses in @input_container, that allows adding clauses between clauses on click
+ * @param container - current <li> element in the sortable list of clauses
+ */
+const appendPlusControl = (container) => {
+    let placeholder_button = $('<span title="add new tag" class="sqlqb-tag-controls sqlqb-tag-controls-add">+</span>'); //template
+    $(container).append(placeholder_button); //append template to the current <li>
 };

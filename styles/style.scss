@@ -93,14 +93,17 @@
 *Output highlighting
 */
 #{$output-clause} {
+  @include output;
   color: $bc-clause;
 }
 
 #{$output-value} {
-  color: $bc-value;
+  @include output;
+  color: $f-color-tag-value;
 }
 
 #{$output-operator} {
+  @include output;
   font-weight: $f-weight-tag;
   color: $bc-operator;
 }

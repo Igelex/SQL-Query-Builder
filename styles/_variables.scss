@@ -41,7 +41,7 @@ $bc-value-hover: #BFBFBF;
 
 /*Tags font options*/
 $f-family-tag: $font-family;
-$f-size-tag: 18px;
+$f-size-tag: 18px * $scale-factor;
 $f-weight-tag: 700;
 $f-color-tag: white;
 $f-color-tag-value: #434343;
@@ -141,6 +141,12 @@ $f-size-input: 18px * $scale-factor;
   background-color: rgba(232, 232, 232, 0.52);
   margin: 0 5px;
   border-radius: 5px;
+}
+
+@mixin output {
+  font-size: $f-size-tag;
+  padding: 5px 5px;
+  display: inline-block;
 }
 
 /*Animations*/

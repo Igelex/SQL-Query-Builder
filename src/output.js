@@ -7,17 +7,11 @@ import {CLAUSES, CLAUSES_TYPES} from "./const";
 let output_container = null;
 
 export default (elements) => {
-    if(!output_container) output_container = $('#query-builder-output');
+    if(!output_container) output_container = $('#sqlqb-output');
 
     output_container.empty(); //clear container
 
     elements.forEach((item, i) => {
-
-        console.group();
-        console.log('%cHUI', 'background-color: green');
-        console.log(i);
-        console.log('i am gray'.gray);
-        console.groupEnd();
 
         let clause = CLAUSES[item.id];
         let elem = $('<span></span>');// clause or value that must be highlighted will be stored in <span>
