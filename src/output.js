@@ -17,7 +17,7 @@ export default (elements) => {
         let elem = $('<span></span>');// clause or value that must be highlighted will be stored in <span>
 
         switch (clause.type) {
-            case CLAUSES_TYPES.ClAUSE:
+            case CLAUSES_TYPES.CLAUSE:
                 elem.text(clause.name.toUpperCase());
                 elem.addClass('sqldb-output-clause');
                 break;

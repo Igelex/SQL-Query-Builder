@@ -24,7 +24,7 @@ for (let i in CLAUSES) {
         case CLAUSES_TYPES.VALUE:
             appendClauseValueElement(tag.name, i);
             break;
-        case CLAUSES_TYPES.ClAUSE:
+        case CLAUSES_TYPES.CLAUSE:
             appendClauseElement(tag.name, i);
             break;
         case CLAUSES_TYPES.OPERATOR:
