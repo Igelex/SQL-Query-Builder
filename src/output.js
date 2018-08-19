@@ -14,22 +14,13 @@ export default (elements) => {
     elements.forEach((item, i) => {
 
         let clause = CLAUSES[item.id];
-        let elem = $('<span></span>');// clause or value that must be highlighted will be stored in <span>
+        let text = '';
 
-        switch (clause.type) {
-            case CLAUSES_TYPES.CLAUSE:
-                elem.text(clause.name.toUpperCase());
-                elem.addClass('sqldb-output-clause');
-                break;
-            case CLAUSES_TYPES.VALUE:
-                elem.text(`"${item.payload ? item.payload : 'Enter value'}"`);
-                elem.addClass('sqldb-output-value');
-                break;
-            case CLAUSES_TYPES.OPERATOR:
-                elem.text(clause.name.toUpperCase());
-                elem.addClass('sqldb-output-operator');
-                break;
-        }
+        if (clause.type === CLAUSES_TYPES.VALUE && item.payload) text = `"${item.payload ? item.payload : 'Enter value'}"`;
+        else {text = clause.name.toUpperCase();}
+
+        let elem = $(`<span class="sqldb-output-${clause.type}">${text}</span>`);// clause or value that must be highlighted will be stored in <span>
+
         output_container.append(elem);
 
         //add new line
@@ -39,3 +30,7 @@ export default (elements) => {
     });
     output_container.append('<span class="sqldb-output-clause">;</span>'); // close query with ;
 };
+
+function copyOutput() {
+
+}
