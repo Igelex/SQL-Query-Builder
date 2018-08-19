@@ -1,0 +1,180 @@
+/***********************************************************************************************************************
+*General
+*/
+
+$prefix: ".sqlqb-"; // Prefix for all classes in SQL QUERY BUILDER library
+$scale-factor: 1; // simply change value to change general size of tags (e.g. 1.3)
+
+/*Classes*/
+$tag: "#{$prefix}tag";
+$tag-clause: "#{$prefix}tag-clause";
+$tag-operator: "#{$prefix}tag-operator";
+
+$tag-value: "#{$prefix}tag-value";
+$value-input: "#{$prefix}value-input";
+
+$tag-controls: "#{$prefix}tag-controls";
+$tag-controls-remove: "#{$prefix}tag-controls-remove";
+$tag-controls-add: "#{$prefix}tag-controls-add";
+
+$input-item: "#{$prefix}input-item";
+
+$animation-pulse: "#{$prefix}animation-pulse";
+
+$output-clause: "#{$prefix}output-clause";
+$output-operator: "#{$prefix}output-operator";
+$output-value: "#{$prefix}output-value";
+
+$icon: "#{$prefix}icon";
+$icon-copy: "#{$icon}-copy";
+
+$header: "#{$prefix}header";
+
+$font-family: Montserrat;
+
+/***********************************************************************************************************************
+*Variables for tags that will be displayed on initialization
+*/
+
+/*Tags background colors*/
+$bc-clause: #399dfa;
+$bc-clause-hover: #3888bb;
+$bc-operator: #b37eff;
+$bc-operator-hover: #8261b9;
+$bc-value: rgba(191, 191, 191, 0.70);
+$bc-value-hover: #BFBFBF;
+
+/*Tags font options*/
+$f-family-tag: $font-family;
+$f-size-tag: 18px * $scale-factor;
+$f-weight-tag: 700;
+$f-color-tag: white;
+$f-color-tag-value: #434343;
+
+/*Tags base layout*/
+$ptb-tag: 0.35em; //padding-top-bottom
+$plr-tag: 0.4em; //padding-left-right
+$br-tag: 0.25rem; // border-radius
+
+/*Icons variables*/
+$c-icon: gray; //color
+$c-icon-hover: rgba(81, 148, 180, 0.51); //color
+
+/*Group headers text variables*/
+$f-color-header: black;
+$f-size-header: 18px;
+
+/***********************************************************************************************************************
+*Variables for selected tags in input container
+*/
+
+/*Selected Tags background colors if not hovered*/
+$bc-selected: transparent;
+
+/*Selected Tags controls-styling*/
+$bc-control: rgba(191, 191, 191, 0.70);
+$bc-control-hover: rgb(155, 155, 155);
+$f-color-control: #383838;
+$f-color-control-hover: #383838;
+
+/***********************************************************************************************************************
+*Input element for entering values
+*/
+$f-family-input: $font-family;
+$bc-input: #f4f1f5;
+$borc-input: #bfbfbf; //border color
+$borc-input-focus: rgba(63, 174, 232, 0.85); //border color on focus
+$h-input: 31px * $scale-factor;
+$f-size-input: 18px * $scale-factor;
+
+/***********************************************************************************************************************
+*mixins
+*/
+@mixin tag-selected($color) {
+  background-color: $bc-selected;
+  color: $color;
+  font-weight: 700;
+}
+
+/*General tag layout*/
+@mixin tag-border-radius($btlr: $br-tag, $btrr: $br-tag, $bbrr: $br-tag, $bblr: $br-tag) {
+  border-radius: $btlr $btrr $bbrr $bblr;
+}
+
+@mixin tag ($btlr: $br-tag, $btrr: $br-tag, $bbrr: $br-tag, $bblr: $br-tag) {
+  @include tag-border-radius($btlr, $btrr, $bbrr, $bblr);
+  transition: background-color .5s, color .5s;
+  display: inline-block;
+  padding: ($ptb-tag * $scale-factor) ($plr-tag * $scale-factor);
+  font-size: $f-size-tag * $scale-factor;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+@mixin tag-hover ($bg-color: $bc-clause, $color: $f-color-tag, $br: $br-tag) {
+  background-color: $bg-color;
+  border-radius: $br;
+  color: $color;
+  font-weight: normal;
+}
+
+@mixin tag-controls () {
+  color: $f-color-control;
+  background-color: $bc-control;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  display: none;
+  height: 100%;
+}
+
+@mixin value-input () {
+  font-family: $f-family-input;
+  transition: border .5s;
+  height: $h-input;
+  background: $bc-input;
+  border-bottom: 3px $borc-input solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-left: 10px;
+  outline-width: 0;
+  left: 0;
+  display: none;
+  position: absolute;
+  width: 100%;
+  font-size: $f-size-input;
+}
+
+@mixin draggable-placeholder () {
+  border: 2px solid rgba(57, 157, 250, 0.29);
+  background-color: rgba(232, 232, 232, 0.52);
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+@mixin output {
+  font-size: $f-size-tag;
+  padding: 5px 5px;
+  display: inline-block;
+}
+
+/*Animations*/
+@mixin animation-pulse () {
+  animation: pulse 1s;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}

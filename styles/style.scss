@@ -1,222 +1,204 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import '_vars';
 
 /***********************************************************************************************************************
-*color variables
+*General layout containers
 */
-$tag-clause-color: #399dfa;
-$tag-clause-color-hover: #3888bb;
-$tag-operator-color: #b37eff;
-$tag-operator-color-hover: #8261b9;
-$tag-value-color: rgba(191, 191, 191, 0.70);
-$tag-value-color-text: #434343;
-$tag-value-color-hover: #BFBFBF;
+#sqlqb-container {
+  width: 100%;
+  height: auto;
+  padding: 16px;
+  *{
+    box-sizing: border-box;
+    font-family: $font-family;
+  }
+  li,ul {
+    list-style: none;
+    margin: 0;
+  }
+}
+#sqlqb-input-container{
+  width: 100%;
+  padding: 0 10px;
+  background: white;
+  border: 3px solid #f4f1f5;
 
-/***********************************************************************************************************************
-*mixins
-*/
-@mixin tag-clause-highlight($bg-color, $color: white) {
-  background-color: $bg-color;
-  border-radius: 0;
-  color: $color;
-  font-weight: normal;
+  #sqlqb-input {
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    min-height: 60px;
+    display: flex;
+    justify-content: start !important;
+    flex-wrap: wrap;
+    align-items: center;
+
+    li {
+      position: relative;
+      border-radius: 0.25rem;
+      margin-right: 8px;
+    }
+  }
 }
 
-@mixin tag-clause-selected($color) {
-  background-color: transparent;
-  color: $color;
-  font-weight: 700;
+#sqlqb-tags-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  #sqlqb-tags-clauses, #sqlqb-tags-operators {
+    width: 50%;
+    display: inline-block;
+    padding: 0 15px;
+    span {
+      margin:0 10px 10px 0;
+    }
+  }
 }
-
-@mixin clause-tag ($btlr: 0.25rem, $btrr: 0.25rem, $bbrr: 0.25rem, $bblr: 0.25rem) {
-  transition: background-color .5s, color .5s;
-  display: inline-block;
-  padding: 0.35em 0.4em;
-  font-size: 18px;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: $btlr $btrr $bbrr $bblr;
+#sqlqb-output-container {
+  transition: .3s;
+  position: relative;
+  margin-top: 16px;
+  width: 100%;
+  padding: 20px 15px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background: #f5f5f5;
   cursor: pointer;
-}
-
-body {
-  font-family: Montserrat;
+  &:hover {
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+    #{$icon-copy} {
+      color: $c-icon-hover;
+      cursor: inherit;
+    }
+  }
+  &:active {
+    box-shadow: 4px 4px 10px 1px rgba(0, 0, 0, 0.1);
+  }
+  #sqlqb-output {
+    width: 100%;
+  }
 }
 
 /***********************************************************************************************************************
-*main container for query input
+*Elements styling
 */
-#sql-input-container {
-  border-bottom: 4px #658bff solid !important;
+.sqldb-header {
+  color: $f-color-header;
+  font-size: $f-size-header;
 }
 
-.clause-items {
+#{$input-item} {
   margin: 5px 0 6px 0;
-  .clause-tag.clause {
-    @include tag-clause-selected($tag-clause-color);
-  }
-  .clause-tag.operator {
-    @include tag-clause-selected($tag-operator-color);
-  }
-  .clause-tag.value-tag {
-    @include tag-clause-selected($tag-value-color-text);
+  #{$tag} {
+    &#{$tag-clause} {
+      @include tag-selected($bc-clause);
+    }
+    &#{$tag-operator} {
+      @include tag-selected($bc-operator);
+    }
+    &#{$tag-value} {
+      @include tag-selected($f-color-tag-value);
+    }
   }
   &:hover {
-    z-index: 1000;
-    .clause-tag.clause {
-      @include tag-clause-highlight($tag-clause-color);
+    z-index: 999;
+    #{$tag} {
+      @include tag(0, 0, 0, 0);
+      &#{$tag-clause} {
+        @include tag-hover($bc-clause, $f-color-tag, 0);
+      }
+      &#{$tag-operator} {
+        @include tag-hover($bc-operator, $f-color-tag, 0);
+      }
+      &#{$tag-value} {
+        @include tag-hover($bc-value, $f-color-tag-value, 0);
+      }
     }
-    .clause-tag.operator {
-      @include tag-clause-highlight($tag-operator-color)
-    }
-    .clause-tag.value-tag {
-      @include tag-clause-highlight($tag-value-color, $tag-value-color-text);
-    }
-    .controls {
+    #{$tag-controls} {
       display: inline-block;
     }
   }
 }
 
-#query-builder-input li {
-  position: relative;
-  border-radius: 0.25rem;
-  margin-right: 8px;
-}
-
 /***********************************************************************************************************************
 *Custom clause value input element
 */
-.value-input {
-  transition: border .5s;
-  height: 31px;
-  background: #f4f1f5;
-  border-bottom: 3px #bfbfbf solid;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  padding-left: 10px;
-  outline-width: 0;
-  left: 0;
-  display: none;
-  position: absolute;
-  width: 100% !important;
+#{$value-input} {
+  @include value-input;
   &:focus {
-    border-bottom: 3px rgba(63, 174, 232, 0.85) solid ;
-    background: #f4f1f5;
-  }
-}
-
-.value-tag {
-  background-color: $tag-value-color;
-  color: rgb(67, 67, 67);
-  &:hover {
-    background-color: $tag-value-color-hover;
+    border-bottom: 3px $borc-input-focus solid;
   }
 }
 
 /***********************************************************************************************************************
 *Custom clause tag
 */
-.clause, .operator {
-  margin-bottom: 0;
+#{$tag} {
+  @include tag();
+  &#{$tag-clause} {
+    color: $f-color-tag;
+    background-color: $bc-clause;
+    &:hover {
+      background-color: $bc-clause-hover;
+    }
+  }
+  &#{$tag-operator} {
+    color: $f-color-tag;
+    background-color: $bc-operator;
+    &:hover {
+      background-color: $bc-operator-hover;
+    }
+  }
+  &#{$tag-value} {
+    color: $f-color-tag-value;
+    background-color: $bc-value;
+    &:hover {
+      background-color: $bc-value-hover;
+    }
+  }
 }
 
-.clause-tag {
-  @include clause-tag();
-  &.clause {
-    color: #fff;
-    background-color: $tag-clause-color;
-    &:hover {
-      background-color: $tag-clause-color-hover;
-    }
-  }
-  &.operator {
-    background-color: $tag-operator-color;
-    color: white;
-    &:hover {
-      background-color: $tag-operator-color-hover;
-    }
-  }
-}
-/*Placeholder for draggable items */
-.sort-placeholder {
-  border: 2px solid rgba(57, 157, 250, 0.29);
-  background-color: rgba(232, 232, 232, 0.52);
-  margin: 0 5px;
-  border-radius: 5px;
-}
-/******************************
+/***********************************************************************************************************************
 *control buttons for removing and adding tags
 */
-.controls {
-  color: #383838 !important;
-  background-color: rgba(191, 191, 191, 0.70);
-  position: absolute;
-  text-align: center;
-  font-weight: bold;
-  &:hover{
-    background-color: rgb(191, 191, 191);
+#{$tag-controls} {
+  @include tag();
+  @include tag-controls();
+  &:hover {
+    background-color: $bc-control-hover;
+  }
+  &#{$tag-controls-remove} {
+    @include tag-border-radius($br-tag, 0, 0, $br-tag);
+    right: 100%;
+  }
+  &#{$tag-controls-add} {
+    @include tag-border-radius(0, $br-tag, $br-tag, 0);
   }
 }
 
-.controls-remove-button {
-  @include clause-tag(0.25rem, 0, 0, .25rem);
-  display: none;
-  right: 100%;
+/***********************************************************************************************************************
+*Output highlighting-- FIXME: why sass class variables ot working
+*/
+.sqldb-output-clause {
+  @include output;
+  color: $bc-clause;
 }
 
-.controls-add-button {
-  @include clause-tag(0, 0.25rem, 0.25rem, 0);
-  display: none;
+.sqldb-output-value {
+  @include output;
+  color: $f-color-tag-value;
+}
+
+.sqldb-output-operator {
+  @include output;
+  font-weight: $f-weight-tag;
+  color: $bc-operator;
 }
 
 /***********************************************************************************************************************
-*Container with all provided tags
-*/
-.sql-pool {
-  transition: background-color .5s;
-  line-height: 50%;
-  background: transparent;
-}
-
-.sql-pool span {
-}
-
-li {
-  list-style-type: none;
-}
-
-/***********************************************************************************************************************
-*Output highlighting
-*/
-#query-builder-output span {
-  font-size: 18px;
-  font-weight: 700;
-  padding: 5px 5px;
-  display: inline-block;
-
-}
-
-.output-clause {
-  font-weight: bold;
-  color: #658bff;
-}
-
-.output-value {
-  color: gray;
-}
-
-.output-operator {
-  font-weight: bold;
-  color: #b37eff;
-}
-
-/*******************************************
 *icons
 */
-.query-builder-icon {
+#{$icon} {
   color: gray;
   transition: .3s;
   padding: 6px;
@@ -227,80 +209,23 @@ li {
     top: calc(50% - 16px);
   }
 }
-/*******************************************
-*Pool Overlay
+
+#{$icon-copy} {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 16px);
+}
+
+/***********************************************************************************************************************
+*Animations
 */
-.sql-pool-overlay {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: auto;
+#{$animation-pulse} {
+  @include animation-pulse;
 }
 
-.sql-pool-overlay-content {
-  border-top: 4px #658bff solid;
-  border-bottom: 4px #658bff solid;
-}
-
-.sql-pool-overlay-content {
-  .clause-tag {
-    margin-bottom: 5px;
-  }
-  .clause-value-container {
-    margin-bottom: 5px;
-  }
-}
-
-.alert {
-  margin: 0;
-}
-
-/*******************************************
-*Helper
+/***********************************************************************************************************************
+*Placeholder for draggable items
 */
-.disp-none {
-  display: none;
-}
-
-.pulse {
-  animation: pulse 1s;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
-  }
-}
-
-.selected-tag-controls-container {
-  transition: opacity .5s;
-  opacity: 0;
-  border-radius: 0.25rem;
-  width: fit-content;
-  position: absolute;
-  top: -110%;
-  text-align: center;
-  left: 25%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
-}
-
-.selected-tag-container {
-  position: relative;
-}
-
-.clause-controls-placeholder {
-  /*background-color: #bfbfbf;*/
-  position: absolute;
-  height: 100%;
-  width: 80%;
-  top: -100%;
+.sort-placeholder {
+  @include draggable-placeholder;
 }

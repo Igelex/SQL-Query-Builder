@@ -21,7 +21,7 @@ export const Store = (function (){
 
         commit() {
             setTimeout(() => {
-                this[_elements] = [...$('#query-builder-input').children()].map((elem) => ({
+                this[_elements] = [...$('#sqlqb-input').children()].map((elem) => ({
                     id: $(elem).attr('data-clause-id'),
                     payload: $(elem).children().first().text()
                 }));
