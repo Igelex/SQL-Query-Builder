@@ -19,18 +19,7 @@ query_builder_input_container.append(query_builder_input);
 query_builder_container.append(query_builder_input_container);
 
 for (let i in CLAUSES) {
-    let tag = CLAUSES[i];
-    switch (tag.type) {
-        case CLAUSES_TYPES.VALUE:
-            appendClauseValueElement(tag.name, i);
-            break;
-        case CLAUSES_TYPES.ClAUSE:
-            appendClauseElement(tag.name, i);
-            break;
-        case CLAUSES_TYPES.OPERATOR:
-            appendOperatorTag(tag.name, i);
-            break;
-    }
+    appendInitialElements(CLAUSES[i], i);
 }
 
 query_builder_tags_container.append(query_builder_tags_clauses);
@@ -39,33 +28,25 @@ query_builder_tags_container.append(query_builder_tags_operators);
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
 
-function appendClauseValueElement(name, id) {
-    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-value">${name}</span>`);
+function appendInitialElements(element, id) {
+    const type = element.type;
+    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-${type}">${type !== CLAUSES_TYPES.VALUE ? element.name.toUpperCase() : element.name}</span>`);
     clause.click(() => {
         query_builder_input.append(inputElement(id));
         commitChanges();
     });
-    query_builder_tags_clauses.append(clause);
-}
 
-function appendClauseElement(name, id) {
-    name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-clause">${name}</span>`);
-    clause.click(() => {
-        query_builder_input.append(inputElement(id));
-        commitChanges();
-    });
-    query_builder_tags_clauses.append(clause);
-}
-
-function appendOperatorTag(name, id) {
-    name = name.toUpperCase();
-    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-operator">${name}</span>`);
-    clause.click(() => {
-        query_builder_input.append(inputElement(id));
-        commitChanges();
-    });
-    query_builder_tags_operators.append(clause);
+    switch (element.type) {
+        case CLAUSES_TYPES.VALUE:
+            query_builder_tags_clauses.append(clause);
+            break;
+        case CLAUSES_TYPES.CLAUSE:
+            query_builder_tags_clauses.append(clause);
+            break;
+        case CLAUSES_TYPES.OPERATOR:
+            query_builder_tags_operators.append(clause);
+            break;
+    }
 }
 
 function commitChanges() {
@@ -141,7 +122,7 @@ export function init(
         initElements: [{id: 1, text: ''}, {id: 0, text: 'first_name'}, {id: 2, text: ''}, {id: 0, text: 'users'}]
     }
 ) {
-    if (container &&  container !== '') {
+    if (container && container !== '') {
         $(container).append(query_builder_container);
         initDragAndDrop();//Make Elements interactive
 

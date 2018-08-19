@@ -1,7 +1,7 @@
 export const CLAUSES_TYPES = {
-    VALUE: 0,
-    ClAUSE: 1,
-    OPERATOR: 2
+    VALUE: 'value',
+    CLAUSE: 'clause',
+    OPERATOR: 'operator'
 };
 
 /**
@@ -13,119 +13,119 @@ export const CLAUSES_TYPES = {
 export const CLAUSES = [
     /*Value input tag **************************************/
     {
-        type: 0,
+        type: CLAUSES_TYPES.VALUE,
         block: false,
         name: 'Enter value'
     },
     /*Clauses **************************************/
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: true,
         name: 'select'
     },
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: true,
         name: 'from'
     },
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: true,
         name: 'where'
     },
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: false,
         name: 'distinct'
     },
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: false,
         name: 'count'
     },
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: false,
         name: 'sum'
     },
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: true,
         name: 'min'
     },
     {
-        type: 1,
+        type: CLAUSES_TYPES.CLAUSE,
         block: true,
         name: 'avg'
     },
     /*Operators **************************************/
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: 'not'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: 'is not null'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: 'is null'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: 'and'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: 'or'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '('
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: ')'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '=='
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '<'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '>'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '<='
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '>='
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '+'
     },
     {
-        type: 2,
+        type: CLAUSES_TYPES.OPERATOR,
         block: false,
         name: '*'
     }

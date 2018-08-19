@@ -5,7 +5,7 @@ export function inputElement(id, text) {
     let clause = CLAUSES[id];
 
     switch (clause.type) {
-        case CLAUSES_TYPES.ClAUSE:
+        case CLAUSES_TYPES.CLAUSE:
             return inputClauseElement(id);
         case CLAUSES_TYPES.VALUE:
             return inputClauseValueElement(id, text);
