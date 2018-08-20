@@ -46,13 +46,17 @@ function appendInitialElements(element, id) {
     });
 
     switch (element.type) {
-        case CLAUSES_TYPES.CLAUSE || CLAUSES_TYPES.VALUE:
+        case CLAUSES_TYPES.VALUE:
             query_builder_tags_clauses.append(clause);
-            query_builder_tags_TEST1.append(clause);
+            //query_builder_tags_TEST1.append(clause);
+            break;
+        case CLAUSES_TYPES.CLAUSE:
+            query_builder_tags_clauses.append(clause);
+            //query_builder_tags_TEST1.append(clause);
             break;
         case CLAUSES_TYPES.OPERATOR:
             query_builder_tags_operators.append(clause);
-            query_builder_tags_TEST.append(clause);
+            //query_builder_tags_TEST.append(clause);
             break;
     }
 }
