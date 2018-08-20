@@ -15,6 +15,8 @@ export default (elements) => {
 
     output_container.empty(); //clear container
 
+    text_to_copy = '';
+
     elements.forEach((item, i) => {
 
         let clause = CLAUSES[item.id];
@@ -34,7 +36,7 @@ export default (elements) => {
             elem.before('<br>');
         }
 
-        text_to_copy = text.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
+        text_to_copy += text_to_copy.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
 
     });
     output_container.append('<span class="sqlqb-output-clause">;</span>'); // close query with ;
@@ -52,8 +54,8 @@ function copyOutput() {
     hidden_input.val(`${text_to_copy};`).select();
     try {
         document.execCommand('copy');
-    } catch (e) {
-        console.log(e);
+    } catch (copy_error) {
+        console.log({copy_error});
     }
     hidden_input.remove();
 }
