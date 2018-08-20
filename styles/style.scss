@@ -44,11 +44,11 @@
 #sqlqb-tags-container {
   width: 100%;
   display: flex;
-  flex-flow: row;
-  #sqlqb-tags-clauses, #sqlqb-tags-operators {
-    width: 50%;
+  flex-flow: wrap row;
+  .sqlqb-tags-group {
+    flex: 0 0 25%;
     display: inline-block;
-    padding: 0 15px;
+    padding: 0;
     span {
       margin:0 10px 10px 0;
     }
@@ -78,6 +78,27 @@
     width: 100%;
   }
 }
+
+/*************************
+*Media queries
+*/
+
+@media only screen and (max-width: 1200px){
+  #sqlqb-tags-container {
+    .sqlqb-tags-group {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+@media only screen and (max-width: 650px){
+  #sqlqb-tags-container {
+    .sqlqb-tags-group {
+      flex: 0 0 100%;
+    }
+  }
+}
+
 
 /***********************************************************************************************************************
 *Elements styling

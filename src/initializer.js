@@ -7,8 +7,12 @@ const query_builder_container = $(
     query_builder_input_container = $(`<div id="sqlqb-input-container"></div> `),
     query_builder_input = $(`<ul id="sqlqb-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
     query_builder_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
-    query_builder_tags_clauses = $(`<div id="sqlqb-tags-clauses"><h4 class="sqldb-header">Clauses</h4></div>`),
-    query_builder_tags_operators = $(`<div id="sqlqb-tags-operators"><h4 class="sqldb-header">Operators</h4></div>`),
+    query_builder_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqldb-header">Clauses</h4></div>`),
+    query_builder_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqldb-header">Operators</h4></div>`),
+
+    query_builder_tags_TEST = $(`<div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqldb-header">TEST</h4></div>`),
+    query_builder_tags_TEST1 = $(`<div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqldb-header">TEST</h4></div>`),
+
     query_builder_output_container = $(
         `<div id="sqlqb-output-container">
             <i id="sqlqb-copy-icon" class="far fa-copy fa-lg sqlqb-icon sqlqb-icon-copy"></i>
@@ -24,6 +28,11 @@ for (let i in CLAUSES) {
 
 query_builder_tags_container.append(query_builder_tags_clauses);
 query_builder_tags_container.append(query_builder_tags_operators);
+/*************************************
+ * JUST FOR TESTING
+ */
+query_builder_tags_container.append(query_builder_tags_TEST);
+query_builder_tags_container.append(query_builder_tags_TEST1);
 
 query_builder_container.append(query_builder_tags_container);
 query_builder_container.append(query_builder_output_container);
@@ -37,14 +46,13 @@ function appendInitialElements(element, id) {
     });
 
     switch (element.type) {
-        case CLAUSES_TYPES.VALUE:
+        case CLAUSES_TYPES.CLAUSE || CLAUSES_TYPES.VALUE:
             query_builder_tags_clauses.append(clause);
-            break;
-        case CLAUSES_TYPES.CLAUSE:
-            query_builder_tags_clauses.append(clause);
+            query_builder_tags_TEST1.append(clause);
             break;
         case CLAUSES_TYPES.OPERATOR:
             query_builder_tags_operators.append(clause);
+            query_builder_tags_TEST.append(clause);
             break;
     }
 }
