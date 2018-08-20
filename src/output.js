@@ -25,7 +25,7 @@ export default (elements) => {
             text = clause.name.toUpperCase();
         }
 
-        let elem = $(`<span class="sqldb-output-${clause.type}">${text}</span>`);// clause or value that must be highlighted will be stored in <span>
+        let elem = $(`<span class="sqlqb-output-${clause.type}">${text}</span>`);// clause or value that must be highlighted will be stored in <span>
 
         output_container.append(elem);
 
@@ -34,10 +34,10 @@ export default (elements) => {
             elem.before('<br>');
         }
 
-        text_to_copy += text.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
+        text_to_copy = text.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
 
     });
-    output_container.append('<span class="sqldb-output-clause">;</span>'); // close query with ;
+    output_container.append('<span class="sqlqb-output-clause">;</span>'); // close query with ;
 };
 
 /**
@@ -57,3 +57,5 @@ function copyOutput() {
     }
     hidden_input.remove();
 }
+
+export const getOutputAsText = () => text_to_copy;

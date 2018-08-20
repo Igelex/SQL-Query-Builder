@@ -82,7 +82,7 @@
 /***********************************************************************************************************************
 *Elements styling
 */
-.sqldb-header {
+#{$header}{
   color: $f-color-header;
   font-size: $f-size-header;
 }
@@ -162,8 +162,8 @@
 *control buttons for removing and adding tags
 */
 #{$tag-controls} {
-  @include tag();
-  @include tag-controls();
+  @include tag;
+  @include tag-controls;
   &:hover {
     background-color: $bc-control-hover;
   }
@@ -177,22 +177,34 @@
 }
 
 /***********************************************************************************************************************
-*Output highlighting-- FIXME: why sass class variables ot working
+*Output styling
 */
-.sqldb-output-clause {
+#{$output-clause} {
   @include output;
   color: $bc-clause;
 }
 
-.sqldb-output-value {
+#{$output-value} {
   @include output;
   color: $f-color-tag-value;
 }
 
-.sqldb-output-operator {
+#{$output-operator} {
   @include output;
   font-weight: $f-weight-tag;
   color: $bc-operator;
+}
+
+.sqlqb-badge {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: $f-color-badge;
+  font-weight: bold;
+  padding: 7px 15px;
+  border-radius: 0.25em;
+  background-color: $bc-badge;
 }
 
 /***********************************************************************************************************************

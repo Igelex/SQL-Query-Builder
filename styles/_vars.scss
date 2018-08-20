@@ -54,18 +54,10 @@ $f-color-tag-value: #434343;
 /*Tags base layout*/
 $ptb-tag: 0.35em; //padding-top-bottom
 $plr-tag: 0.4em; //padding-left-right
-$br-tag: 0.25rem; // border-radius
-
-/*Icons variables*/
-$c-icon: gray; //color
-$c-icon-hover: rgba(81, 148, 180, 0.51); //color
-
-/*Group headers text variables*/
-$f-color-header: black;
-$f-size-header: 18px;
+$br-tag: 0.25em; // border-radius
 
 /***********************************************************************************************************************
-*Variables for selected tags in input container
+*Variables for selected tags inside input container
 */
 
 /*Selected Tags background colors if not hovered*/
@@ -86,6 +78,22 @@ $borc-input: #bfbfbf; //border color
 $borc-input-focus: rgba(63, 174, 232, 0.85); //border color on focus
 $h-input: 31px * $scale-factor;
 $f-size-input: 18px * $scale-factor;
+
+/***********************************************************************************************************************
+*Other
+*/
+
+/*Icons variables*/
+$c-icon: gray; //icon color
+$c-icon-hover: rgba(81, 148, 180, 0.51);
+
+/*Badge variables*/
+$f-color-badge: #626262;
+$bc-badge: #d7d7d7;
+
+/*Group headers text variables*/
+$f-color-header: black;
+$f-size-header: 18px;
 
 /***********************************************************************************************************************
 *mixins
