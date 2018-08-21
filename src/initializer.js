@@ -83,7 +83,7 @@ function initDragAndDrop() {
         forcePlaceholderSize: true,
         placeholder: 'sort-placeholder',
         delay: 150,
-        update: function (event, ui) {
+        update: function () {
             setTimeout(commitChanges(), 100);
         }
     });
