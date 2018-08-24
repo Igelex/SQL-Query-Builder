@@ -28,16 +28,17 @@
   box-sizing: border-box;
   width: 100%;
   height: auto;
-  *{
+  * {
     box-sizing: border-box;
     font-family: $font-family;
   }
-  li,ul {
+  li, ul {
     list-style: none;
     margin: 0;
   }
 }
-#sqlqb-input-container{
+
+#sqlqb-input-container {
   width: 100%;
   padding: 0 10px;
   background: white;
@@ -71,20 +72,21 @@
     width: 100%;
     display: inline-block;
     background: $bc-group;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
     @include tag-border-radius;
-    padding: 0 16px ;
+    padding: 0 16px;
     &.sqlqb-group-collapsed {
       transition: 0.5s ease-out;
       height: 52px;
       background-color: #399dfa;
     }
     span {
-      margin:0 10px 10px 0;
+      margin: 0 10px 10px 0;
     }
   }
 }
+
 #sqlqb-output-container {
   transition: .3s;
   position: relative;
@@ -114,7 +116,7 @@
 *Media queries
 */
 
-@media only screen and (max-width: 1200px){
+@media only screen and (max-width: 1200px) {
   #sqlqb-tags-container {
     .sqlqb-col {
       flex: 0 0 50%;
@@ -122,7 +124,7 @@
   }
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
   #sqlqb-tags-container {
     .sqlqb-col {
       flex: 0 0 100%;
@@ -133,17 +135,55 @@
 /***********************************************************************************************************************
 *Elements styling
 */
-#{$header}{
+#{$header} {
+  position: relative;
   transition: .3s;
   color: $f-color-header;
   font-size: $f-size-header;
   padding: 16px 16px;
-  margin: 0px -16px;
+  margin: 0 -16px 10px -16px;
+  cursor: pointer;
   @include tag-border-radius;
   &:hover {
-    background-color: $bc-header-hover;
-    cursor: pointer;
+    //background-color: $bc-header-hover;
   }
+  span {
+    transition: .3s;
+    color: #bebebe;
+    position: absolute;
+    right: 10px;
+    font-size: 22px;
+    &.sqlqb-collapsed {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+#sqlqb-tags-clauses {
+  #{$header}.sqlqb-collapsed {
+    background-color: rgba($bc-clause, 0.2);
+    &:hover {
+      background-color: rgba($bc-clause, 0.4);
+    }
+  }
+}
+
+#sqlqb-tags-operators {
+  #{$header}.sqlqb-collapsed {
+    background-color: rgba($bc-operator, 0.2);
+    &:hover {
+      background-color: rgba($bc-operator, 0.4);
+    }
+  }
+}
+
+.sqlqb-tags-operators {
+}
+
+.sqlqb-tags-operators {
+}
+
+.sqlqb-tags-operators {
 }
 
 #{$input-item} {

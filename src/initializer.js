@@ -6,11 +6,11 @@ const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
     sqlqb_input = $(`<ul id="sqlqb-input" class=""></ul>`), //container for building sql queries, all selected tags will be placed here
     sqlqb_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
-    sqlqb_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqlqb-header">Clauses</h4></div>`),
-    sqlqb_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqlqb-header">Operators</h4></div>`),
+    sqlqb_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqlqb-header sqlqb-collapsed">Clauses <span class="sqlqb-collapsed">+</span></h4></div>`),
+    sqlqb_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqlqb-header sqlqb-collapsed">Operators<span class="sqlqb-collapsed">+</span></h4></div>`),
 
-    sqlqb_tags_TEST = $(`<div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
-    sqlqb_tags_TEST1 = $(`<div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
+    sqlqb_tags_TEST = $(`<div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST<span>+</span></h4></div>`),
+    sqlqb_tags_TEST1 = $(`<div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST<span>+</span></h4></div>`),
 
     sqlqb_output_container = $(
         `<div id="sqlqb-output-container">
@@ -19,14 +19,14 @@ const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
         </div>`);
 
 [sqlqb_tags_clauses, sqlqb_tags_operators].forEach((container) => {
-    console.log(container.find('h4'));
-    container.find('h4').click(() => {
-        console.log(container[0].style.height);
+    container.find('h4').click(function(){
         if (container[0].style.height === '52px' || container[0].style.height === ''){
-            container[0].style.height = container[0].scrollHeight + "px" ;
+            container[0].style.height = 100 + '%' //container[0].scrollHeight + "px" ;
         } else {
             container[0].style.height = 52 + 'px';
         }
+        $(this).find('span').toggleClass('sqlqb-collapsed');
+        $(this).toggleClass('sqlqb-collapsed');
     })
 });
 
