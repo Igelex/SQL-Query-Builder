@@ -4,7 +4,7 @@ import {Store} from './store';
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
-    sqlqb_input = $(`<ul id="sqlqb-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
+    sqlqb_input = $(`<ul id="sqlqb-input" class=""></ul>`), //container for building sql queries, all selected tags will be placed here
     sqlqb_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
     sqlqb_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqlqb-header">Clauses</h4></div>`),
     sqlqb_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqlqb-header">Operators</h4></div>`),
@@ -18,19 +18,30 @@ const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
             <div id="sqlqb-output"></div>
         </div>`);
 
-sqlqb_input_container.append(sqlqb_input);
-sqlqb_container.append(wrapWithRow([sqlqb_input_container]));
+[sqlqb_tags_clauses, sqlqb_tags_operators].forEach((container) => {
+    console.log(container.find('h4'));
+    container.find('h4').click(() => {
+        console.log(container[0].style.height);
+        if (container[0].style.height === '52px' || container[0].style.height === ''){
+            container[0].style.height = container[0].scrollHeight + "px" ;
+        } else {
+            container[0].style.height = 52 + 'px';
+        }
+    })
+});
 
+sqlqb_input_container.append(sqlqb_input);
+
+//append clauses tags
 for (let i in CLAUSES) {
     appendInitialElements(CLAUSES[i], i);
 }
-
 sqlqb_tags_container.append(wrapWithRow([sqlqb_tags_clauses,sqlqb_tags_operators, sqlqb_tags_TEST,sqlqb_tags_TEST1]));
 
-sqlqb_container.append(sqlqb_tags_container);
-sqlqb_container.append(sqlqb_output_container);
-
-
+//inject all to main container
+sqlqb_container.append(wrapWithRow([sqlqb_input_container])); //input block
+sqlqb_container.append(sqlqb_tags_container); //block with all available tags
+sqlqb_container.append(wrapWithRow([sqlqb_output_container])); //output block
 
 function appendInitialElements(element, id) {
     const type = element.type;
@@ -124,10 +135,8 @@ function initDragAndDrop() {
 }
 
 function wrapWithRow(elem = []) {
-    console.log(elem);
     const row = $(`<div class="sqlqb-row"></div>`);
     for (let el in elem) {
-        console.log(elem[el]);
         row.append(wrapWithCol(elem[el]));
     }
     return row;
@@ -138,8 +147,6 @@ function wrapWithCol(elem) {
     return col.append(elem);
 }
 
-
-
 export function init(
     {container, initElements} = {
         container: null,
@@ -147,7 +154,7 @@ export function init(
     }
 ) {
     if (container && container !== '') {
-        $(container).append(sqlqb_container);
+        $(container).append(sqlqb_container); //inject sqlqb into provided container
         initDragAndDrop();//Make Elements interactive
 
         initElements.forEach((item) => {
