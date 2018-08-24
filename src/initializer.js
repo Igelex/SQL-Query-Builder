@@ -7,11 +7,11 @@ const query_builder_container = $(
     query_builder_input_container = $(`<div id="sqlqb-input-container"></div> `),
     query_builder_input = $(`<ul id="sqlqb-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
     query_builder_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
-    query_builder_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqldb-header">Clauses</h4></div>`),
-    query_builder_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqldb-header">Operators</h4></div>`),
+    query_builder_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqlqb-header">Clauses</h4></div>`),
+    query_builder_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqlqb-header">Operators</h4></div>`),
 
-    query_builder_tags_TEST = $(`<div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqldb-header">TEST</h4></div>`),
-    query_builder_tags_TEST1 = $(`<div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqldb-header">TEST</h4></div>`),
+    query_builder_tags_TEST = $(`<div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
+    query_builder_tags_TEST1 = $(`<div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
 
     query_builder_output_container = $(
         `<div id="sqlqb-output-container">
