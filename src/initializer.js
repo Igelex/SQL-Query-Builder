@@ -2,61 +2,56 @@ import {CLAUSES, CLAUSES_TYPES} from './const';
 import {inputElement} from './element_builder';
 import {Store} from './store';
 
-const query_builder_container = $(
-    `<div id="sqlqb-container"></div>`),
-    query_builder_input_container = $(`<div id="sqlqb-input-container"></div> `),
-    query_builder_input = $(`<ul id="sqlqb-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
-    query_builder_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
-    query_builder_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqlqb-header">Clauses</h4></div>`),
-    query_builder_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqlqb-header">Operators</h4></div>`),
+const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
+    sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
+    sqlqb_input = $(`<ul id="sqlqb-input" class=""></ul>`), // container for building sql queries, all tags will be placed here
+    sqlqb_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
+    sqlqb_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqlqb-header">Clauses</h4></div>`),
+    sqlqb_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqlqb-header">Operators</h4></div>`),
 
-    query_builder_tags_TEST = $(`<div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
-    query_builder_tags_TEST1 = $(`<div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
+    sqlqb_tags_TEST = $(`<div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
+    sqlqb_tags_TEST1 = $(`<div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST</h4></div>`),
 
-    query_builder_output_container = $(
+    sqlqb_output_container = $(
         `<div id="sqlqb-output-container">
             <span class="sqlqb-badge">copy</span>
             <div id="sqlqb-output"></div>
         </div>`);
 
-query_builder_input_container.append(query_builder_input);
-query_builder_container.append(query_builder_input_container);
+sqlqb_input_container.append(sqlqb_input);
+sqlqb_container.append(wrapWithRow([wrapWithCol(sqlqb_input_container)]));
 
 for (let i in CLAUSES) {
     appendInitialElements(CLAUSES[i], i);
 }
 
-query_builder_tags_container.append(query_builder_tags_clauses);
-query_builder_tags_container.append(query_builder_tags_operators);
-/*************************************
- * JUST FOR TESTING
- */
-query_builder_tags_container.append(query_builder_tags_TEST);
-query_builder_tags_container.append(query_builder_tags_TEST1);
+sqlqb_tags_container.append(wrapWithRow([wrapWithCol(sqlqb_tags_clauses),wrapWithCol(sqlqb_tags_operators), wrapWithCol(sqlqb_tags_TEST),wrapWithCol(sqlqb_tags_TEST1)]));
 
-query_builder_container.append(query_builder_tags_container);
-query_builder_container.append(query_builder_output_container);
+sqlqb_container.append(sqlqb_tags_container);
+sqlqb_container.append(sqlqb_output_container);
+
+
 
 function appendInitialElements(element, id) {
     const type = element.type;
     const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-${type}">${type !== CLAUSES_TYPES.VALUE ? element.name.toUpperCase() : element.name}</span>`);
     clause.click(() => {
-        query_builder_input.append(inputElement(id));
+        sqlqb_input.append(inputElement(id));
         commitChanges();
     });
 
     switch (element.type) {
         case CLAUSES_TYPES.VALUE:
-            query_builder_tags_clauses.append(clause);
-            //query_builder_tags_TEST1.append(clause);
+            sqlqb_tags_clauses.append(clause);
+            //sqlqb_tags_TEST1.append(clause);
             break;
         case CLAUSES_TYPES.CLAUSE:
-            query_builder_tags_clauses.append(clause);
-            //query_builder_tags_TEST1.append(clause);
+            sqlqb_tags_clauses.append(clause);
+            //sqlqb_tags_TEST1.append(clause);
             break;
         case CLAUSES_TYPES.OPERATOR:
-            query_builder_tags_operators.append(clause);
-            //query_builder_tags_TEST.append(clause);
+            sqlqb_tags_operators.append(clause);
+            //sqlqb_tags_TEST.append(clause);
             break;
     }
 }
@@ -68,7 +63,7 @@ function commitChanges() {
 function initDragAndDrop() {
 
     // init jquery-ui sortable
-    $(query_builder_input).sortable({
+    $(sqlqb_input).sortable({
         revert: true,
         start: (event, ui) => {
             $(ui.helper[0]).css({'opacity': '0.5'});
@@ -88,7 +83,7 @@ function initDragAndDrop() {
         }
     });
 
-    $(query_builder_input).disableSelection();
+    $(sqlqb_input).disableSelection();
 
     // init jquery-ui draggable, all item are draggable
     $('#sqlqb-tags-container span').draggable({
@@ -117,7 +112,7 @@ function initDragAndDrop() {
                     if (current_elem.prev().length !== 0) {
                         new_elem.insertAfter(current_elem.prev()); //insert new element on right position
                     } else {
-                        query_builder_input.append(new_elem);
+                        sqlqb_input.append(new_elem);
                     }
                     current_elem.remove(); // remove clone of dragged element
                     //updateOutput();// and update output
@@ -128,6 +123,23 @@ function initDragAndDrop() {
     $('#sqlqb-tags-container').disableSelection();
 }
 
+function wrapWithRow(elem = []) {
+    console.log(elem);
+    const row = $(`<div class="sqlqb-row"></div>`);
+    for (let el in elem) {
+        console.log(elem[el]);
+        row.append(elem[el]);
+    }
+    return row;
+}
+
+function wrapWithCol(elem) {
+    const col = $(`<div class="sqlqb-col"></div>`);
+    return col.append(elem);
+}
+
+
+
 export function init(
     {container, initElements} = {
         container: null,
@@ -135,11 +147,11 @@ export function init(
     }
 ) {
     if (container && container !== '') {
-        $(container).append(query_builder_container);
+        $(container).append(sqlqb_container);
         initDragAndDrop();//Make Elements interactive
 
         initElements.forEach((item) => {
-            query_builder_input.append(inputElement(item.id, item.text));
+            sqlqb_input.append(inputElement(item.id, item.text));
         });
         commitChanges();
     } else {

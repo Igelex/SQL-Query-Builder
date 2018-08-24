@@ -4,11 +4,51 @@
 /***********************************************************************************************************************
 *General layout containers
 */
+.sqlqb-row {
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.sqlqb-col {
+  display: inline-block;
+  width: 100%;
+  padding: 15px;
+  flex: 0 0 100%;
+}
+
+#sqlqb-tags-container {
+  .sqlqb-col {
+    flex: 0 0 25%;
+  }
+}
+
+/*************************
+*Media queries
+*/
+
+@media only screen and (max-width: 1200px){
+  #sqlqb-tags-container {
+    .sqlqb-col {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+@media only screen and (max-width: 650px){
+  #sqlqb-tags-container {
+    .sqlqb-col {
+      flex: 0 0 100%;
+    }
+  }
+}
+
+
 #sqlqb-container {
   box-sizing: border-box;
   width: 100%;
   height: auto;
-  padding: 16px;
   *{
     box-sizing: border-box;
     font-family: $font-family;
@@ -47,9 +87,12 @@
   display: flex;
   flex-flow: wrap row;
   .sqlqb-tags-group {
-    flex: 0 0 25%;
+    width: 100%;
     display: inline-block;
-    padding: 0;
+    background: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    @include tag-border-radius;
+    padding: 0 16px ;
     span {
       margin:0 10px 10px 0;
     }
@@ -108,6 +151,7 @@
 #{$header}{
   color: $f-color-header;
   font-size: $f-size-header;
+  margin: 16px 0;
 }
 
 #{$input-item} {
@@ -264,3 +308,12 @@
 .sort-placeholder {
   @include draggable-placeholder;
 }
+
+/***********************************************************************************************************************
+*Groups collapse containers
+*/
+
+.sqlqb-tags-group{
+
+}
+
