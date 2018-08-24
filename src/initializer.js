@@ -19,13 +19,13 @@ const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
         </div>`);
 
 sqlqb_input_container.append(sqlqb_input);
-sqlqb_container.append(wrapWithRow([wrapWithCol(sqlqb_input_container)]));
+sqlqb_container.append(wrapWithRow([sqlqb_input_container]));
 
 for (let i in CLAUSES) {
     appendInitialElements(CLAUSES[i], i);
 }
 
-sqlqb_tags_container.append(wrapWithRow([wrapWithCol(sqlqb_tags_clauses),wrapWithCol(sqlqb_tags_operators), wrapWithCol(sqlqb_tags_TEST),wrapWithCol(sqlqb_tags_TEST1)]));
+sqlqb_tags_container.append(wrapWithRow([sqlqb_tags_clauses,sqlqb_tags_operators, sqlqb_tags_TEST,sqlqb_tags_TEST1]));
 
 sqlqb_container.append(sqlqb_tags_container);
 sqlqb_container.append(sqlqb_output_container);
@@ -128,7 +128,7 @@ function wrapWithRow(elem = []) {
     const row = $(`<div class="sqlqb-row"></div>`);
     for (let el in elem) {
         console.log(elem[el]);
-        row.append(elem[el]);
+        row.append(wrapWithCol(elem[el]));
     }
     return row;
 }
