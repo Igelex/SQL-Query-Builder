@@ -148,13 +148,14 @@
     //background-color: $bc-header-hover;
   }
   span {
+    transform: rotate(45deg);
     transition: .3s;
     color: #bebebe;
     position: absolute;
     right: 10px;
     font-size: 22px;
     &.sqlqb-collapsed {
-      transform: rotate(45deg);
+      transform: rotate(0);
     }
   }
 }
