@@ -1,6 +1,7 @@
 import {CLAUSES, CLAUSES_TYPES} from './const';
 import {inputElement} from './element_builder';
-import {Store} from './store';
+//import {Store} from './store';
+import {Store} from './store/store.js';
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
@@ -66,9 +67,9 @@ function appendInitialElements(element, id) {
             break;
     }
 }
-
 function commitChanges() {
-    Store.commit();
+    console.warn(Object.getOwnPropertySymbols(Store)[0].toString());
+    Store.dispatch('setInput', 'hui');
 }
 
 function initDragAndDrop() {
