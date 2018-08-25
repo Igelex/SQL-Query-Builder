@@ -67,9 +67,6 @@ function appendInitialElements(element, id) {
     }
 }
 
-//console.log(Store.events);
-//store.subscribe((state) => (console.warn(state.input)));
-
 function commitChanges() {
     setTimeout(() => {
         store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
