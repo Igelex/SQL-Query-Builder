@@ -1,6 +1,7 @@
 import {CLAUSES, CLAUSES_TYPES} from './const';
-import {inputElement} from './element_builder';
+import {inputElement, buildTag} from './element_builder';
 import store from './store/store.js';
+import floating_input from './floating_input';
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
@@ -43,9 +44,10 @@ sqlqb_container.append(wrapWithRow([sqlqb_input_container])); //input block
 sqlqb_container.append(sqlqb_tags_container); //block with all available tags
 sqlqb_container.append(wrapWithRow([sqlqb_output_container])); //output block
 
+sqlqb_input.append(floating_input);
+
 function appendInitialElements(element, id) {
-    const type = element.type;
-    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-${type}">${type !== CLAUSES_TYPES.VALUE ? element.name.toUpperCase() : element.name}</span>`);
+    const clause = buildTag(element, id);
     clause.click(() => {
         sqlqb_input.append(inputElement(id));
         commitChanges();

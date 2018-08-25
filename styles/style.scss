@@ -328,6 +328,45 @@
 }
 
 /***********************************************************************************************************************
+*Floating input
+*/
+
+#sqlqb-floating-input-container {
+  position: relative;
+  #{$floating} {
+    transition: .3s;
+    background: white;
+    outline: none;
+    border: 2px solid $borc-input;
+    height: 35px;
+    width: 100px;
+    padding-left: 10px;
+    @include tag-border-radius;
+    &:focus {
+      border: 2px solid $borc-input-focus;
+    }
+  }
+}
+
+#sqlqb-floating-input-items-container {
+  min-width: 100px;
+  z-index: 1001;
+  position: absolute;
+  background: white;
+  border: 1px solid #d7d7d7;
+  top: 110%;
+  @include tag-border-radius;
+  .sqlqb-floating-item {
+    width: 100%;
+    display: inline-block;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ebebeb;
+    &:first-child {
+      background-color: #d7d7d7;
+    }
+  }
+}
+/***********************************************************************************************************************
 *Animations
 */
 #{$animation-pulse} {

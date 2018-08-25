@@ -14,7 +14,12 @@ export function inputElement(id, text) {
     }
 }
 
-export const inputClauseElement = (id) => {
+export const buildTag = (element, id) => {
+    const type = element.type;
+    return $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-${type}">${type !== CLAUSES_TYPES.VALUE ? element.name.toUpperCase() : element.name}</span>`);
+};
+
+const inputClauseElement = (id) => {
     let clause_tag = buildClauseElement(id);
     appendPlusControl(clause_tag);
     return clause_tag;
@@ -24,7 +29,7 @@ export const inputClauseElement = (id) => {
  * Adds new clause value input to the input container
  * @param name - optional value, that can be displayed in input
  */
-export const inputClauseValueElement = (id, name) => {
+const inputClauseValueElement = (id, name) => {
     let clause_value_input = buildClauseValueElement(id, name);
     appendPlusControl(clause_value_input);
     return clause_value_input;
@@ -122,9 +127,9 @@ const appendPlusControl = (container) => {
 
 function commitChanges() {
     setTimeout(() => {
-        /*store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
+        store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
             id: $(elem).attr('data-clause-id'),
             payload: $(elem).children().first().text()
-        })));*/
+        })));
     }, 200);
 }
