@@ -339,18 +339,22 @@
     outline: none;
     border: 2px solid $borc-input;
     height: 35px;
-    width: 100px;
+    width: 30px;
     padding-left: 10px;
     @include tag-border-radius;
     &:focus {
+      width: 100px;
       border: 2px solid $borc-input-focus;
     }
   }
 }
 
 #sqlqb-floating-input-items-container {
-  min-width: 100px;
+  min-width: 100%;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   z-index: 1001;
+  min-height: 0;
+  display: none;
   position: absolute;
   background: white;
   border: 1px solid #d7d7d7;

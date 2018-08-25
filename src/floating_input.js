@@ -11,7 +11,9 @@ floating_input.keyup(() => {
     items_container.empty();
     let filtered_clauses = CLAUSES.filter(clause => clause.name.toLowerCase().includes(floating_input.val().toLowerCase()));
 
-    console.log({filtered_clauses});
+    if (filtered_clauses.length === 0) return;
+
+    items_container[0].style.display = 'block';
 
     for (let i = 0; i < filtered_clauses.length; i++) {
 
@@ -24,6 +26,9 @@ floating_input.keyup(() => {
     }
 });
 
-floating_input.blur(() => items_container.empty());
+floating_input.blur(() => {
+    items_container.empty();
+    items_container[0].style.display = 'none';
+});
 
 export default floating_input_container;
