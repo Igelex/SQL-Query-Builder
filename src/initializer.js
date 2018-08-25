@@ -44,8 +44,6 @@ sqlqb_container.append(wrapWithRow([sqlqb_input_container])); //input block
 sqlqb_container.append(sqlqb_tags_container); //block with all available tags
 sqlqb_container.append(wrapWithRow([sqlqb_output_container])); //output block
 
-sqlqb_input.append(floating_input);
-
 function appendInitialElements(element, id) {
     const clause = buildTag(element, id);
     clause.click(() => {
@@ -168,6 +166,7 @@ export function init(
             sqlqb_input.append(inputElement(item.id, item.text));
         });
         commitChanges();
+        sqlqb_input.append(floating_input);
     } else {
         console.error('%cContainer for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
     }

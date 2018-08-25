@@ -2,6 +2,7 @@ import {CLAUSES, CLAUSES_TYPES} from "./const";
 import store from './store/store';
 
 export function inputElement(id, text) {
+    console.log(CLAUSES);
     let clause = CLAUSES[id];
 
     switch (clause.type) {
