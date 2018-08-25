@@ -14,7 +14,7 @@ export const Store = (function (){
             this[_actions] = {};
             this[_mutations] = {};
             this[_state] = {};
-            this[_status] = '';
+            this[_status] = 'resting';
 
             this[_events] = new PubSub();
 
@@ -31,6 +31,8 @@ export const Store = (function (){
                     state[key] = value;
 
                     console.log(`stateChange: ${key}: ${value}`);
+
+                    if(!this[_events]) this[_events] = new PubSub();
 
                     this[_events].publish('stateChange', this[_state]);
 
@@ -80,5 +82,5 @@ export const Store = (function (){
             return true;
         }
     }
-        return new Store({st: state, actions, mutations});
+        return new Store({state, actions, mutations});
 }());

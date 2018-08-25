@@ -4,7 +4,6 @@ const state = {
 
 const mutations = {
   setInput(state, payload) {
-      console.warn({state});
       state.input = payload;
       return state;
   }
@@ -12,7 +11,6 @@ const mutations = {
 
 const actions = {
     setInput(context, payload) {
-        console.warn({context});
         context.commit('setInput', payload);
     }
 };
