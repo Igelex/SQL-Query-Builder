@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "webpack -p --mode production",
-    "dev": "webpack-dev-server --color --watch --mode development"
+    "dev": "webpack-dev-server --color --watch --mode development",
+    "watch": "webpack -p --watch --mode development"
   },
   "repository": {
     "type": "git",

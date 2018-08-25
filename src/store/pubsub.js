@@ -11,6 +11,7 @@ export default class PubSub {
     }
 
     publish(event, data = {}){
+        console.log({event});
         if(!this.events.hasOwnProperty(event)) {
             return [];
         }

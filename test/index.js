@@ -1,4 +1,4 @@
-import Sqlqb from './src/index';
+import Sqlqb from '../dist/sqlqb.js';
 
 Sqlqb.inject({
     container: '#sqlqb',

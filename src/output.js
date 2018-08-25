@@ -1,4 +1,5 @@
 import {CLAUSES, CLAUSES_TYPES} from "./const";
+import Store from "./store/store";
 
 /**
  * This method build SQL query string and show it in output container, calls avery time if user make some changes in
@@ -6,6 +7,15 @@ import {CLAUSES, CLAUSES_TYPES} from "./const";
  */
 let output_container = null;
 let text_to_copy = '';
+
+Store.events.subscribe('stateChange', ()=> {
+    out(Store.state.input);
+});
+
+function out(out) {
+    console.warn({out});
+}
+
 
 export default (elements) => {
     if (!output_container) {

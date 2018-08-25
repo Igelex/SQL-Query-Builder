@@ -70,7 +70,8 @@ function appendInitialElements(element, id) {
 }
 
 //Store[Object.getOwnPropertySymbols(Store)[4]].events.subscribe('stateChange', () => console.warn('Input change'));
-Store.events.subscribe('stateChange', () => console.warn('CHANGE'));
+console.log(Store.events);
+Store.events.subscribe('stateChange', () => (console.warn('CHANGE')));
 
 function commitChanges() {
     setTimeout(() => {
@@ -79,6 +80,7 @@ function commitChanges() {
             payload: $(elem).children().first().text()
         })));
     }, 200);
+    console.log(Store.state.input);
 }
 
 function initDragAndDrop() {
