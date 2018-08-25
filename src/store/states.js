@@ -4,6 +4,7 @@ const state = {
 
 const mutations = {
   setInput(state, payload) {
+      console.table(payload);
       state.input = payload;
       return state;
   }

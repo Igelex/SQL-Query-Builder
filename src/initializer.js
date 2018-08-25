@@ -1,7 +1,8 @@
 import {CLAUSES, CLAUSES_TYPES} from './const';
 import {inputElement} from './element_builder';
-//import {Store} from './store';
-import {Store} from './store/store.js';
+//import Store} from './store';
+import Store from './store/store.js';
+import updateOutput from "./output";
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
@@ -67,9 +68,17 @@ function appendInitialElements(element, id) {
             break;
     }
 }
+
+//Store[Object.getOwnPropertySymbols(Store)[4]].events.subscribe('stateChange', () => console.warn('Input change'));
+Store.events.subscribe('stateChange', () => console.warn('CHANGE'));
+
 function commitChanges() {
-    console.warn(Object.getOwnPropertySymbols(Store)[0].toString());
-    Store.dispatch('setInput', 'hui');
+    setTimeout(() => {
+        Store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
+            id: $(elem).attr('data-clause-id'),
+            payload: $(elem).children().first().text()
+        })));
+    }, 200);
 }
 
 function initDragAndDrop() {
