@@ -1,4 +1,5 @@
 import {CLAUSES, CLAUSES_TYPES} from "./const";
+import store from "./store/store";
 
 /**
  * This method build SQL query string and show it in output container, calls avery time if user make some changes in
@@ -7,7 +8,7 @@ import {CLAUSES, CLAUSES_TYPES} from "./const";
 let output_container = null;
 let text_to_copy = '';
 
-export default (elements) => {
+store.subscribe(() => {
     if (!output_container) {
         output_container = $('#sqlqb-output');
         output_container.click(copyOutput);
@@ -17,7 +18,7 @@ export default (elements) => {
 
     text_to_copy = '';
 
-    elements.forEach((item, i) => {
+    store.state.input.forEach((item, i) => {
 
         let clause = CLAUSES[item.id];
         let text = '';
@@ -37,11 +38,8 @@ export default (elements) => {
         }
 
         text_to_copy += text_to_copy.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
-
     });
-    output_container.append('<span class="sqlqb-output-clause">;</span>'); // close query with ;
-};
-
+});
 /**
  * copy SQL query output to the clipboard
  */

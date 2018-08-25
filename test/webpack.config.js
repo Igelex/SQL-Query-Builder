@@ -8,15 +8,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        //index: './src/index.js',
-        index: './test.js',
+        test: './index.js',
     },
     output: {
-        filename: 'sqlqb.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'Sqlqb',
-        libraryTarget: 'umd',
-        globalObject: 'this',
         //publicPath: 'dist/'
     },
     devServer: {
@@ -46,12 +42,6 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: './index.html',
             filename: './index.html'
-        }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            "window.jQuery": "jquery'",
-            "window.$": "jquery"
         }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
@@ -102,7 +92,5 @@ module.exports = {
                 ]
             }
         ],
-
     }
-
 };

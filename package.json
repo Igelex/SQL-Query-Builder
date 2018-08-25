@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "webpack -p --mode production",
-    "dev": "webpack-dev-server --color --watch --mode development"
+    "dev": "webpack-dev-server --color --watch --mode development",
+    "watch": "webpack -p --watch --mode development"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0",
+    "beedle": "^0.6.9",
     "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-bundle": "^1.12.1-migrate",

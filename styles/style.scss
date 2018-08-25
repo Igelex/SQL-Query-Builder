@@ -68,7 +68,7 @@
   flex-flow: wrap row;
   .sqlqb-tags-group {
     height: 52px;
-    transition: 0.5s ease-out;
+    transition: 0.3s ease-out;
     width: 100%;
     display: inline-block;
     background: $bc-group;
@@ -77,7 +77,6 @@
     @include tag-border-radius;
     padding: 0 16px;
     &.sqlqb-group-collapsed {
-      transition: 0.5s ease-out;
       height: 52px;
       background-color: #399dfa;
     }

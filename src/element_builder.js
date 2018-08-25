@@ -1,5 +1,5 @@
 import {CLAUSES, CLAUSES_TYPES} from "./const";
-import {Store} from './store';
+import store from './store/store';
 
 export function inputElement(id, text) {
     let clause = CLAUSES[id];
@@ -46,7 +46,7 @@ const buildClauseElement = (id) => {
     $(remove_clause_icon).click(() => {
         $(clause_li_item).fadeOut(300, () => {
             clause_li_item.remove();
-            Store.commit();
+            commitChanges();
         });
     });
     return clause_li_item;
@@ -68,13 +68,13 @@ const buildClauseValueElement = (id, name = '') => {
     remove_clause_icon.click(() => {
         li_item.fadeOut(300, () => {
             li_item.remove();
-            Store.commit();
+            commitChanges();
         });
     });
 
     clause_value_input.focus();
     clause_value_input.blur(() => {
-        Store.commit();
+        commitChanges();
     });
     clause_value_input.keypress(() => {
         //Store.commit();
@@ -119,3 +119,12 @@ const appendPlusControl = (container) => {
     let placeholder_button = $('<span title="add new tag" class="sqlqb-tag-controls sqlqb-tag-controls-add">+</span>'); //template
     $(container).append(placeholder_button); //append template to the current <li>
 };
+
+function commitChanges() {
+    setTimeout(() => {
+        /*store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
+            id: $(elem).attr('data-clause-id'),
+            payload: $(elem).children().first().text()
+        })));*/
+    }, 200);
+}
