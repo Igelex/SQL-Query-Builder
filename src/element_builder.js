@@ -4,14 +4,23 @@ import store from './store/store';
 export function inputElement(id, text) {
     let clause = CLAUSES[id];
 
+    let new_element;
+
     switch (clause.type) {
         case CLAUSES_TYPES.CLAUSE:
-            return inputClauseElement(id);
+            new_element = inputClauseElement(id);
+            break;
         case CLAUSES_TYPES.VALUE:
-            return inputClauseValueElement(id, text);
+            new_element = inputClauseValueElement(id, text);
+            break;
         case CLAUSES_TYPES.OPERATOR:
-            return inputClauseElement(id);
+            new_element = inputClauseElement(id);
+            break;
     }
+
+    commitChanges();
+
+    return new_element;
 }
 
 export const buildTag = (element, id) => {
@@ -125,10 +134,5 @@ const appendPlusControl = (container) => {
 };
 
 function commitChanges() {
-    setTimeout(() => {
-        store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
-            id: $(elem).attr('data-clause-id'),
-            payload: $(elem).children().first().text()
-        })));
-    }, 200);
+    store.dispatch('setInput');
 }

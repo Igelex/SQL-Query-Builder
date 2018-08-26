@@ -14,7 +14,7 @@ floating_input.keyup(() => {
     items_container.empty();
     filtered_clauses = CLAUSES.filter(clause => clause.name.toLowerCase().includes(floating_input.val().toLowerCase()));
 
-    if (filtered_clauses.length === 0) {};
+    if (filtered_clauses.length === 0) return;
 
     items_container[0].style.display = 'block';
 
@@ -51,8 +51,8 @@ floating_form.submit((event) => {
     items_container.empty();
     items_container[0].style.display = 'none';
 
-    floating_input_container.val(null);
-    floating_input_container.focus();
+    floating_input.val('');
+    floating_input.focus();
 });
 
 export default floating_input_container;

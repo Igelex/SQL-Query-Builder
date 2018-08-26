@@ -68,12 +68,7 @@ function appendInitialElements(element, id) {
 }
 
 function commitChanges() {
-    setTimeout(() => {
-        store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
-            id: $(elem).attr('data-clause-id'),
-            payload: $(elem).children().first().text()
-        })));
-    }, 200);
+    store.dispatch('setInput');
 }
 
 function initDragAndDrop() {

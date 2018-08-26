@@ -48,7 +48,7 @@
     padding: 10px 0;
     margin: 0;
     width: 100%;
-    min-height: 60px;
+    //min-height: 60px;
     display: flex;
     justify-content: start !important;
     flex-wrap: wrap;
@@ -334,6 +334,10 @@
 #sqlqb-floating-input-container {
   margin-left: 10px;
   position: relative;
+  height: 100%;
+  form{
+    height: 100%;
+  }
   #{$floating} {
     transition: .3s;
     background: white;
@@ -342,10 +346,12 @@
     height: 35px;
     width: 30px;
     padding-left: 10px;
+    animation: cursor 1s ease-out infinite;
     @include tag-border-radius;
     &:focus {
       width: 100px;
       border: 2px solid $borc-input-focus;
+      animation: none;
     }
   }
 }
@@ -369,6 +375,15 @@
     &:first-child {
       background-color: #d7d7d7;
     }
+  }
+}
+
+@keyframes cursor {
+  0% {
+    border-left-color: $borc-input;
+  }
+  100% {
+    border-left-color: $borc-input-focus;
   }
 }
 /***********************************************************************************************************************

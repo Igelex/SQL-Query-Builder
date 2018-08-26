@@ -8,7 +8,7 @@ import store from "./store/store";
 let output_container = null;
 let text_to_copy = '';
 
-/*store.subscribe(() => {
+store.subscribe(() => {
     if (!output_container) {
         output_container = $('#sqlqb-output');
         output_container.click(copyOutput);
@@ -39,7 +39,7 @@ let text_to_copy = '';
 
         text_to_copy += text_to_copy.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
     });
-});*/
+});
 /**
  * copy SQL query output to the clipboard
  */
