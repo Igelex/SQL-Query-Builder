@@ -14,7 +14,7 @@ floating_input.keyup(() => {
     items_container.empty();
     filtered_clauses = CLAUSES.filter(clause => clause.name.toLowerCase().includes(floating_input.val().toLowerCase()));
 
-    if (filtered_clauses.length === 0) return;
+    if (filtered_clauses.length === 0) {};
 
     items_container[0].style.display = 'block';
 
@@ -36,15 +36,22 @@ floating_input.blur(() => {
 
 floating_form.submit((event) => {
     event.preventDefault();
-    let first_element = filtered_clauses[0];
 
-    let new_element = inputElement(first_element.id, first_element.type === CLAUSES_TYPES.VALUE ? null : first_element.name);
-    new_element.insertBefore(floating_input_container);
+    let new_element;// element that will be inserted on submit
+
+    if (filtered_clauses.length !== 0) {
+        let first_element = filtered_clauses[0]; //get first founded element
+        new_element = inputElement(first_element.id, first_element.type === CLAUSES_TYPES.VALUE ? null : first_element.name);//build new input element
+    } else {
+        new_element = inputElement(CLAUSES[0].id, floating_input.val());//build new value element
+    }
+
+    new_element.insertBefore(floating_input_container);//insert element to input container
 
     items_container.empty();
     items_container[0].style.display = 'none';
 
-    floating_input_container.val('');
+    floating_input_container.val(null);
     floating_input_container.focus();
 });
 
