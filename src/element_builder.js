@@ -129,7 +129,7 @@ const toggleValueInput = (input, span) => {
  * @param container - current <li> element in the sortable list of clauses
  */
 const appendPlusControl = (container) => {
-    let placeholder_button = $('<span title="add new tag" class="sqlqb-tag-controls sqlqb-tag-controls-add">+</span>'); //template
+    let placeholder_button = $('<span title="add new tag" class="sqlqb-tag-controls sqlqb-tag-controls-add">&#10552;</span>'); //template
     $(container).append(placeholder_button); //append template to the current <li>
 };
 
