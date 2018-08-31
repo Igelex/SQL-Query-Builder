@@ -394,8 +394,28 @@
 }
 
 /***********************************************************************************************************************
-*Placeholder for draggable items
+*Styling for draggable items
 */
 .sort-placeholder {
   @include draggable-placeholder;
+}
+/*Draggable.js classes*/
+.draggable-mirror {
+  opacity: .5;
+  z-index: 9999;
+}
+
+.draggable-source--is-dragging {
+  animation: none !important;
+  background-color: #f5f5f5;
+  border: 2px $bc-clause dashed;
+  #{$tag} {
+   opacity: 0;
+  }
+}
+
+.draggable-container--is-dragging {
+  #{$tag-controls} {
+    display: none !important;
+  }
 }
