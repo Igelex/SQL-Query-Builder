@@ -1,7 +1,7 @@
 import {CLAUSES, CLAUSES_TYPES} from "./const";
 import {buildTag, inputElement} from "./element_builder";
 
-const floating_input_container = $(`<li id="sqlqb-floating-input-container"></li>`);
+const floating_input_container = $(`<li id="sqlqb-floating-input-container"><span class="sqlqb-tag-controls sqlqb-tag-controls-add">&#10542;</span></li>`);
 const floating_form = $(`<form><input type="text" class="sqlqb-floating-input"></form>`);
 const floating_input = floating_form.find('input');
 const items_container = $(`<div id="sqlqb-floating-input-items-container"></div>`);

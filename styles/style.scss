@@ -177,44 +177,37 @@
   }
 }
 
-.sqlqb-tags-operators {
-}
-
-.sqlqb-tags-operators {
-}
-
-.sqlqb-tags-operators {
-}
-
-#{$input-item} {
-  margin: 5px 0 6px 0;
-  #{$tag} {
-    &#{$tag-clause} {
-      @include tag-selected($bc-clause);
-    }
-    &#{$tag-operator} {
-      @include tag-selected($bc-operator);
-    }
-    &#{$tag-value} {
-      @include tag-selected($f-color-tag-value);
-    }
-  }
-  &:hover {
-    z-index: 999;
+#sqlqb-input:not(.draggable-container--is-dragging) {
+  #{$input-item} {
+    margin: 5px 0 6px 0;
     #{$tag} {
-      @include tag(0, 0, 0, 0);
       &#{$tag-clause} {
-        @include tag-hover($bc-clause, $f-color-tag, 0);
+        @include tag-selected($bc-clause);
       }
       &#{$tag-operator} {
-        @include tag-hover($bc-operator, $f-color-tag, 0);
+        @include tag-selected($bc-operator);
       }
       &#{$tag-value} {
-        @include tag-hover($bc-value, $f-color-tag-value, 0);
+        @include tag-selected($f-color-tag-value);
       }
     }
-    #{$tag-controls} {
-      display: inline-block;
+    &:hover {
+      z-index: 1;
+      #{$tag} {
+        @include tag(0, 0, 0, 0);
+        &#{$tag-clause} {
+          @include tag-hover($bc-clause, $f-color-tag, 0);
+        }
+        &#{$tag-operator} {
+          @include tag-hover($bc-operator, $f-color-tag, 0);
+        }
+        &#{$tag-value} {
+          @include tag-hover($bc-value, $f-color-tag-value, 0);
+        }
+      }
+      #{$tag-controls} {
+        display: inline-block;
+      }
     }
   }
 }
@@ -331,7 +324,7 @@
 *Floating input
 */
 
-#sqlqb-floating-input-container {
+#sqlqb-floating-input-container, .draggable-mirror {
   margin-left: 10px;
   position: relative;
   height: 100%;
@@ -352,6 +345,11 @@
       width: 100px;
       border: 2px solid $borc-input-focus;
       animation: none;
+    }
+    &:hover {
+      #{$tag-controls} {
+        display: inline-block;
+      }
     }
   }
 }
@@ -403,19 +401,16 @@
 
 /*Draggable.js classes*/
 .draggable-mirror {
-  opacity: .5;
-  z-index: 9999;
+  opacity: .7;
+  z-index: 2;
 }
 
 .draggable-source--is-dragging {
   animation: none !important;
   background-color: #f5f5f5;
-  border: 2px $bc-clause dashed;
-  #{$tag} {
+  border: 2px $borc-input-focus dashed;
+  #{$tag}, #{$floating} {
    opacity: 0;
-    &:hover {
-      background-color: transparent !important;
-    }
   }
 }
 
@@ -426,6 +421,7 @@
   #{$tag} {
     &:hover {
       background-color: transparent !important;
+      color: initial !important;
     }
   }
 }
