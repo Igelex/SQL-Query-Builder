@@ -179,6 +179,7 @@
 
 #sqlqb-input:not(.draggable-container--is-dragging) {
   #{$input-item} {
+    z-index: 0;
     margin: 5px 0 6px 0;
     #{$tag} {
       &#{$tag-clause} {
@@ -402,7 +403,7 @@
 /*Draggable.js classes*/
 .draggable-mirror {
   opacity: .7;
-  z-index: 2;
+  z-index: 10;
 }
 
 .draggable-source--is-dragging {

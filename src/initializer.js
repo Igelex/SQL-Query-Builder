@@ -67,7 +67,6 @@ function appendInitialElements(element, id) {
 
 function commitChanges() {
     store.dispatch('setInput');
-    //initSortable();//Make Elements interactive
 }
 
 function initSortable() {
@@ -78,6 +77,7 @@ function initSortable() {
         draggable: 'li'/*.sqlqb-tags-group span'*/
     });
     sortable.on('sortable:stop', () => commitChanges());
+    sortable.on('sortable:start', (event) => event.data.dragEvent.mirror.classList.remove('sqlqb-animation-pulse'));
 }
 
 /*Not used yet*/
