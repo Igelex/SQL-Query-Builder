@@ -37,7 +37,7 @@ sqlqb_input_container.append(sqlqb_input);
 for (let i in CLAUSES) {
     appendInitialElements(CLAUSES[i], i);
 }
-sqlqb_tags_container.append(wrapWithRow([sqlqb_tags_clauses,sqlqb_tags_operators, sqlqb_tags_TEST,sqlqb_tags_TEST1]));
+sqlqb_tags_container.append(wrapWithRow([sqlqb_tags_clauses, sqlqb_tags_operators, sqlqb_tags_TEST,sqlqb_tags_TEST1]));
 
 //inject all to main container
 sqlqb_container.append(wrapWithRow([sqlqb_input_container])); //input block
@@ -69,6 +69,7 @@ function appendInitialElements(element, id) {
 
 function commitChanges() {
     store.dispatch('setInput');
+    initDragAndDrop();//Make Elements interactive
 }
 
 function initDragAndDrop() {
@@ -83,7 +84,8 @@ function initDragAndDrop() {
             $(ui.item).css({'opacity': '1'});
             //updateOutput();
         },
-        tolerance: "intersect",
+        tolerance: 'pointer',
+        zIndex: 9999,
         containment: "parent",
         forceHelperSize: true,
         forcePlaceholderSize: true,
@@ -98,6 +100,7 @@ function initDragAndDrop() {
 
     // init jquery-ui draggable, all item are draggable
     $('#sqlqb-tags-container span').draggable({
+        items: '> li',
         connectToSortable: '#sqlqb-input',
         helper: 'clone',
         revert: 'invalid',
@@ -155,8 +158,6 @@ export function init(
 ) {
     if (container && container !== '') {
         $(container).append(sqlqb_container); //inject sqlqb into provided container
-        initDragAndDrop();//Make Elements interactive
-
         initElements.forEach((item) => {
             sqlqb_input.append(inputElement(item.id, item.text));
         });
