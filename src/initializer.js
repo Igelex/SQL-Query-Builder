@@ -2,7 +2,7 @@ import {CLAUSES, CLAUSES_TYPES} from './const';
 import {inputElement, buildTag} from './element_builder';
 import store from './store/store.js';
 import floating_input from './floating_input';
-import { Sortable, Plugins, Draggable } from '@shopify/draggable';
+import { Sortable } from '@shopify/draggable';
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
@@ -77,76 +77,7 @@ function initSortable() {
     const sortable = new Sortable(sortable_input, {
         draggable: 'li'/*.sqlqb-tags-group span'*/
     });
-
-    sortable.on('sortable:start', (el) => {
-        console.log(el.data.dragEvent.mirror)
-    });
-
-    sortable.on('sortable:sort', () => console.log('sortable:sort'));
-    sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
-    sortable.on('sortable:stop', () => console.log('sortable:stop'));
-
-    // init jquery-ui sortable
-    /*$(sqlqb_input).sortable({
-        revert: true,
-        start: (event, ui) => {
-            $(ui.helper[0]).css({'opacity': '0.5'});
-        },
-        stop: (event, ui) => {
-            $(ui.item).css({'opacity': '1'});
-            //updateOutput();
-        },
-        tolerance: 'pointer',
-        zIndex: 9999,
-        containment: "parent",
-        forceHelperSize: true,
-        forcePlaceholderSize: true,
-        placeholder: 'sort-placeholder',
-        delay: 150,
-        update: function () {
-            setTimeout(commitChanges(), 100);
-        }
-    });
-
-    $(sqlqb_input).disableSelection();
-
-    // init jquery-ui draggable, all item are draggable
-    $('#sqlqb-tags-container span').draggable({
-        items: '> li',
-        connectToSortable: '#sqlqb-input',
-        helper: 'clone',
-        revert: 'invalid',
-        revertDuration: 300,
-        delay: 150,
-        start: (event, ui) => {
-            //console.log($(ui.helper[0]));
-            $(ui.helper[0]).css({'opacity': '0.5'});
-        },
-        // creates new element on drop
-        stop: (event, ui) => {
-
-            let current_elem = $(ui.helper[0]); //clone of dragged element
-
-            let tag_id = current_elem.attr('data-clause-id');
-
-            //if prev is <li>, elements was dropped in input container, that means a new element must be added
-            if (current_elem.parent().is('#sqlqb-input')) {
-                let new_elem = inputElement(tag_id);
-                //for now setTimeout is needed, otherwise .prev() get undefined and the new element will be placed on wrong position
-                setTimeout(() => {
-                    //FIXME: cant add element on the start if elements.length > 0
-                    if (current_elem.prev().length !== 0) {
-                        new_elem.insertAfter(current_elem.prev()); //insert new element on right position
-                    } else {
-                        sqlqb_input.append(new_elem);
-                    }
-                    current_elem.remove(); // remove clone of dragged element
-                    //updateOutput();// and update output
-                }, 600)
-            }
-        }
-    });
-    $('#sqlqb-tags-container').disableSelection();*/
+    sortable.on('sortable:stop', () => commitChanges());
 }
 
 /*Not used yet*/
