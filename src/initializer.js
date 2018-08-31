@@ -77,14 +77,7 @@ function initSortable() {
     const sortable = new Sortable(sortable_input, {
         draggable: 'li'/*.sqlqb-tags-group span'*/
     });
-
-    sortable.on('sortable:start', (el) => {
-        console.log(el.data.dragEvent.mirror)
-    });
-
-    sortable.on('sortable:sort', () => console.log('sortable:sort'));
-    sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
-    sortable.on('sortable:stop', () => console.log('sortable:stop'));
+    sortable.on('sortable:stop', () => commitChanges());
 }
 
 /*Not used yet*/
