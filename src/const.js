@@ -10,7 +10,7 @@ export const CLAUSES_TYPES = {
  * 'block': produces new line or not (Boolean)
  * 'name': name of clause (e.g. SELECT, FROM or +)
  */
-export const CLAUSES = [
+const CLAUSES = [
     /*Value input tag **************************************/
     {
         type: CLAUSES_TYPES.VALUE,
@@ -130,3 +130,5 @@ export const CLAUSES = [
         name: '*'
     }
 ];
+CLAUSES.map((clause,i)=> clause.id = i);
+export {CLAUSES};

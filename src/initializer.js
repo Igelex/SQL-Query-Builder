@@ -1,6 +1,7 @@
 import {CLAUSES, CLAUSES_TYPES} from './const';
-import {inputElement} from './element_builder';
+import {inputElement, buildTag} from './element_builder';
 import store from './store/store.js';
+import floating_input from './floating_input';
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
@@ -36,7 +37,7 @@ sqlqb_input_container.append(sqlqb_input);
 for (let i in CLAUSES) {
     appendInitialElements(CLAUSES[i], i);
 }
-sqlqb_tags_container.append(wrapWithRow([sqlqb_tags_clauses,sqlqb_tags_operators, sqlqb_tags_TEST,sqlqb_tags_TEST1]));
+sqlqb_tags_container.append(wrapWithRow([sqlqb_tags_clauses, sqlqb_tags_operators, sqlqb_tags_TEST,sqlqb_tags_TEST1]));
 
 //inject all to main container
 sqlqb_container.append(wrapWithRow([sqlqb_input_container])); //input block
@@ -44,8 +45,7 @@ sqlqb_container.append(sqlqb_tags_container); //block with all available tags
 sqlqb_container.append(wrapWithRow([sqlqb_output_container])); //output block
 
 function appendInitialElements(element, id) {
-    const type = element.type;
-    const clause = $(`<span data-clause-id="${id}" class="sqlqb-tag sqlqb-tag-${type}">${type !== CLAUSES_TYPES.VALUE ? element.name.toUpperCase() : element.name}</span>`);
+    const clause = buildTag(element, id);
     clause.click(() => {
         sqlqb_input.append(inputElement(id));
         commitChanges();
@@ -68,12 +68,8 @@ function appendInitialElements(element, id) {
 }
 
 function commitChanges() {
-    setTimeout(() => {
-        store.dispatch('setInput', [...$('#sqlqb-input').children()].map((elem) => ({
-            id: $(elem).attr('data-clause-id'),
-            payload: $(elem).children().first().text()
-        })));
-    }, 200);
+    store.dispatch('setInput');
+    initDragAndDrop();//Make Elements interactive
 }
 
 function initDragAndDrop() {
@@ -88,7 +84,8 @@ function initDragAndDrop() {
             $(ui.item).css({'opacity': '1'});
             //updateOutput();
         },
-        tolerance: "intersect",
+        tolerance: 'pointer',
+        zIndex: 9999,
         containment: "parent",
         forceHelperSize: true,
         forcePlaceholderSize: true,
@@ -103,6 +100,7 @@ function initDragAndDrop() {
 
     // init jquery-ui draggable, all item are draggable
     $('#sqlqb-tags-container span').draggable({
+        items: '> li',
         connectToSortable: '#sqlqb-input',
         helper: 'clone',
         revert: 'invalid',
@@ -160,12 +158,11 @@ export function init(
 ) {
     if (container && container !== '') {
         $(container).append(sqlqb_container); //inject sqlqb into provided container
-        initDragAndDrop();//Make Elements interactive
-
         initElements.forEach((item) => {
             sqlqb_input.append(inputElement(item.id, item.text));
         });
         commitChanges();
+        sqlqb_input.append(floating_input);
     } else {
         console.error('%cContainer for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
     }

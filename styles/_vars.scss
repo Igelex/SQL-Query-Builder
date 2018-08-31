@@ -32,6 +32,8 @@ $header: "#{$prefix}header";
 
 $badge: "#{$prefix}badge";
 
+$floating: "#{$prefix}floating-input";
+
 $font-family: Montserrat;
 
 /***********************************************************************************************************************
@@ -196,3 +198,5 @@ $bc-header-hover: #f5f5f5;
     box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
   }
 }
+
+

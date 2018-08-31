@@ -22,10 +22,16 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
-        overlay: true
+        overlay: true,
+        stats: 'minimal',
+        open: true
     },
     optimization: {
         noEmitOnErrors: true
+    },
+
+    performance: {
+        assetFilter: (assetFilename) => assetFilename.endsWith('.js')
     },
 
     watch: NODE_ENV === 'development',
