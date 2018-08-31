@@ -23,7 +23,6 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         overlay: true,
-        stats: 'minimal',
         open: true
     },
     optimization: {
