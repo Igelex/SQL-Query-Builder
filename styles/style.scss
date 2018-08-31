@@ -396,9 +396,11 @@
 /***********************************************************************************************************************
 *Styling for draggable items
 */
-.sort-placeholder {
+
+/*.sort-placeholder {
   @include draggable-placeholder;
-}
+}*/
+
 /*Draggable.js classes*/
 .draggable-mirror {
   opacity: .5;
@@ -411,11 +413,19 @@
   border: 2px $bc-clause dashed;
   #{$tag} {
    opacity: 0;
+    &:hover {
+      background-color: transparent !important;
+    }
   }
 }
 
 .draggable-container--is-dragging {
   #{$tag-controls} {
     display: none !important;
+  }
+  #{$tag} {
+    &:hover {
+      background-color: transparent !important;
+    }
   }
 }
