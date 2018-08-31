@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.0",
+    "@shopify/draggable": "^1.0.0-beta.7",
     "beedle": "^0.6.9",
     "eslint": "^5.4.0",
     "eslint-loader": "^2.1.0",

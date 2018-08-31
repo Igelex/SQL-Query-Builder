@@ -2,6 +2,7 @@ import {CLAUSES, CLAUSES_TYPES} from './const';
 import {inputElement, buildTag} from './element_builder';
 import store from './store/store.js';
 import floating_input from './floating_input';
+import { Sortable, Plugins, Draggable } from '@shopify/draggable';
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
@@ -54,28 +55,39 @@ function appendInitialElements(element, id) {
     switch (element.type) {
         case CLAUSES_TYPES.VALUE:
             sqlqb_tags_clauses.append(clause);
-            //sqlqb_tags_TEST1.append(clause);
             break;
         case CLAUSES_TYPES.CLAUSE:
             sqlqb_tags_clauses.append(clause);
-            //sqlqb_tags_TEST1.append(clause);
             break;
         case CLAUSES_TYPES.OPERATOR:
             sqlqb_tags_operators.append(clause);
-            //sqlqb_tags_TEST.append(clause);
             break;
     }
 }
 
 function commitChanges() {
     store.dispatch('setInput');
-    initDragAndDrop();//Make Elements interactive
+    //initSortable();//Make Elements interactive
 }
 
-function initDragAndDrop() {
+function initSortable() {
+
+    const sortable_input = document.querySelectorAll('#sqlqb-input');
+
+    const sortable = new Sortable(sortable_input, {
+        draggable: 'li'/*.sqlqb-tags-group span'*/
+    });
+
+    sortable.on('sortable:start', (el) => {
+        console.log(el.data.dragEvent.mirror)
+    });
+
+    sortable.on('sortable:sort', () => console.log('sortable:sort'));
+    sortable.on('sortable:sorted', () => console.log('sortable:sorted'));
+    sortable.on('sortable:stop', () => console.log('sortable:stop'));
 
     // init jquery-ui sortable
-    $(sqlqb_input).sortable({
+    /*$(sqlqb_input).sortable({
         revert: true,
         start: (event, ui) => {
             $(ui.helper[0]).css({'opacity': '0.5'});
@@ -134,7 +146,23 @@ function initDragAndDrop() {
             }
         }
     });
-    $('#sqlqb-tags-container').disableSelection();
+    $('#sqlqb-tags-container').disableSelection();*/
+}
+
+/*Not used yet*/
+function initDraggable() {
+
+    const draggable_container = document.querySelectorAll('.sqlqb-tags-group');
+
+    console.warn(draggable_container);
+
+    const draggable = new Sortable(document.querySelectorAll('.sqlqb-tags-group'), {
+        draggable: 'span'
+    });
+
+    draggable.on('drag:start', () => console.log('drag:start'));
+    draggable.on('drag:move', () => console.log('drag:move'));
+    draggable.on('drag:stop', () => console.log('drag:stop'));
 }
 
 function wrapWithRow(elem = []) {
@@ -161,8 +189,10 @@ export function init(
         initElements.forEach((item) => {
             sqlqb_input.append(inputElement(item.id, item.text));
         });
-        commitChanges();
         sqlqb_input.append(floating_input);
+        commitChanges();
+        //initDraggable();//make tags draggable
+        initSortable();//make tags draggable
     } else {
         console.error('%cContainer for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
     }
