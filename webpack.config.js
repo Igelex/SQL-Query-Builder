@@ -42,7 +42,7 @@ module.exports = {
     devtool: NODE_ENV === 'development' ? 'source-map' : null,
 
     plugins: [
-        new CleanWebpackPlugin('dist', {} ),
+        new CleanWebpackPlugin('dist', {}),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
@@ -69,17 +69,25 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                use: {
+                use: [{
                     loader: 'babel-loader',
-                }
+                    },
+                    {
+                        loader: 'eslint-loader',
+                        options: {
+                            configFile: __dirname + '/.eslintrc',
+                            fix: true
+                        },
+                    },]
             },
             {
                 test: /\.scss$/,
                 use: [
                     // fallback to style-loader in development
                     process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
+                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    'postcss-loader',
+                    'sass-loader'
                 ]
             },
             {
@@ -102,7 +110,7 @@ module.exports = {
                 use: [
                     {
                         loader: "html-loader",
-                        options: { minimize: true }
+                        options: {minimize: true}
                     }
                 ]
             }

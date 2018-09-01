@@ -4,7 +4,9 @@ const state = {
 
 const mutations = {
   setInput(state, payload) {
+      console.groupCollapsed('[STORE]');
       console.table(payload);
+      console.groupEnd();
       state.input = payload;
       return state;
   }
@@ -25,4 +27,4 @@ export {
     state,
     mutations,
     actions
-}
+};

@@ -23,13 +23,13 @@ const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
 [sqlqb_tags_clauses, sqlqb_tags_operators].forEach((container) => {
     container.find('h4').click(function(){
         if (container[0].style.height === '52px' || container[0].style.height === ''){
-            container[0].style.height = 100 + '%' //container[0].scrollHeight + "px" ;
+            container[0].style.height = 100 + '%'; //container[0].scrollHeight + "px" ;
         } else {
             container[0].style.height = 52 + 'px';
         }
         $(this).find('span').toggleClass('sqlqb-collapsed');
         $(this).toggleClass('sqlqb-collapsed');
-    })
+    });
 });
 
 sqlqb_input_container.append(sqlqb_input);
@@ -81,7 +81,7 @@ function initSortable() {
 }
 
 /*Not used yet*/
-function initDraggable() {
+/*function initDraggable() {
 
     const draggable_container = document.querySelectorAll('.sqlqb-tags-group');
 
@@ -94,7 +94,7 @@ function initDraggable() {
     draggable.on('drag:start', () => console.log('drag:start'));
     draggable.on('drag:move', () => console.log('drag:move'));
     draggable.on('drag:stop', () => console.log('drag:stop'));
-}
+}*/
 
 function wrapWithRow(elem = []) {
     const row = $(`<div class="sqlqb-row"></div>`);

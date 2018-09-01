@@ -23,7 +23,7 @@ store.subscribe(() => {
         let clause = CLAUSES[item.id];
         let text = '';
 
-        if (clause.type === CLAUSES_TYPES.VALUE && item.payload) text = `"${item.payload ? item.payload : 'Enter value'}"`;
+        if (clause.type === CLAUSES_TYPES.VALUE && item.payload) {text = `"${item.payload ? item.payload : 'Enter value'}"`;}
         else {
             text = clause.name.toUpperCase();
         }
@@ -39,6 +39,7 @@ store.subscribe(() => {
 
         text_to_copy += text_to_copy.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
     });
+    output_container.append('<span class="sqlqb-output-clause">;</span>'); // close query with ;
 });
 /**
  * copy SQL query output to the clipboard

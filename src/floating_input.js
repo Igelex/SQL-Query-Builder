@@ -14,13 +14,13 @@ floating_input.keyup(() => {
     items_container.empty();
     filtered_clauses = CLAUSES.filter(clause => clause.name.toLowerCase().includes(floating_input.val().toLowerCase()));
 
-    if (filtered_clauses.length === 0) return;
+    if (filtered_clauses.length === 0) {return;}
 
     items_container[0].style.display = 'block';
 
     for (let i = 0; i < filtered_clauses.length; i++) {
 
-        if(i > 5) break;
+        if(i > 5) {break;}
 
         const item = $(`<span class="sqlqb-floating-item"></span>`);
 
