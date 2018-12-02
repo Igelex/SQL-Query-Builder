@@ -70,31 +70,14 @@ function commitChanges() {
 }
 
 function initSortable() {
-
     const sortable_input = document.querySelectorAll('#sqlqb-input');
 
     const sortable = new Sortable(sortable_input, {
-        draggable: 'li'/*.sqlqb-tags-group span'*/
+        draggable: 'li'
     });
     sortable.on('sortable:stop', () => commitChanges());
     sortable.on('sortable:start', (event) => event.data.dragEvent.mirror.classList.remove('sqlqb-animation-pulse'));
 }
-
-/*Not used yet*/
-/*function initDraggable() {
-
-    const draggable_container = document.querySelectorAll('.sqlqb-tags-group');
-
-    console.warn(draggable_container);
-
-    const draggable = new Sortable(document.querySelectorAll('.sqlqb-tags-group'), {
-        draggable: 'span'
-    });
-
-    draggable.on('drag:start', () => console.log('drag:start'));
-    draggable.on('drag:move', () => console.log('drag:move'));
-    draggable.on('drag:stop', () => console.log('drag:stop'));
-}*/
 
 function wrapWithRow(elem = []) {
     const row = $(`<div class="sqlqb-row"></div>`);
@@ -125,6 +108,6 @@ export function init(
         //initDraggable();//make tags draggable
         initSortable();//make tags draggable
     } else {
-        console.error('%cContainer for SQL Query Builder is required!. Please provide an container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
+        console.error('%c[SQL Query Builder]: Container for SQL Query Builder is required!. Please provide a container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
     }
 }

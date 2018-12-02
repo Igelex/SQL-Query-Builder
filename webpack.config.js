@@ -84,7 +84,7 @@ module.exports = {
                 test: /\.scss$/,
                 use: [
                     // fallback to style-loader in development
-                    process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
                     { loader: 'css-loader', options: { importLoaders: 1 } },
                     'postcss-loader',
                     'sass-loader'
@@ -99,7 +99,7 @@ module.exports = {
                             loader: 'css-loader',
                             options: {
                                 minimize: true,
-                                sourceMap: true
+                                sourceMap: NODE_ENV === 'development',
                             }
                         }
                     ]

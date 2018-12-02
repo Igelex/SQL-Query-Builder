@@ -7,7 +7,7 @@
     "build": "webpack -p --mode production",
     "dev": "webpack-dev-server --color --watch --mode development",
     "watch": "webpack -p --watch --mode development",
-    "lint": "eslint -- --fix"
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -55,7 +55,6 @@
   "dependencies": {
     "@shopify/draggable": "^1.0.0-beta.7",
     "beedle": "^0.6.9",
-    "jquery": "^3.3.1",
-    "sortablejs": "^1.7.0"
+    "jquery": "^3.3.1"
   }
 }
