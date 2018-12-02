@@ -6,7 +6,8 @@ import { Sortable } from '@shopify/draggable';
 
 const sqlqb_container = $(`<div id="sqlqb-container"></div>`),
     sqlqb_input_container = $(`<div id="sqlqb-input-container"></div>`),
-    sqlqb_input = $(`<ul id="sqlqb-input" class=""></ul>`), //container for building sql queries, all selected tags will be placed here
+    sqlqb_input = $(`<ul id="sqlqb-input"></ul>`), //container for building sql queries, all selected tags will be placed here
+
     sqlqb_tags_container = $(`<div id="sqlqb-tags-container"></div>`),
     sqlqb_tags_clauses = $(`<div id="sqlqb-tags-clauses" class="sqlqb-tags-group"><h4 class="sqlqb-header sqlqb-collapsed">Clauses <span class="sqlqb-collapsed">+</span></h4></div>`),
     sqlqb_tags_operators = $(`<div id="sqlqb-tags-operators" class="sqlqb-tags-group"><h4 class="sqlqb-header sqlqb-collapsed">Operators<span class="sqlqb-collapsed">+</span></h4></div>`),
