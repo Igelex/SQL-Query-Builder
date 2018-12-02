@@ -18,7 +18,6 @@ export default class Clause {
     generateTag() {
         return `
             <span class="sqlqb-tag 
-                  sqlqb-tag-clause 
                   ${this.item.type === CLAUSES_TYPES.CLAUSE ? 'sqlqb-tag-clause' : 'sqlqb-tag-operator'}">
                   ${this.item.name.toUpperCase()}
             </span>

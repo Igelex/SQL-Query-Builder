@@ -64,10 +64,4 @@ const actions = {
     }
 };
 
-/*export {
-    state,
-    mutations,
-    actions
-};*/
-
 export default new Store({actions, mutations, state: index});

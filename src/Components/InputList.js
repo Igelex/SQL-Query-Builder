@@ -1,6 +1,6 @@
 import Component from './component.js';
 import store from '../store/index.js';
-import {CLAUSES_TYPES} from "../const";
+import {CLAUSES, CLAUSES_TYPES} from "../const";
 import Clause from "./Clause";
 import Value from "./Value";
 import {Sortable} from '@shopify/draggable';
@@ -21,10 +21,9 @@ export default class InputList extends Component {
         }
 
         this.element.innerHTML = `
-      <ul id="sqlqb-input">
-        ${this.generateItems()}
-      </ul>
-    `;
+          <ul id="sqlqb-input">
+            ${this.generateItems()}
+          </ul>`;
 
         this.element.querySelectorAll('.sqlqb-tag-controls-remove').forEach((button, index) => {
             button.addEventListener('click', function () {
@@ -32,7 +31,7 @@ export default class InputList extends Component {
             });
         });
 
-        //this.initSortable();
+        this.initSortable();
     }
 
     generateItems() {
@@ -48,12 +47,31 @@ export default class InputList extends Component {
     }
 
     initSortable() {
-        const sortable_input = document.querySelectorAll('#sqlqb-input');
+        const sortable_input = document.querySelector('#sqlqb-input');
 
         const sortable = new Sortable(sortable_input, {
-            draggable: 'li'
+            draggable: 'li',
+            delay: 200,
         });
-        //sortable.on('sortable:stop', () => commitChanges());
+        sortable.on('sortable:stop', () => {
+            setTimeout(()=> {
+                store.dispatch('setInput', [...sortable_input.querySelectorAll('li')].map(item => {
+
+                        let span = item.querySelector('span.sqlqb-tag');
+                        let value = span.innerText.trim();
+                        let id = item.getAttribute('data-clause-id');
+
+                        return {
+                            id: id,
+                            type: CLAUSES[id].type,
+                            block: CLAUSES[id].block,
+                            name: CLAUSES[id].name,
+                            value: value,
+                        };
+                    }
+                ));
+            }, 200);
+        });
         sortable.on('sortable:start', (event) => event.data.dragEvent.mirror.classList.remove('sqlqb-animation-pulse'));
     }
 }
