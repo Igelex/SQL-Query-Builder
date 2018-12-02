@@ -265,6 +265,7 @@
     right: 100%;
   }
   &#{$tag-controls-add} {
+    left: 100%;
     @include tag-border-radius(0, $br-tag, $br-tag, 0);
   }
 }

@@ -12,13 +12,9 @@ export default class InputList extends Component {
             store,
             element: document.querySelector('#sqlqb-input-container')
         });
-        this.i = 0;
     }
 
     render() {
-        console.log('CALL: ' + this.i);
-        console.log('STORE: ', store.state.items.length);
-        this.i++;
         if(store.state.items.length === 0) {
             this.element.innerHTML = `<p class="no-items">You've done nothing yet &#x1f622;</p>`;
             return;

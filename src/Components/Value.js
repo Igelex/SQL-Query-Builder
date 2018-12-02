@@ -23,7 +23,7 @@ export default class Value {
     }
 
     generateValueTag() {
-        return `<span class="sqlqb-tag sqlqb-tag-value">${this.item.name ? this.item.name : 'Enter value'}`;
+        return `<span class="sqlqb-tag sqlqb-tag-value">${this.item.value ? this.item.value : 'Enter value'}`;
     }
 
     generateRemoveButton() {

@@ -1,4 +1,4 @@
-import {CLAUSES} from "../const";
+import {CLAUSES_TYPES} from "../const";
 
 export default class Clause {
 
@@ -19,7 +19,7 @@ export default class Clause {
         return `
             <span class="sqlqb-tag 
                   sqlqb-tag-clause 
-                  ${this.item.type === CLAUSES.CLAUSE ? 'sqlqb-tag-clause' : 'sqlqb-tag-operator'}">
+                  ${this.item.type === CLAUSES_TYPES.CLAUSE ? 'sqlqb-tag-clause' : 'sqlqb-tag-operator'}">
                   ${this.item.name.toUpperCase()}
             </span>
         `;
