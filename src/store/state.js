@@ -1,5 +1,5 @@
 const state = {
-    input: []
+    items: []
 };
 
 const mutations = {
@@ -7,18 +7,15 @@ const mutations = {
       console.groupCollapsed('[STORE]');
       console.table(payload);
       console.groupEnd();
-      state.input = payload;
+      state.items = payload;
       return state;
   }
 };
 
 const actions = {
-    setInput(context) {
+    setInput(context, items) {
         setTimeout(() => {
-            context.commit('setInput', [...$('#sqlqb-input').children('.sqlqb-input-item')].map((elem) => ({
-                id: $(elem).attr('data-clause-id'),
-                payload: $(elem).children().first().text()
-            })));
+            context.commit('setInput', items);
         }, 200);
     }
 };

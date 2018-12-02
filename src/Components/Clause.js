@@ -20,17 +20,17 @@ export default class Clause {
             <span class="sqlqb-tag 
                   sqlqb-tag-clause 
                   ${this.item.type === CLAUSES.CLAUSE ? 'sqlqb-tag-clause' : 'sqlqb-tag-operator'}">
-                  ${CLAUSES[id].name.toUpperCase()}
+                  ${this.item.name.toUpperCase()}
             </span>
-        `
+        `;
     }
 
     generateRemoveButton() {
-        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`
+        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`;
     }
 
     generateAddButton() {
-        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-add">&times;</span>`
+        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-add">&times;</span>`;
     }
-};
+}
 

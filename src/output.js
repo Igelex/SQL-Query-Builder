@@ -8,7 +8,7 @@ import store from "./store/store";
 let output_container = null;
 let text_to_copy = '';
 
-store.subscribe(() => {
+/*store.subscribe(() => {
     if (!output_container) {
         output_container = $('#sqlqb-output');
         output_container.click(copyOutput);
@@ -18,7 +18,7 @@ store.subscribe(() => {
 
     text_to_copy = '';
 
-    store.state.input.forEach((item, i) => {
+    store.state.items.forEach((item, i) => {
 
         let clause = CLAUSES[item.id];
         let text = '';
@@ -40,7 +40,7 @@ store.subscribe(() => {
         text_to_copy += text_to_copy.length === 0 ? `${text.trim()}` : ` ${text.trim()}`; //update output text, that can be copied
     });
     output_container.append('<span class="sqlqb-output-clause">;</span>'); // close query with ;
-});
+});*/
 /**
  * copy SQL query output to the clipboard
  */

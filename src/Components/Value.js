@@ -1,7 +1,7 @@
 export default class Value {
 
     constructor(item = {}) {
-        this.item = item
+        this.item = item;
     }
 
     generator() {
@@ -23,14 +23,14 @@ export default class Value {
     }
 
     generateValueTag() {
-        return `<span class="sqlqb-tag sqlqb-tag-value">${this.item.name ? this.item.name : 'Enter value'}`
+        return `<span class="sqlqb-tag sqlqb-tag-value">${this.item.name ? this.item.name : 'Enter value'}`;
     }
 
     generateRemoveButton() {
-        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`
+        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-remove">&times;</span>`;
     }
 
     generateAddButton() {
-        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-add">&times;</span>`
+        return `<span class="sqlqb-tag-controls sqlqb-tag-controls-add">&times;</span>`;
     }
-};
+}
