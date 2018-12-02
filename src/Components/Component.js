@@ -1,12 +1,10 @@
-import Store from '../store/store.js';
-
 export default class Component {
     constructor(props = {}) {
 
         this.render = this.render || function () {
         };
 
-        props.store.subscribe(() => this.render());
+        props.store.subscribe((state) => this.render());
 
         if (props.hasOwnProperty('element')) {
             this.element = props.element;

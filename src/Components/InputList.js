@@ -1,9 +1,9 @@
 import Component from './component.js';
-import store from '../store/store.js';
+import store from '../store/index.js';
 import {CLAUSES_TYPES} from "../const";
 import Clause from "./Clause";
 import Value from "./Value";
-import { Sortable } from '@shopify/draggable';
+import {Sortable} from '@shopify/draggable';
 
 export default class InputList extends Component {
 
@@ -15,7 +15,7 @@ export default class InputList extends Component {
     }
 
     render() {
-        if(store.state.items.length === 0) {
+        if (store.state.items.length === 0) {
             this.element.innerHTML = `<p class="no-items">You've done nothing yet &#x1f622;</p>`;
             return;
         }
@@ -26,19 +26,17 @@ export default class InputList extends Component {
       </ul>
     `;
 
-        /*this.element.querySelectorAll('button').forEach((button, index) => {
-            button.addEventListener('click', () => {
-                store.dispatch('clearItem', { index });
+        this.element.querySelectorAll('.sqlqb-tag-controls-remove').forEach((button, index) => {
+            button.addEventListener('click', function () {
+                store.dispatch('removeItem', index);
             });
-        });*/
+        });
 
-        this.initSortable();
+        //this.initSortable();
     }
 
     generateItems() {
         return store.state.items.map(item => {
-            console.log(item);
-            console.log(CLAUSES_TYPES.VALUE);
             if (item.type === CLAUSES_TYPES.VALUE) {
                 let value = new Value(item);
                 return value.generator();
