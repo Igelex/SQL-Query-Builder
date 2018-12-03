@@ -2,6 +2,7 @@ import store from './store/index.js';
 import {CLAUSES} from './const';
 import "./Components/InputList";
 import InputList from "./Components/InputList";
+import ClauseGroups from "./Components/ClauseGroups";
 
 function initLayout(container) {
     const initial_layout = `
@@ -11,45 +12,13 @@ function initLayout(container) {
                 <div id="sqlqb-input-container"></div>
             </div>
         </div>
+        <div id="sqlqb-tags-container"></div>
     </div>
-    <div id="sqlqb-tags-container">
-    <div class="sqlqb-row">
-        <div class="sqlqb-col">
-            <div id="sqlqb-tags-clauses" class="sqlqb-tags-group">
-                <h4 class="sqlqb-header sqlqb-collapsed">Clauses
-                    <span class="sqlqb-collapsed">+</span>
-                </h4>
-                <span data-clause-id="0" class="sqlqb-tag sqlqb-tag-value">Enter value</span>
-                <span data-clause-id="1" class="sqlqb-tag sqlqb-tag-clause">SELECT</span>
-                <span data-clause-id="2" class="sqlqb-tag sqlqb-tag-clause">FROM</span>
-            </div>
-        </div>
-        <div class="sqlqb-col">
-            <div id="sqlqb-tags-operators" class="sqlqb-tags-group">
-                <h4 class="sqlqb-header sqlqb-collapsed">
-                    Operators<span class="sqlqb-collapsed">+</span>
-                </h4>
-                <span data-clause-id="9" class="sqlqb-tag sqlqb-tag-operator">NOT</span>
-                <span data-clause-id="10" class="sqlqb-tag sqlqb-tag-operator">IS NOT NULL</span>
-                <span data-clause-id="11" class="sqlqb-tag sqlqb-tag-operator">IS NULL</span>
-                <span data-clause-id="12" class="sqlqb-tag sqlqb-tag-operator">AND</span>
-            </div>
-
-            <div class="sqlqb-col">
-                <div id="sqlqb-tags-TEST" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST<span>+</span></h4>
-                </div>
-            </div>
-            <div class="sqlqb-col">
-                <div id="sqlqb-tags-TEST1" class="sqlqb-tags-group"><h4 class="sqlqb-header">TEST<span>+</span></h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
     `;
-
     document.querySelector(container).innerHTML = initial_layout;
+
+    const claus_groups = new ClauseGroups();
+    claus_groups.render();
 }
 
 export function init(
