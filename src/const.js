@@ -138,5 +138,4 @@ const CLAUSES = [
     }
 ];
 CLAUSES.map((clause,i)=> clause.id = i);
-console.log({CLAUSES});
 export {CLAUSES};

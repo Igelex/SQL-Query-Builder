@@ -1,30 +1,30 @@
 import Store from "beedle";
 
-const index = {
+const state = {
     items: [
         {
-            id: 1,
+            id: 2,
             type: 'clause',
             block: false,
             name: 'select',
             value: '',
         },
         {
-            id: 0,
+            id: 1,
             type: 'value',
             block: false,
             name: 'Enter Value',
             value: 'user',
         },
         {
-            id: 2,
+            id: 3,
             type: 'clause',
             block: false,
             name: 'from',
             value: '',
         },
         {
-            id: 0,
+            id: 1,
             type: 'value',
             block: false,
             name: 'Enter Value',
@@ -34,7 +34,6 @@ const index = {
 
 const mutations = {
     setInput(state, payload) {
-        console.info(payload);
         console.groupCollapsed('[STORE]');
         console.table(payload);
         console.groupEnd();
@@ -51,6 +50,12 @@ const mutations = {
         state.items.push(item);
         return state;
     },
+
+    addItemOnPosition(state, {item, position}) {
+        console.log(item, position);
+        state.items.splice(position, 0, item);
+        return state;
+    },
 };
 
 const actions = {
@@ -62,7 +67,10 @@ const actions = {
     },
     addItem(context, item) {
         context.commit('addItem', item);
+    },
+    addItemOnPosition(context, {item, position}) {
+        context.commit('addItemOnPosition', {item, position});
     }
 };
 
-export default new Store({actions, mutations, state: index});
+export default new Store({actions, mutations, state});

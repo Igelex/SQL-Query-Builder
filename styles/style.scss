@@ -367,7 +367,7 @@
   border: 1px solid #d7d7d7;
   top: 110%;
   @include tag-border-radius;
-  .sqlqb-floating-item {
+  /*.sqlqb-floating-item {
     width: 100%;
     display: inline-block;
     padding: 5px 10px;
@@ -375,7 +375,20 @@
     &:first-child {
       background-color: #d7d7d7;
     }
+  }*/
+  #{$tag-clause} {
+    background-color: $bc-clause !important;
+    color: white !important;
   }
+
+  #{$tag-value} {
+    background-color: $bc-value !important;
+    color: $f-color-tag-value;
+  }
+
+  #{$tag-operator} {
+    background-color: $bc-operator !important;
+    color: white !important;  }
 }
 
 @keyframes cursor {

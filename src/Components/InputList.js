@@ -4,7 +4,7 @@ import {CLAUSES, CLAUSES_TYPES} from "../const";
 import Clause from "./Clause";
 import Value from "./Value";
 import {Sortable} from '@shopify/draggable';
-import FloatingInput from "./FloatingInput";
+import {FloatingInput, addEventsListeners} from "./FloatingInput";
 
 export default class InputList extends Component {
 
@@ -31,6 +31,8 @@ export default class InputList extends Component {
                 store.dispatch('removeItem', index);
             });
         });
+
+        addEventsListeners(document.getElementById('sqlqb-floating-input'));
 
         this.initSortable();
     }
@@ -62,7 +64,6 @@ export default class InputList extends Component {
                 store.dispatch('setInput', [...sortable_input.querySelectorAll('li')].map(item => {
 
                         let id = item.getAttribute('data-clause-id');
-
                         const clause = CLAUSES[id];
 
                         if (clause.type === CLAUSES_TYPES.FLOATING) {
