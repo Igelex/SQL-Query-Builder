@@ -3,6 +3,7 @@ import {CLAUSES_TYPES, CLAUSES} from "../const";
 export default class ClauseGroups {
     render() {
         document.getElementById('sqlqb-tags-container').innerHTML = this.generateGroups().trim();
+        this.addEventListeners();
     }
 
     generateGroups() {
@@ -12,7 +13,7 @@ export default class ClauseGroups {
             .map(type => {
                 return `
                           <div class="sqlqb-col">
-                            <div id="sqlqb-tags-${type.toLowerCase()}s" class="sqlqb-tags-group">
+                            <div id="sqlqb-tags-${type.toLowerCase()}s" class="sqlqb-tags-group sqlqb-collapsed">
                                 <h4 class="sqlqb-header sqlqb-collapsed">${type}
                                     <span class="sqlqb-collapsed">+</span>
                                 </h4>
@@ -36,6 +37,26 @@ export default class ClauseGroups {
             </span>
         `;
         }).join('');
+    }
+
+    addEventListeners() {
+        const groups = document.getElementById('sqlqb-tags-container').querySelectorAll('.sqlqb-tags-group');
+        console.log(groups);
+        groups.forEach(group => {
+            const header = group.querySelector('h4');
+            header.addEventListener('click', ()=> {
+                console.log('CLICKED');
+                if (group.style.height === '52px' || group.style.height === ''){
+                    group.style.height = 100 + '%'; //container[0].scrollHeight + "px" ;
+                } else {
+                    group.style.height = 52 + 'px';
+                }
+                group.classList.toggle('sqlqb-collapsed');
+                header.classList.toggle('sqlqb-collapsed');
+                header.querySelector('span').classList.toggle('sqlqb-collapsed');
+            });
+        });
+
     }
 }
 
