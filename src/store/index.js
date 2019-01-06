@@ -34,6 +34,7 @@ const index = {
 
 const mutations = {
     setInput(state, payload) {
+        console.info(payload);
         console.groupCollapsed('[STORE]');
         console.table(payload);
         console.groupEnd();

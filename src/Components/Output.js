@@ -29,7 +29,7 @@ export default class Output extends Component {
             } else {
                 return this.generateOperator(item);
             }
-        }).join('').trim() + this.generateSemicolon();
+        }).join('').trim() + this.appendSemicolon();
     }
 
     generateClause(item) {
@@ -44,7 +44,7 @@ export default class Output extends Component {
         return `<span class="sqlqb-output-${item.type}">"${item.value}"</span>`;
     }
 
-    generateSemicolon() {
+    appendSemicolon() {
         return `<span class="sqlqb-output-clause">;</span>`;
     }
 }

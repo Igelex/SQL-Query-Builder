@@ -1,7 +1,8 @@
 export const CLAUSES_TYPES = {
     VALUE: 'value',
     CLAUSE: 'clause',
-    OPERATOR: 'operator'
+    OPERATOR: 'operator',
+    FLOATING: 'floating',
 };
 
 /**
@@ -11,7 +12,13 @@ export const CLAUSES_TYPES = {
  * 'name': visible name of clause (e.g. SELECT, FROM or +)
  */
 const CLAUSES = [
-    /*Value input tag **************************************/
+    /*Floating input ******************************/
+    {
+        type: CLAUSES_TYPES.FLOATING,
+        block: false,
+        name: 'floating'
+    },
+    /*Value input tag ******************************/
     {
         type: CLAUSES_TYPES.VALUE,
         block: false,
@@ -131,4 +138,5 @@ const CLAUSES = [
     }
 ];
 CLAUSES.map((clause,i)=> clause.id = i);
+console.log({CLAUSES});
 export {CLAUSES};

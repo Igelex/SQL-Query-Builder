@@ -4,6 +4,7 @@ import {CLAUSES, CLAUSES_TYPES} from "../const";
 import Clause from "./Clause";
 import Value from "./Value";
 import {Sortable} from '@shopify/draggable';
+import FloatingInput from "./FloatingInput";
 
 export default class InputList extends Component {
 
@@ -37,11 +38,14 @@ export default class InputList extends Component {
     generateItems() {
         return store.state.items.map(item => {
             if (item.type === CLAUSES_TYPES.VALUE) {
-                let value = new Value(item);
+                const value = new Value(item);
                 return value.generator();
-            } else {
-                let tag = new Clause(item);
+            } else if (item.type === CLAUSES_TYPES.CLAUSE || item.type === CLAUSES_TYPES.OPERATOR) {
+                const tag = new Clause(item);
                 return tag.generator();
+            } else if (item.type === CLAUSES_TYPES.FLOATING) {
+                const floating_input = new FloatingInput(item);
+                return floating_input.generator();
             }
         }).join('').trim();
     }
@@ -54,12 +58,25 @@ export default class InputList extends Component {
             delay: 200,
         });
         sortable.on('sortable:stop', () => {
-            setTimeout(()=> {
+            setTimeout(() => {
                 store.dispatch('setInput', [...sortable_input.querySelectorAll('li')].map(item => {
+
+                        let id = item.getAttribute('data-clause-id');
+
+                        const clause = CLAUSES[id];
+
+                        if (clause.type === CLAUSES_TYPES.FLOATING) {
+                            return {
+                                id: id,
+                                type: CLAUSES[id].type,
+                                block: CLAUSES[id].block,
+                                name: CLAUSES[id].name,
+                                value: '',
+                            };
+                        }
 
                         let span = item.querySelector('span.sqlqb-tag');
                         let value = span.innerText.trim();
-                        let id = item.getAttribute('data-clause-id');
 
                         return {
                             id: id,
@@ -70,7 +87,7 @@ export default class InputList extends Component {
                         };
                     }
                 ));
-            }, 200);
+            }, 0);
         });
         sortable.on('sortable:start', (event) => event.data.dragEvent.mirror.classList.remove('sqlqb-animation-pulse'));
     }

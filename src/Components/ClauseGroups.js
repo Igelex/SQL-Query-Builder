@@ -8,9 +8,9 @@ export default class ClauseGroups {
     generateGroups() {
         return `
             <div class="sqlqb-row">
-                ${Object.values(CLAUSES_TYPES).map(type => {
-                    console.log({type});
-                    return `
+                ${Object.values(CLAUSES_TYPES).filter(type => type !== CLAUSES_TYPES.FLOATING && type !== CLAUSES_TYPES.VALUE)
+            .map(type => {
+                return `
                           <div class="sqlqb-col">
                             <div id="sqlqb-tags-${type.toLowerCase()}s" class="sqlqb-tags-group">
                                 <h4 class="sqlqb-header sqlqb-collapsed">${type}
@@ -20,7 +20,7 @@ export default class ClauseGroups {
                             </div>
                           </div>
                           `;
-                }).join('')
+            }).join('')
             }
             </div>
         `;
