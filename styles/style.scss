@@ -178,7 +178,7 @@
 }
 
 #sqlqb-input:not(.draggable-container--is-dragging) {
-  #{$input-item} {
+  & > #{$input-item} {
     z-index: 0;
     margin: 5px 0 6px 0;
     #{$tag} {
@@ -337,18 +337,23 @@
     transition: .3s;
     background: white;
     outline: none;
-    border: 2px solid $borc-input;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: 2px solid $borc-input;
     height: 35px;
     width: 30px;
     padding-left: 10px;
     animation: cursor 1s ease-out infinite;
-    @include tag-border-radius;
     &:focus {
       width: 100px;
-      border: 2px solid $borc-input-focus;
+      border-left: 2px solid $borc-input-focus;
       animation: none;
+      background-color: #f0f0f0;
+      //@include tag-border-radius;
     }
     &:hover {
+      background-color: #f0f0f0;
       #{$tag-controls} {
         display: inline-block;
       }
@@ -392,10 +397,10 @@
 }
 
 @keyframes cursor {
-  0% {
-    border-left-color: $borc-input;
+  0%, 100% {
+    border-left-color: transparent;
   }
-  100% {
+  50% {
     border-left-color: $borc-input-focus;
   }
 }

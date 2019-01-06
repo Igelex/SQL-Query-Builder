@@ -26,18 +26,18 @@ export default class Output extends Component {
                 return this.generateValue(item);
             } else if(item.type === CLAUSES_TYPES.CLAUSE){
                 return this.generateClause(item);
-            } else {
+            } else if(item.type === CLAUSES_TYPES.OPERATOR){
                 return this.generateOperator(item);
             }
         }).join('').trim() + this.appendSemicolon();
     }
 
     generateClause(item) {
-        return `${item.block ? '</br>' : ''} <span class="sqlqb-output-${item.type}">${item.name}</span>`;
+        return `${item.block ? '</br>' : ''} <span class="sqlqb-output-${item.type}">${item.name.toUpperCase()}</span>`;
     }
 
     generateOperator(item) {
-        return `<span class="sqlqb-output-${item.type}">${item.name}</span>`;
+        return `<span class="sqlqb-output-${item.type}">${item.name.toUpperCase()}</span>`;
     }
 
     generateValue(item) {
