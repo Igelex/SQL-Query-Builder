@@ -2,7 +2,7 @@ import {CLAUSES_TYPES, CLAUSES} from "../const";
 
 export default class ClauseGroups {
     render() {
-        document.getElementById('sqlqb-tags-container').innerHTML = this.generateGroups().trim();
+        document.getElementById('sqlqb-tags-container').innerHTML = this.generateGroups();
         this.addEventListeners();
     }
 
@@ -21,8 +21,7 @@ export default class ClauseGroups {
                             </div>
                           </div>
                           `;
-            }).join('')
-            }
+            }).join('').trim()}
             </div>
         `;
     }
@@ -41,7 +40,6 @@ export default class ClauseGroups {
 
     addEventListeners() {
         const groups = document.getElementById('sqlqb-tags-container').querySelectorAll('.sqlqb-tags-group');
-        console.log(groups);
         groups.forEach(group => {
             const header = group.querySelector('h4');
             header.addEventListener('click', ()=> {

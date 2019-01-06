@@ -2,7 +2,7 @@ import Component from './component.js';
 import store from '../store/index.js';
 import {CLAUSES, CLAUSES_TYPES} from "../const";
 import Clause from "./Clause";
-import Value from "./Value";
+import {Value, addValueEventListeners} from "./Value";
 import {Sortable} from '@shopify/draggable';
 import {FloatingInput, addEventsListeners} from "./FloatingInput";
 
@@ -27,12 +27,13 @@ export default class InputList extends Component {
           </ul>`;
 
         this.element.querySelectorAll('.sqlqb-tag-controls-remove').forEach((button, index) => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', () => {
                 store.dispatch('removeItem', index);
             });
         });
 
         addEventsListeners(document.getElementById('sqlqb-floating-input'));
+        addValueEventListeners(this.element);
 
         this.initSortable();
     }

@@ -42,8 +42,8 @@ export function addEventsListeners(elem) {
     });
 
     elem.onblur = () => {
-        //container.innerHTML = '';
-        //container.style.display = 'none';
+        container.innerHTML = '';
+        container.style.display = 'none';
         filtered_clauses = [];
     };
 
