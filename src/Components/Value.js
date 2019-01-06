@@ -1,12 +1,15 @@
+import store from '../store/index.js';
+
 export class Value {
 
-    constructor(item = {}) {
+    constructor({item = {}, position}) {
         this.item = item;
+        this.position = position;
     }
 
     generator() {
         return `
-      <li data-clause-id="${this.item.id}" class="sqlqb-input-item sqlqb-animation-pulse">
+      <li data-clause-id="${this.item.id}" data-clause-position="${this.position}" class="sqlqb-input-item sqlqb-animation-pulse">
           ${this.generateValueInput()}
           ${this.generateValueTag()}
           ${this.generateRemoveButton()}
@@ -41,8 +44,6 @@ export class Value {
 
 export function addValueEventListeners(parent) {
     const values_tag = parent.querySelectorAll('li[data-clause-id="1"]');
-    console.log(values_tag);
-
     values_tag.forEach(tag => {
 
         const values_span = tag.querySelector('.sqlqb-tag-value');
@@ -51,6 +52,7 @@ export function addValueEventListeners(parent) {
         tag.addEventListener('dblclick', () => {
             values_span.style.visibility = 'hidden';
             values_input.style.display = 'inline';
+            values_input.focus();
 
             values_input.value = values_span.textContent.trim();
         });
@@ -61,8 +63,14 @@ export function addValueEventListeners(parent) {
             }
 
             values_span.style.visibility = 'visible';
-            values_span.textContent = values_input.value.trim();
             values_input.style.display = 'none';
+
+            let position = tag.getAttribute('data-clause-position');
+            store.dispatch('updateItem', {
+                value: values_input.value.trim(),
+                position,
+            });
+
         };
     });
 }

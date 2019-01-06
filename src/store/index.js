@@ -51,6 +51,11 @@ const mutations = {
         return state;
     },
 
+    updateItem(state, {value, position}) {
+        state.items[position].value = value;
+        return state;
+    },
+
     addItemOnPosition(state, {item, position}) {
         console.log(item, position);
         state.items.splice(position, 0, item);
@@ -65,12 +70,15 @@ const actions = {
     removeItem(context, position) {
         context.commit('removeItem', position);
     },
+    addItemOnPosition(context, {item, position}) {
+        context.commit('addItemOnPosition', {item, position});
+    },
     addItem(context, item) {
         context.commit('addItem', item);
     },
-    addItemOnPosition(context, {item, position}) {
-        context.commit('addItemOnPosition', {item, position});
-    }
+    updateItem(context, {value, position}) {
+        context.commit('updateItem', {value, position});
+    },
 };
 
 export default new Store({actions, mutations, state});

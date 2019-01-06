@@ -39,9 +39,9 @@ export default class InputList extends Component {
     }
 
     generateItems() {
-        return store.state.items.map(item => {
+        return store.state.items.map((item, position) => {
             if (item.type === CLAUSES_TYPES.VALUE) {
-                const value = new Value(item);
+                const value = new Value({item, position});
                 return value.generator();
             } else if (item.type === CLAUSES_TYPES.CLAUSE || item.type === CLAUSES_TYPES.OPERATOR) {
                 const tag = new Clause(item);
