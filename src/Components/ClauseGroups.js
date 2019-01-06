@@ -1,9 +1,10 @@
 import {CLAUSES_TYPES, CLAUSES} from "../const";
+import store from "../store";
 
 export default class ClauseGroups {
     render() {
         document.getElementById('sqlqb-tags-container').innerHTML = this.generateGroups();
-        this.addEventListeners();
+        this.addGroupEventListeners();
     }
 
     generateGroups() {
@@ -38,13 +39,13 @@ export default class ClauseGroups {
         }).join('');
     }
 
-    addEventListeners() {
+    addGroupEventListeners() {
         const groups = document.getElementById('sqlqb-tags-container').querySelectorAll('.sqlqb-tags-group');
         groups.forEach(group => {
             const header = group.querySelector('h4');
-            header.addEventListener('click', ()=> {
+            header.addEventListener('click', () => {
                 console.log('CLICKED');
-                if (group.style.height === '52px' || group.style.height === ''){
+                if (group.style.height === '52px' || group.style.height === '') {
                     group.style.height = 100 + '%'; //container[0].scrollHeight + "px" ;
                 } else {
                     group.style.height = 52 + 'px';
@@ -53,8 +54,34 @@ export default class ClauseGroups {
                 header.classList.toggle('sqlqb-collapsed');
                 header.querySelector('span').classList.toggle('sqlqb-collapsed');
             });
+
+            const tags = group.querySelectorAll('.sqlqb-tag');
+            this.addClausesEventListeners(tags);
+
         });
 
     }
+
+    addClausesEventListeners(tags) {
+        console.log(tags);
+        tags.forEach(tag => {
+            tag.addEventListener('click', () => {
+
+                const id = tag.getAttribute('data-clause-id');
+
+                store.dispatch('addItem', {
+                    id: id,
+                    type: CLAUSES[id].type,
+                    block: CLAUSES[id].block,
+                    name: CLAUSES[id].name,
+                    value: '',
+                });
+            });
+
+        });
+    }
+
 }
+
+
 
