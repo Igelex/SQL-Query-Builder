@@ -13,7 +13,7 @@ export class FloatingInput {
         return `<li id="sqlqb-floating-input-container" data-clause-id="${this.item.id}">
                   <span class="sqlqb-tag-controls sqlqb-tag-controls-add">&#10542;</span>
                   <form id="sqlqb-floating-form">
-                    <input id="sqlqb-floating-input" autofocus type="text" class="sqlqb-floating-input" autocomplete="off">
+                    <input id="sqlqb-floating-input" required autofocus type="text" class="sqlqb-floating-input" autocomplete="off">
                   </form>
                   <div id="sqlqb-floating-input-items-container"></div>
                </li>`;

@@ -1,4 +1,5 @@
 import Store from "beedle";
+import {CLAUSES_TYPES} from "../const";
 
 const state = {
     items: [
@@ -73,8 +74,23 @@ const actions = {
     addItemOnPosition(context, {item, position}) {
         context.commit('addItemOnPosition', {item, position});
     },
-    addItem(context, item) {
-        context.commit('addItem', item);
+    addItem(context, new_item) {
+
+        console.log(new_item);
+
+        let floating_input_position = 0;
+
+        context.state.items.forEach((item, i) => {
+            if (item.type === CLAUSES_TYPES.FLOATING) {
+                floating_input_position = i;
+            }
+        });
+
+        if (floating_input_position === context.state.items.length - 1){
+            context.commit('addItemOnPosition', {item: new_item, position: floating_input_position});
+        } else {
+            context.commit('addItem', new_item);
+        }
     },
     updateItem(context, {value, position}) {
         context.commit('updateItem', {value, position});

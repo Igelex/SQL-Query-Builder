@@ -68,6 +68,9 @@ export default class ClauseGroups {
 
                 const id = tag.getAttribute('data-clause-id');
 
+                console.log('IIIIID',id);
+                console.log(CLAUSES[id].type);
+
                 store.dispatch('addItem', {
                     id: id,
                     type: CLAUSES[id].type,

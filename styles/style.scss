@@ -346,10 +346,12 @@
     padding-left: 10px;
     animation: cursor 1s ease-out infinite;
     &:focus {
-      width: 100px;
       border-left: 2px solid $borc-input-focus;
       animation: none;
       background-color: #f0f0f0;
+      &:valid{
+        width: 100px;
+      }
       //@include tag-border-radius;
     }
     &:hover {
