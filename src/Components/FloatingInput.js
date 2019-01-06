@@ -20,7 +20,8 @@ export class FloatingInput {
     }
 }
 
-export function addEventsListeners(elem) {
+export function addFloatingInputEventsListeners() {
+    const elem = document.getElementById('sqlqb-floating-input');
     const container = document.getElementById('sqlqb-floating-input-items-container');
     const form = document.getElementById('sqlqb-floating-form');
     let filtered_clauses = [];

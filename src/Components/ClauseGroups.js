@@ -63,7 +63,6 @@ export default class ClauseGroups {
     }
 
     addClausesEventListeners(tags) {
-        console.log(tags);
         tags.forEach(tag => {
             tag.addEventListener('click', () => {
 

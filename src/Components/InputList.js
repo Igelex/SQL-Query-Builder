@@ -4,7 +4,7 @@ import {CLAUSES, CLAUSES_TYPES} from "../const";
 import Clause from "./Clause";
 import {Value, addValueEventListeners} from "./Value";
 import {Sortable} from '@shopify/draggable';
-import {FloatingInput, addEventsListeners} from "./FloatingInput";
+import {FloatingInput, addFloatingInputEventsListeners} from "./FloatingInput";
 
 export default class InputList extends Component {
 
@@ -32,7 +32,7 @@ export default class InputList extends Component {
             });
         });
 
-        addEventsListeners(document.getElementById('sqlqb-floating-input'));
+        addFloatingInputEventsListeners();
         addValueEventListeners(this.element);
 
         this.initSortable();

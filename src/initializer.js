@@ -52,7 +52,6 @@ export function init(
         if (initElements.length > 0) {
             //append floating input
             initElements.push({id: 0, text: ''});
-            console.log(initElements);
             store.dispatch('setInput', initElements.map(item => ({
                 id: item.id,
                 type: CLAUSES[item.id].type,
