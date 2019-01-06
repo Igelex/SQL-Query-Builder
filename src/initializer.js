@@ -3,6 +3,7 @@ import {CLAUSES} from './const';
 import "./Components/InputList";
 import InputList from "./Components/InputList";
 import ClauseGroups from "./Components/ClauseGroups";
+import Output from "./Components/Output";
 
 function initLayout(container) {
     const initial_layout = `
@@ -13,12 +14,25 @@ function initLayout(container) {
             </div>
         </div>
         <div id="sqlqb-tags-container"></div>
+        <div class="sqlqb-row"><div class="sqlqb-col">
+            <div id="sqlqb-output-container">
+                <span class="sqlqb-badge">copy</span>
+                    <div id="sqlqb-output">
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     `;
+
     document.querySelector(container).innerHTML = initial_layout;
 
     const claus_groups = new ClauseGroups();
     claus_groups.render();
+
+    const  output = new Output();
+    output.render();
 }
 
 export function init(
@@ -52,7 +66,7 @@ export function init(
             console.log('CLICK');
             store.dispatch('addItem', {
                 id: 'id',
-                type: 'clause',
+                type: 'value',
                 block: true,
                 name: 'test',
                 value: 'hui',
