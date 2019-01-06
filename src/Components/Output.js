@@ -29,18 +29,22 @@ export default class Output extends Component {
             } else {
                 return this.generateOperator(item);
             }
-        }).join('').trim();
+        }).join('').trim() + this.generateSemicolon();
     }
 
     generateClause(item) {
-        return `<span 'sqlqb-output-${item.type}'>${item.name}</span>`;
+        return `${item.block ? '</br>' : ''} <span class="sqlqb-output-${item.type}">${item.name}</span>`;
     }
 
     generateOperator(item) {
-        return `<span 'sqlqb-output-${item.type}'>${item.name}</span>`;
+        return `<span class="sqlqb-output-${item.type}">${item.name}</span>`;
     }
 
     generateValue(item) {
-        return `<span 'sqlqb-output-${item.type}'>${item.value}</span>`;
+        return `<span class="sqlqb-output-${item.type}">"${item.value}"</span>`;
+    }
+
+    generateSemicolon() {
+        return `<span class="sqlqb-output-clause">;</span>`;
     }
 }
