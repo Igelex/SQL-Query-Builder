@@ -1,6 +1,7 @@
-import {CLAUSES_TYPES} from "../const";
+import {CLAUSES, CLAUSES_TYPES} from "../const";
+import store from "../store";
 
-export default class Clause {
+export class Clause {
 
     constructor(item = {}) {
         this.item = item;
@@ -8,7 +9,7 @@ export default class Clause {
 
      generator() {
         return `
-      <li data-clause-id="${this.item.id}" class="sqlqb-input-item sqlqb-animation-pulse">
+      <li data-clause-id="${this.item.id}" class="sqlqb-input-item ${this.item.new ? 'sqlqb-animation-pulse' : ''}">
           ${this.generateTag()}
           ${this.generateRemoveButton()}
           ${this.generateAddButton()}
@@ -31,5 +32,21 @@ export default class Clause {
     generateAddButton() {
         return `<span class="sqlqb-tag-controls sqlqb-tag-controls-add">&times;</span>`;
     }
+}
+
+export function addClausesEventListeners(clauses) {
+    clauses.forEach(clause => {
+        clause.addEventListener('click', () => {
+            const id = clause.getAttribute('data-clause-id');
+            store.dispatch('addItem', {
+                id: id,
+                type: CLAUSES[id].type,
+                block: CLAUSES[id].block,
+                name: CLAUSES[id].name,
+                value: '',
+            });
+        });
+
+    });
 }
 

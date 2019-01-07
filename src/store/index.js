@@ -35,9 +35,6 @@ const state = {
 
 const mutations = {
     setInput(state, payload) {
-        console.groupCollapsed('[STORE]');
-        console.table(payload);
-        console.groupEnd();
         state.items = payload;
         return state;
     },
@@ -66,16 +63,17 @@ const mutations = {
 const actions = {
     setInput(context, items) {
         context.commit('setInput', items);
+        log(context.state.items);
     },
     removeItem(context, position) {
         context.commit('removeItem', position);
+        log(context.state.items);
     },
     addItemOnPosition(context, {item, position}) {
         context.commit('addItemOnPosition', {item, position});
+        log(context.state.items);
     },
     addItem(context, new_item) {
-
-        console.log(new_item);
 
         let floating_input_position = 0;
 
@@ -90,10 +88,18 @@ const actions = {
         } else {
             context.commit('addItem', new_item);
         }
+        log(context.state.items);
     },
     updateItem(context, {value, position}) {
         context.commit('updateItem', {value, position});
+        log(context.state.items);
     },
 };
+
+function log(items) {
+    console.groupCollapsed('[STORE]');
+    console.table(items);
+    console.groupEnd();
+}
 
 export default new Store({actions, mutations, state});

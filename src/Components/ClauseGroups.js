@@ -1,5 +1,6 @@
 import {CLAUSES_TYPES, CLAUSES} from "../const";
 import store from "../store";
+import {addClausesEventListeners} from "./Clause";
 
 export default class ClauseGroups {
     render() {
@@ -55,34 +56,10 @@ export default class ClauseGroups {
                 header.querySelector('span').classList.toggle('sqlqb-collapsed');
             });
 
-            const tags = group.querySelectorAll('.sqlqb-tag');
-            this.addClausesEventListeners(tags);
-
-        });
-
-    }
-
-    addClausesEventListeners(tags) {
-        tags.forEach(tag => {
-            tag.addEventListener('click', () => {
-
-                const id = tag.getAttribute('data-clause-id');
-
-                console.log('IIIIID',id);
-                console.log(CLAUSES[id].type);
-
-                store.dispatch('addItem', {
-                    id: id,
-                    type: CLAUSES[id].type,
-                    block: CLAUSES[id].block,
-                    name: CLAUSES[id].name,
-                    value: '',
-                });
-            });
-
+            const clauses = group.querySelectorAll('.sqlqb-tag');
+            addClausesEventListeners(clauses);
         });
     }
-
 }
 
 

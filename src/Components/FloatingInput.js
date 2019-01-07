@@ -1,6 +1,6 @@
 import {CLAUSES, CLAUSES_TYPES} from "../const";
 import {Value} from "./Value";
-import Clause from "./Clause";
+import {addClausesEventListeners, Clause} from "./Clause";
 import store from '../store/index.js';
 
 export class FloatingInput {
@@ -36,12 +36,20 @@ export function addFloatingInputEventsListeners() {
         }
 
         container.innerHTML = `${generateItems(filtered_clauses)}`;
+
+        const clauses = container.querySelectorAll('.sqlqb-input-item');
+        addClausesEventListeners(clauses);
+
         container.style.display = 'block';
+        container.style.opacity = '1';
     });
 
     elem.onblur = () => {
-        //container.innerHTML = '';
-        //container.style.display = 'none';
+        setTimeout(()=> {
+            container.innerHTML = '';
+            container.style.display = 'none';
+        }, 300);
+        container.style.opacity = '0';
         filtered_clauses = [];
     };
 
