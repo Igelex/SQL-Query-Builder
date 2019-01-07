@@ -9,7 +9,8 @@ export class Value {
 
     generator() {
         return `
-      <li data-clause-id="${this.item.id}" data-clause-position="${this.position}" class="sqlqb-input-item sqlqb-animation-pulse">
+      <li data-clause-id="${this.item.id}" data-clause-position="${this.position}" 
+          class="sqlqb-input-item ${this.item.new ? 'sqlqb-animation-pulse' : ''}">
           ${this.generateValueInput()}
           ${this.generateValueTag()}
           ${this.generateRemoveButton()}
@@ -21,7 +22,7 @@ export class Value {
         return `<input data-type="clause-value" 
                         type="text" 
                         class="sqlqb-value-input value-input-selected" 
-                        placeholder="Enter value" 
+                        placeholder="value" 
                         style="${this.item.value ? '' : 'display: inline;'}"
                         value="${this.item.value ? this.item.value : ''}">`;
     }

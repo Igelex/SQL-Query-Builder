@@ -115,10 +115,10 @@
 *Media queries
 */
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 1200px) {
   #sqlqb-tags-container {
     .sqlqb-col {
-      flex: 0 0 50%;
+      flex: 0 0 25%;
     }
   }
 }

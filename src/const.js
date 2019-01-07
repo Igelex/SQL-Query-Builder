@@ -22,7 +22,7 @@ const CLAUSES = [
     {
         type: CLAUSES_TYPES.VALUE,
         block: false,
-        name: 'Enter value'
+        name: 'value'
     },
     /*Clauses **************************************/
     {
