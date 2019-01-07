@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import '_vars';
+
+/***********************************************************************************************************************
+*General layout containers
+*/
+.sqlqb-row {
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.sqlqb-col {
+  display: inline-block;
+  width: 100%;
+  padding: 8px;
+  flex: 0 0 100%;
+}
+
+#sqlqb-tags-container {
+  .sqlqb-col {
+    flex: 0 0 50%;
+  }
+}
+
+#sqlqb-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  * {
+    box-sizing: border-box;
+    font-family: $font-family;
+  }
+  li, ul {
+    list-style: none;
+    margin: 0;
+  }
+}
+
+#sqlqb-input-container {
+  width: 100%;
+  padding: 0 10px;
+  background: white;
+  border: 3px solid #f4f1f5;
+
+  #sqlqb-input {
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    //min-height: 60px;
+    display: flex;
+    justify-content: start !important;
+    flex-wrap: wrap;
+    align-items: center;
+
+    li {
+      position: relative;
+      border-radius: 0.25rem;
+      margin-right: 8px;
+    }
+  }
+}
+
+#sqlqb-tags-container {
+  width: 100%;
+  display: flex;
+  flex-flow: wrap row;
+  .sqlqb-tags-group {
+    height: 52px;
+    transition: 0.3s ease-out;
+    width: 100%;
+    display: inline-block;
+    background: $bc-group;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    @include tag-border-radius;
+    padding: 0 16px;
+    &.sqlqb-group-collapsed {
+      height: 52px;
+      background-color: #399dfa;
+    }
+    span {
+      margin: 0 10px 10px 0;
+    }
+  }
+}
+
+#sqlqb-output-container {
+  transition: .3s;
+  position: relative;
+  width: 100%;
+  padding: 20px 10px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background: #f5f5f5;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+    #{$badge} {
+      transition: inherit;
+      color: $c-icon-hover;
+      cursor: inherit;
+    }
+  }
+  &:active {
+    box-shadow: 4px 4px 10px 1px rgba(0, 0, 0, 0.1);
+  }
+  #sqlqb-output {
+    width: 100%;
+  }
+}
+
+/*************************
+*Media queries
+*/
+
+@media only screen and (min-width: 1200px) {
+  #sqlqb-tags-container {
+    .sqlqb-col {
+      flex: 0 0 25%;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #sqlqb-tags-container {
+    .sqlqb-col {
+      flex: 0 0 100%;
+    }
+  }
+}
+
+/***********************************************************************************************************************
+*Elements styling
+*/
+#{$header} {
+  position: relative;
+  transition: .3s;
+  color: $f-color-header;
+  font-size: $f-size-header;
+  padding: 16px 16px;
+  margin: 0 -16px 10px -16px;
+  cursor: pointer;
+  @include tag-border-radius;
+  &:hover {
+    //background-color: $bc-header-hover;
+  }
+  span {
+    transform: rotate(45deg);
+    transition: .3s;
+    color: #bebebe;
+    position: absolute;
+    right: 10px;
+    font-size: 22px;
+    &.sqlqb-collapsed {
+      transform: rotate(0);
+    }
+  }
+}
+
+#sqlqb-tags-clauses {
+  #{$header}.sqlqb-collapsed {
+    background-color: rgba($bc-clause, 0.2);
+    &:hover {
+      background-color: rgba($bc-clause, 0.4);
+    }
+  }
+}
+
+#sqlqb-tags-operators {
+  #{$header}.sqlqb-collapsed {
+    background-color: rgba($bc-operator, 0.2);
+    &:hover {
+      background-color: rgba($bc-operator, 0.4);
+    }
+  }
+}
+
+#sqlqb-input:not(.draggable-container--is-dragging) {
+  & > #{$input-item} {
+    z-index: 0;
+    margin: 5px 0 6px 0;
+    #{$tag} {
+      &#{$tag-clause} {
+        @include tag-selected($bc-clause);
+      }
+      &#{$tag-operator} {
+        @include tag-selected($bc-operator);
+      }
+      &#{$tag-value} {
+        @include tag-selected($f-color-tag-value);
+      }
+    }
+    &:hover {
+      z-index: 1;
+      #{$tag} {
+        @include tag(0, 0, 0, 0);
+        &#{$tag-clause} {
+          @include tag-hover($bc-clause, $f-color-tag, 0);
+        }
+        &#{$tag-operator} {
+          @include tag-hover($bc-operator, $f-color-tag, 0);
+        }
+        &#{$tag-value} {
+          @include tag-hover($bc-value, $f-color-tag-value, 0);
+        }
+      }
+      #{$tag-controls} {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+/***********************************************************************************************************************
+*Custom clause value input element
+*/
+#{$value-input} {
+  @include value-input;
+  &:focus {
+    border-bottom: 3px $borc-input-focus solid;
+  }
+}
+
+/***********************************************************************************************************************
+*Custom clause tag
+*/
+#{$tag} {
+  @include tag();
+  &#{$tag-clause} {
+    color: $f-color-tag;
+    background-color: $bc-clause;
+    &:hover {
+      background-color: $bc-clause-hover;
+    }
+  }
+  &#{$tag-operator} {
+    color: $f-color-tag;
+    background-color: $bc-operator;
+    &:hover {
+      background-color: $bc-operator-hover;
+    }
+  }
+  &#{$tag-value} {
+    color: $f-color-tag-value;
+    background-color: $bc-value;
+    &:hover {
+      background-color: $bc-value-hover;
+    }
+  }
+}
+
+/***********************************************************************************************************************
+*control buttons for removing and adding tags
+*/
+#{$tag-controls} {
+  @include tag;
+  @include tag-controls;
+  &:hover {
+    background-color: $bc-control-hover;
+  }
+  &#{$tag-controls-remove} {
+    @include tag-border-radius($br-tag, 0, 0, $br-tag);
+    right: 100%;
+  }
+  &#{$tag-controls-add} {
+    left: 100%;
+    @include tag-border-radius(0, $br-tag, $br-tag, 0);
+  }
+}
+
+/***********************************************************************************************************************
+*Output styling
+*/
+#{$output-clause} {
+  @include output;
+  color: $bc-clause;
+}
+
+#{$output-value} {
+  @include output;
+  color: $f-color-tag-value;
+}
+
+#{$output-operator} {
+  @include output;
+  font-weight: $f-weight-tag;
+  color: $bc-operator;
+}
+
+#{$badge} {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: $f-color-badge;
+  font-weight: bold;
+  padding: 7px 15px;
+  border-radius: 0.25em;
+  background-color: $bc-badge;
+}
+
+#sqlqb-hidden-input {
+  /*height: 0;
+  width: 0;*/
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  height: 0;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 10px;
+}
+
+/***********************************************************************************************************************
+*icons
+*/
+#{$icon} {
+  color: gray;
+  transition: .3s;
+  padding: 6px;
+  font-size: 18px;
+  &-copy {
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 16px);
+  }
+}
+
+#{$icon-copy} {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 16px);
+}
+
+/***********************************************************************************************************************
+*Floating input
+*/
+
+#sqlqb-floating-input-container, .draggable-mirror {
+  margin-left: 10px;
+  position: relative;
+  height: 100%;
+  form{
+    height: 100%;
+  }
+  #{$floating} {
+    transition: .3s;
+    background: white;
+    outline: none;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: 2px solid $borc-input;
+    height: 35px;
+    width: 30px;
+    padding-left: 10px;
+    animation: cursor 1s ease-out infinite;
+    &:focus {
+      border-left: 2px solid $borc-input-focus;
+      animation: none;
+      background-color: #f0f0f0;
+      &:valid{
+        width: 100px;
+      }
+      //@include tag-border-radius;
+    }
+    &:hover {
+      background-color: #f0f0f0;
+      #{$tag-controls} {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+#sqlqb-floating-input-items-container {
+  min-width: 100%;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  min-height: 0;
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #d7d7d7;
+  top: 110%;
+  transition: 0.5s;
+  @include tag-border-radius;
+  .sqlqb-input-item {
+    width: 100%;
+    display: inline-block;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ebebeb;
+    &:first-child {
+      background-color: #d7d7d7;
+    }
+  }
+  #{$tag-clause} {
+    background-color: $bc-clause !important;
+    color: white !important;
+  }
+
+  #{$tag-value} {
+    background-color: $bc-value !important;
+    color: $f-color-tag-value;
+  }
+
+  #{$tag-operator} {
+    background-color: $bc-operator !important;
+    color: white !important;  }
+}
+
+@keyframes cursor {
+  0%, 100% {
+    border-left-color: transparent;
+  }
+  50% {
+    border-left-color: $borc-input-focus;
+  }
+}
+/***********************************************************************************************************************
+*Animations
+*/
+#{$animation-pulse} {
+  @include animation-pulse;
+}
+
+/***********************************************************************************************************************
+*Styling for draggable items
+*/
+
+/*.sort-placeholder {
+  @include draggable-placeholder;
+}*/
+
+/*Draggable.js classes*/
+.draggable-mirror {
+  opacity: .7;
+  z-index: 10;
+}
+
+.draggable-source--is-dragging {
+  transition: transform .24s cubic-bezier(.18,.67,.6,1.22);
+  animation: none !important;
+  background-color: #f5f5f5;
+  border: 2px $borc-input-focus dashed;
+  #{$tag}, #{$floating} {
+   opacity: 0;
+  }
+}
+
+.draggable-source {
+  transition: transform .24s cubic-bezier(.18,.67,.6,1.22);
+}
+
+.draggable-container--is-dragging {
+  #{$tag-controls} {
+    display: none !important;
+  }
+  #{$tag} {
+    &:hover {
+      background-color: transparent !important;
+      color: initial !important;
+    }
+  }
+}

@@ -8,29 +8,20 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        //index: './src/index.js',
-        index: './test.js',
+        test: './index.js',
     },
     output: {
-        filename: 'sqlqb.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'Sqlqb',
-        libraryTarget: 'umd',
-        globalObject: 'this',
         //publicPath: 'dist/'
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
-        overlay: true,
-        open: true
+        overlay: true
     },
     optimization: {
         noEmitOnErrors: true
-    },
-
-    performance: {
-        assetFilter: (assetFilename) => assetFilename.endsWith('.js')
     },
 
     watch: NODE_ENV === 'development',
@@ -42,7 +33,7 @@ module.exports = {
     devtool: NODE_ENV === 'development' ? 'source-map' : null,
 
     plugins: [
-        new CleanWebpackPlugin('dist', {}),
+        new CleanWebpackPlugin('dist', {} ),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
@@ -63,25 +54,17 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                use: [{
+                use: {
                     loader: 'babel-loader',
-                    },
-                    {
-                        loader: 'eslint-loader',
-                        options: {
-                            configFile: __dirname + '/.eslintrc',
-                            fix: true
-                        },
-                    },]
+                }
             },
             {
                 test: /\.scss$/,
                 use: [
                     // fallback to style-loader in development
-                    NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
-                    { loader: 'css-loader', options: { importLoaders: 1 } },
-                    'postcss-loader',
-                    'sass-loader'
+                    process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader"
                 ]
             },
             {
@@ -93,7 +76,7 @@ module.exports = {
                             loader: 'css-loader',
                             options: {
                                 minimize: true,
-                                sourceMap: NODE_ENV === 'development',
+                                sourceMap: true
                             }
                         }
                     ]
@@ -104,12 +87,10 @@ module.exports = {
                 use: [
                     {
                         loader: "html-loader",
-                        options: {minimize: true}
+                        options: { minimize: true }
                     }
                 ]
             }
         ],
-
     }
-
 };
