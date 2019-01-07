@@ -288,7 +288,6 @@ $(document).ready(() => {
         });
     };
 
-    //SELECT 1,2 FROM users WHERE id <= 5 AND age >= 25 AND (name = 'some_name' OR name = ''another_name)
     let query = {
         select:
             {
