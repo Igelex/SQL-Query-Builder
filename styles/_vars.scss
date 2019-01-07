@@ -5,7 +5,7 @@
 $prefix: ".sqlqb-"; // Prefix for all classes in SQL QUERY BUILDER library
 $scale-factor: 1; // simply change value to change general size of tags (e.g. 1.3)
 
-/*Classes*/
+/*Classes and id's*/
 $tag: "#{$prefix}tag";
 $tag-clause: "#{$prefix}tag-clause";
 $tag-operator: "#{$prefix}tag-operator";
@@ -31,6 +31,8 @@ $icon-copy: "#{$icon}-copy";
 $header: "#{$prefix}header";
 
 $badge: "#{$prefix}badge";
+
+$hidden-input: "#sqlqb-hidden-input";
 
 $floating: "#{$prefix}floating-input";
 
