@@ -21,19 +21,19 @@ export default class Output extends Component {
     }
 
     renderOutput() {
-        return store.state.items.map(item => {
+        return store.state.items.map((item, i) => {
             if (item.type === CLAUSES_TYPES.VALUE) {
                 return this.generateValue(item);
             } else if(item.type === CLAUSES_TYPES.CLAUSE){
-                return this.generateClause(item);
+                return this.generateClause(item, i);
             } else if(item.type === CLAUSES_TYPES.OPERATOR){
                 return this.generateOperator(item);
             }
         }).join('').trim() + this.appendSemicolon();
     }
 
-    generateClause(item) {
-        return `${item.block ? '</br>' : ''} <span class="sqlqb-output-${item.type}">${item.name.toUpperCase()}</span>`;
+    generateClause(item, position) {
+        return `${(item.block && position > 0) ? '</br>' : ''} <span class="sqlqb-output-${item.type}">${item.name.toUpperCase()}</span>`;
     }
 
     generateOperator(item) {
