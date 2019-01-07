@@ -1,5 +1,5 @@
 import {CLAUSES, CLAUSES_TYPES} from "../const";
-import Value from "./Value";
+import {Value} from "./Value";
 import Clause from "./Clause";
 import store from '../store/index.js';
 
@@ -28,9 +28,6 @@ export function addFloatingInputEventsListeners() {
     elem.focus();
 
     elem.addEventListener('keyup', () => {
-
-        console.log(elem.value);
-
         filtered_clauses = CLAUSES.filter(clause => clause.name.toLowerCase().includes(elem.value.toLowerCase()));
 
         if (filtered_clauses.length === 0 || !elem.value) {
@@ -43,8 +40,8 @@ export function addFloatingInputEventsListeners() {
     });
 
     elem.onblur = () => {
-        container.innerHTML = '';
-        container.style.display = 'none';
+        //container.innerHTML = '';
+        //container.style.display = 'none';
         filtered_clauses = [];
     };
 
@@ -72,7 +69,6 @@ export function addFloatingInputEventsListeners() {
                 position
             });
         }
-        console.log(position);
     });
 }
 
@@ -86,8 +82,4 @@ function generateItems(clauses) {
             return tag.generator();
         }
     }).join('').trim();
-}
-
-function clearAndCloseConatainer() {
-
 }

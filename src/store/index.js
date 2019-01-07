@@ -58,7 +58,6 @@ const mutations = {
     },
 
     addItemOnPosition(state, {item, position}) {
-        console.log(item, position);
         state.items.splice(position, 0, item);
         return state;
     },

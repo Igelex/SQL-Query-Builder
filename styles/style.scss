@@ -374,7 +374,7 @@
   border: 1px solid #d7d7d7;
   top: 110%;
   @include tag-border-radius;
-  /*.sqlqb-floating-item {
+  .sqlqb-input-item {
     width: 100%;
     display: inline-block;
     padding: 5px 10px;
@@ -382,7 +382,7 @@
     &:first-child {
       background-color: #d7d7d7;
     }
-  }*/
+  }
   #{$tag-clause} {
     background-color: $bc-clause !important;
     color: white !important;
@@ -439,7 +439,6 @@
 
 .draggable-source {
   transition: transform .24s cubic-bezier(.18,.67,.6,1.22);
-
 }
 
 .draggable-container--is-dragging {
