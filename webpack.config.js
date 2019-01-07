@@ -52,12 +52,6 @@ module.exports = {
             template: './index.html',
             filename: './index.html'
         }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            "window.jQuery": "jquery'",
-            "window.$": "jquery"
-        }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"

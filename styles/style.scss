@@ -115,10 +115,10 @@
 *Media queries
 */
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 1200px) {
   #sqlqb-tags-container {
     .sqlqb-col {
-      flex: 0 0 50%;
+      flex: 0 0 25%;
     }
   }
 }
@@ -178,7 +178,7 @@
 }
 
 #sqlqb-input:not(.draggable-container--is-dragging) {
-  #{$input-item} {
+  & > #{$input-item} {
     z-index: 0;
     margin: 5px 0 6px 0;
     #{$tag} {
@@ -265,6 +265,7 @@
     right: 100%;
   }
   &#{$tag-controls-add} {
+    left: 100%;
     @include tag-border-radius(0, $br-tag, $br-tag, 0);
   }
 }
@@ -298,6 +299,20 @@
   padding: 7px 15px;
   border-radius: 0.25em;
   background-color: $bc-badge;
+}
+
+#sqlqb-hidden-input {
+  /*height: 0;
+  width: 0;*/
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  height: 0;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 10px;
 }
 
 /***********************************************************************************************************************
@@ -336,18 +351,25 @@
     transition: .3s;
     background: white;
     outline: none;
-    border: 2px solid $borc-input;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: 2px solid $borc-input;
     height: 35px;
     width: 30px;
     padding-left: 10px;
     animation: cursor 1s ease-out infinite;
-    @include tag-border-radius;
     &:focus {
-      width: 100px;
-      border: 2px solid $borc-input-focus;
+      border-left: 2px solid $borc-input-focus;
       animation: none;
+      background-color: #f0f0f0;
+      &:valid{
+        width: 100px;
+      }
+      //@include tag-border-radius;
     }
     &:hover {
+      background-color: #f0f0f0;
       #{$tag-controls} {
         display: inline-block;
       }
@@ -365,8 +387,9 @@
   background: white;
   border: 1px solid #d7d7d7;
   top: 110%;
+  transition: 0.5s;
   @include tag-border-radius;
-  .sqlqb-floating-item {
+  .sqlqb-input-item {
     width: 100%;
     display: inline-block;
     padding: 5px 10px;
@@ -375,13 +398,26 @@
       background-color: #d7d7d7;
     }
   }
+  #{$tag-clause} {
+    background-color: $bc-clause !important;
+    color: white !important;
+  }
+
+  #{$tag-value} {
+    background-color: $bc-value !important;
+    color: $f-color-tag-value;
+  }
+
+  #{$tag-operator} {
+    background-color: $bc-operator !important;
+    color: white !important;  }
 }
 
 @keyframes cursor {
-  0% {
-    border-left-color: $borc-input;
+  0%, 100% {
+    border-left-color: transparent;
   }
-  100% {
+  50% {
     border-left-color: $borc-input-focus;
   }
 }
@@ -407,12 +443,17 @@
 }
 
 .draggable-source--is-dragging {
+  transition: transform .24s cubic-bezier(.18,.67,.6,1.22);
   animation: none !important;
   background-color: #f5f5f5;
   border: 2px $borc-input-focus dashed;
   #{$tag}, #{$floating} {
    opacity: 0;
   }
+}
+
+.draggable-source {
+  transition: transform .24s cubic-bezier(.18,.67,.6,1.22);
 }
 
 .draggable-container--is-dragging {

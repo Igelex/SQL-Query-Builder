@@ -5,7 +5,7 @@
 $prefix: ".sqlqb-"; // Prefix for all classes in SQL QUERY BUILDER library
 $scale-factor: 1; // simply change value to change general size of tags (e.g. 1.3)
 
-/*Classes*/
+/*Classes and id's*/
 $tag: "#{$prefix}tag";
 $tag-clause: "#{$prefix}tag-clause";
 $tag-operator: "#{$prefix}tag-operator";
@@ -31,6 +31,8 @@ $icon-copy: "#{$icon}-copy";
 $header: "#{$prefix}header";
 
 $badge: "#{$prefix}badge";
+
+$hidden-input: "#sqlqb-hidden-input";
 
 $floating: "#{$prefix}floating-input";
 
@@ -145,6 +147,7 @@ $bc-header-hover: #f5f5f5;
   color: $f-color-control;
   background-color: $bc-control;
   position: absolute;
+  top: 0;
   text-align: center;
   font-weight: bold;
   display: none;
@@ -192,11 +195,9 @@ $bc-header-hover: #f5f5f5;
     box-shadow: 0 0 0 0 rgba(56, 136, 187, 0.89);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 5px rgba(204, 169, 44, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
   }
 }
-
-

@@ -1,21 +1,28 @@
 export const CLAUSES_TYPES = {
     VALUE: 'value',
     CLAUSE: 'clause',
-    OPERATOR: 'operator'
+    OPERATOR: 'operator',
+    FLOATING: 'floating',
 };
 
 /**
  * @clauses define all available building blocks with needed properties
  * 'type': defines type of the block (clause, operator, value)
  * 'block': produces new line or not (Boolean)
- * 'name': name of clause (e.g. SELECT, FROM or +)
+ * 'name': visible name of clause (e.g. SELECT, FROM or +)
  */
 const CLAUSES = [
-    /*Value input tag **************************************/
+    /*Floating input ******************************/
+    {
+        type: CLAUSES_TYPES.FLOATING,
+        block: false,
+        name: 'floating'
+    },
+    /*Value input tag ******************************/
     {
         type: CLAUSES_TYPES.VALUE,
         block: false,
-        name: 'Enter value'
+        name: 'value'
     },
     /*Clauses **************************************/
     {

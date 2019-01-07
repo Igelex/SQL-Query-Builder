@@ -2,5 +2,5 @@ import Sqlqb from './src/index';
 
 Sqlqb.inject({
     container: '#sqlqb',
-    initElements: [{id: 1, text: ''}, {id: 0, text: 'email'}, {id: 2, text: ''}, {id: 0, text: 'users'}]
+    initElements: [{id: 2, text: ''}, {id: 1, text: ''}, {id: 3, text: ''}, {id: 1, text: 'users'}, {id: 4, text: ''}]
 });
