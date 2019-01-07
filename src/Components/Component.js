@@ -4,7 +4,7 @@ export default class Component {
         this.render = this.render || function () {
         };
 
-        props.store.subscribe((state) => this.render());
+        props.store.subscribe(() => this.render());
 
         if (props.hasOwnProperty('element')) {
             this.element = props.element;

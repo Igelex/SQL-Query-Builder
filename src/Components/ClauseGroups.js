@@ -1,5 +1,4 @@
 import {CLAUSES_TYPES, CLAUSES} from "../const";
-import store from "../store";
 import {addClausesEventListeners} from "./Clause";
 
 export default class ClauseGroups {
@@ -45,7 +44,6 @@ export default class ClauseGroups {
         groups.forEach(group => {
             const header = group.querySelector('h4');
             header.addEventListener('click', () => {
-                console.log('CLICKED');
                 if (group.style.height === '52px' || group.style.height === '') {
                     group.style.height = 100 + '%'; //container[0].scrollHeight + "px" ;
                 } else {

@@ -64,17 +64,6 @@ export function init(
         const inputList = new InputList();
         inputList.render();
 
-        document.getElementById('add').addEventListener('click', () =>{
-            console.log('CLICK');
-            store.dispatch('addItem', {
-                id: 0,
-                type: 'value',
-                block: true,
-                name: 'test',
-                value: 'hui',
-            });
-        });
-
     } else {
         console.error('%c[SQL Query Builder]: Container for SQL Query Builder is required!. Please provide a container element on initialization (e.g. "#container" or ".container")', 'background-color:#ff5f69; color:white; padding:5px; font-size: 14px;');
     }

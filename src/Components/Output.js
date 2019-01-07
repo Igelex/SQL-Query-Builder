@@ -1,6 +1,6 @@
 import Component from './component.js';
 import store from '../store/index.js';
-import {CLAUSES, CLAUSES_TYPES} from "../const";
+import {CLAUSES_TYPES} from "../const";
 
 export default class Output extends Component {
 

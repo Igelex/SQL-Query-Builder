@@ -1,5 +1,4 @@
 import '../styles/style.scss';
-import './output';
 import {init} from './initializer';
 
 const Sqlqb = {
